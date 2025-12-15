@@ -3,7 +3,7 @@
  */
 
 export async function renderInstallation(config, context = {}) {
-    const { id = 'installation', title = '📦 Installation', content = {} } = config;
+    const { id = 'installation', title = 'Installation', content = {} } = config;
     const { packageManager = 'auto', showAll = true, customSteps = [] } = content;
 
     const pkg = context.config?.project?.name || 'package-name';

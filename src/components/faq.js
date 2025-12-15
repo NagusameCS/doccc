@@ -3,7 +3,7 @@
  */
 
 export async function renderFaq(config, context = {}) {
-    const { id = 'faq', title = '❓ FAQ', content = {} } = config;
+    const { id = 'faq', title = 'FAQ', content = {} } = config;
     const { collapsible = true, items = [] } = content;
 
     const lines = [`<h2 id="${id}">${title}</h2>`, ''];

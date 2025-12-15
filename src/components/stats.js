@@ -12,7 +12,7 @@ import { generateLinehookStats, formatLineCount, getLanguageColor } from '../int
 export async function renderStats(config, context = {}) {
     const {
         id = 'stats',
-        title = '📊 Statistics',
+        title = 'Statistics',
         content = {},
     } = config;
 
@@ -50,12 +50,12 @@ export async function renderStats(config, context = {}) {
         lines.push('<tr>');
 
         if (showFileCount) {
-            lines.push(`<td align="center"><strong>📁 Files</strong><br>${stats.totalFiles}</td>`);
+            lines.push(`<td align="center"><strong>Files</strong><br>${stats.totalFiles}</td>`);
         }
         if (showLineCount) {
-            lines.push(`<td align="center"><strong>📝 Lines</strong><br>${formatLineCount(stats.totalLines)}</td>`);
-            lines.push(`<td align="center"><strong>💻 Code</strong><br>${formatLineCount(stats.codeLines)}</td>`);
-            lines.push(`<td align="center"><strong>💬 Comments</strong><br>${formatLineCount(stats.commentLines)}</td>`);
+            lines.push(`<td align="center"><strong>Lines</strong><br>${formatLineCount(stats.totalLines)}</td>`);
+            lines.push(`<td align="center"><strong>Code</strong><br>${formatLineCount(stats.codeLines)}</td>`);
+            lines.push(`<td align="center"><strong>Comments</strong><br>${formatLineCount(stats.commentLines)}</td>`);
         }
 
         lines.push('</tr>');
@@ -91,7 +91,7 @@ export async function renderStats(config, context = {}) {
     // Chart image reference
     if (showChart && context.assetsDir) {
         lines.push(`<details>`);
-        lines.push(`<summary>📈 View Chart</summary>`);
+        lines.push(`<summary>View Chart</summary>`);
         lines.push('');
         lines.push(`![Language Stats](${context.assetsDir}/stats-${chartType}.svg)`);
         lines.push('');

@@ -3,7 +3,7 @@
  */
 
 export async function renderLicense(config, context = {}) {
-    const { id = 'license', title = '📄 License', content = {} } = config;
+    const { id = 'license', title = 'License', content = {} } = config;
     const { type = 'MIT', showBadge = true, showFullText = false, author = '' } = content;
 
     const lines = [`<h2 id="${id}">${title}</h2>`, ''];

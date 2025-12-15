@@ -3,7 +3,7 @@
  */
 
 export async function renderContributors(config, context = {}) {
-    const { id = 'contributors', title = '👥 Contributors', content = {} } = config;
+    const { id = 'contributors', title = 'Contributors', content = {} } = config;
     const { source = 'github', showAvatars = true, columns = 7, contributors = [] } = content;
 
     const lines = [`<h2 id="${id}">${title}</h2>`, ''];
@@ -16,7 +16,7 @@ export async function renderContributors(config, context = {}) {
         lines.push('</a>', '');
 
         // Alternative: all-contributors style
-        lines.push('<sub>Made with ❤️ by contributors</sub>', '');
+        lines.push('<sub>Made by contributors</sub>', '');
     } else if (contributors.length > 0) {
         // Manual contributor list
         lines.push('<table>', '<tr>');

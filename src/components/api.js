@@ -3,7 +3,7 @@
  */
 
 export async function renderApi(config, context = {}) {
-    const { id = 'api', title = '📖 API', content = {} } = config;
+    const { id = 'api', title = 'API', content = {} } = config;
     const { sections = [], source = 'manual' } = content;
 
     const lines = [`<h2 id="${id}">${title}</h2>`, ''];

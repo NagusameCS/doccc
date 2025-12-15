@@ -216,14 +216,14 @@ function buildSections(sectionTypes, answers) {
             case 'features':
                 return {
                     ...base,
-                    title: '✨ Features',
+                    title: 'Features',
                     content: {
                         layout: 'grid',
                         columns: 3,
                         items: [
-                            { icon: '🚀', title: 'Fast', description: 'Lightning fast performance' },
-                            { icon: '🔧', title: 'Configurable', description: 'Highly customizable' },
-                            { icon: '📦', title: 'Modular', description: 'Use only what you need' },
+                            { icon: 'speed', title: 'Fast', description: 'Lightning fast performance' },
+                            { icon: 'tune', title: 'Configurable', description: 'Highly customizable' },
+                            { icon: 'widgets', title: 'Modular', description: 'Use only what you need' },
                         ],
                     },
                 };
@@ -231,7 +231,7 @@ function buildSections(sectionTypes, answers) {
             case 'installation':
                 return {
                     ...base,
-                    title: '📦 Installation',
+                    title: 'Installation',
                     content: {
                         packageManager: 'auto', // npm, yarn, pnpm
                         showAll: true,
@@ -241,7 +241,7 @@ function buildSections(sectionTypes, answers) {
             case 'usage':
                 return {
                     ...base,
-                    title: '🚀 Usage',
+                    title: 'Usage',
                     content: {
                         examples: [],
                     },
@@ -250,7 +250,7 @@ function buildSections(sectionTypes, answers) {
             case 'api':
                 return {
                     ...base,
-                    title: '📖 API',
+                    title: 'API',
                     content: {
                         sections: [],
                     },
@@ -259,7 +259,7 @@ function buildSections(sectionTypes, answers) {
             case 'stats':
                 return {
                     ...base,
-                    title: '📊 Statistics',
+                    title: 'Statistics',
                     content: {
                         showLanguages: true,
                         showLineCount: true,
@@ -271,7 +271,7 @@ function buildSections(sectionTypes, answers) {
             case 'faq':
                 return {
                     ...base,
-                    title: '❓ FAQ',
+                    title: 'FAQ',
                     content: {
                         collapsible: true,
                         items: [],
@@ -281,7 +281,7 @@ function buildSections(sectionTypes, answers) {
             case 'changelog':
                 return {
                     ...base,
-                    title: '📝 Changelog',
+                    title: 'Changelog',
                     content: {
                         source: 'CHANGELOG.md',
                         showLatest: 5,
@@ -291,7 +291,7 @@ function buildSections(sectionTypes, answers) {
             case 'contributors':
                 return {
                     ...base,
-                    title: '👥 Contributors',
+                    title: 'Contributors',
                     content: {
                         source: 'github', // 'github', 'manual'
                         showAvatars: true,
@@ -302,7 +302,7 @@ function buildSections(sectionTypes, answers) {
             case 'license':
                 return {
                     ...base,
-                    title: '📄 License',
+                    title: 'License',
                     content: {
                         type: 'MIT',
                         showBadge: true,

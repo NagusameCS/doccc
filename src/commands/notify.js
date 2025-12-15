@@ -45,7 +45,7 @@ export async function notify(options = {}) {
  * Interactive notification setup
  */
 async function interactiveSetup() {
-    console.log(chalk.bold('\n📬 knowtif Notification Setup\n'));
+    console.log(chalk.bold('\nknowtif Notification Setup\n'));
 
     const answers = await inquirer.prompt([
         {
@@ -129,7 +129,7 @@ async function interactiveSetup() {
 
     // Create secrets reminder
     if (answers.webhook || answers.email) {
-        console.log(chalk.yellow('\n⚠️  Remember to add GitHub Secrets:'));
+        console.log(chalk.yellow('\n[!]  Remember to add GitHub Secrets:'));
         if (answers.webhook) {
             console.log(chalk.gray('  → NOTIFY_WEBHOOK_URL: Your webhook URL'));
         }
@@ -147,14 +147,14 @@ async function interactiveSetup() {
  * Send test notification
  */
 async function sendTestNotification(options) {
-    console.log(chalk.blue('\n📤 Sending test notification...\n'));
+    console.log(chalk.blue('\nSending test notification...\n'));
 
     // Try to load knowtif
     try {
         const { sendNotification } = await import('knowtif');
 
         const result = await sendNotification({
-            title: '🧪 Test Notification from doccc',
+            title: 'Test Notification from doccc',
             message: 'Your notification system is working correctly!',
             webhook: options.webhook,
             email: options.email,
@@ -170,7 +170,7 @@ async function sendTestNotification(options) {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        content: '🧪 **Test Notification from doccc**\n\nYour notification system is working correctly!',
+                        content: '**Test Notification from doccc**\n\nYour notification system is working correctly!',
                         embeds: [{
                             title: 'doccc Test',
                             description: 'This is a test notification',
@@ -192,7 +192,7 @@ async function sendTestNotification(options) {
             }
         }
 
-        console.log(chalk.yellow('⚠️  knowtif not available, skipping advanced notifications'));
+        console.log(chalk.yellow('[!]  knowtif not available, skipping advanced notifications'));
         return { success: false, error: error.message };
     }
 }
@@ -274,13 +274,13 @@ async function generateNotifyAction(config) {
           ACTOR="\${{ github.actor }}"
           
           if [ "$EVENT_NAME" = "push" ]; then
-            MESSAGE="🚀 New push to $REPO by $ACTOR"
+            MESSAGE="[Push] New push to $REPO by $ACTOR"
           elif [ "$EVENT_NAME" = "release" ]; then
-            MESSAGE="🎉 New release published: \${{ github.event.release.tag_name }}"
+            MESSAGE="[Release] New release published: \${{ github.event.release.tag_name }}"
           elif [ "$EVENT_NAME" = "pull_request" ]; then
-            MESSAGE="📝 PR \${{ github.event.action }}: \${{ github.event.pull_request.title }}"
+            MESSAGE="[PR] \${{ github.event.action }}: \${{ github.event.pull_request.title }}"
           else
-            MESSAGE="📬 GitHub event: $EVENT_NAME in $REPO"
+            MESSAGE="[Event] GitHub event: $EVENT_NAME in $REPO"
           fi
           
           curl -X POST -H "Content-Type: application/json" \\
@@ -302,7 +302,7 @@ jobs:
       
       - name: Summary
         run: |
-          echo "### 📬 Notification Sent" >> $GITHUB_STEP_SUMMARY
+          echo "### Notification Sent" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- **Event:** \${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Actor:** \${{ github.actor }}" >> $GITHUB_STEP_SUMMARY

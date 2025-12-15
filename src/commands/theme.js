@@ -22,7 +22,7 @@ export async function theme(name, options = {}) {
 }
 
 function listThemes() {
-    console.log(chalk.bold('\n🎨 Available Themes\n'));
+    console.log(chalk.bold('\nAvailable Themes\n'));
 
     for (const [key, t] of Object.entries(themes)) {
         const colors = Object.entries(t.colors)
@@ -41,7 +41,7 @@ function listThemes() {
 function previewTheme(name) {
     const t = getTheme(name);
 
-    console.log(chalk.bold(`\n🎨 ${t.name} Theme\n`));
+    console.log(chalk.bold(`\n${t.name} Theme\n`));
 
     for (const [key, color] of Object.entries(t.colors)) {
         const swatch = chalk.bgHex(color)('    ');

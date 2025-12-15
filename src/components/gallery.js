@@ -3,7 +3,7 @@
  */
 
 export async function renderGallery(config, context = {}) {
-    const { id = 'gallery', title = '📸 Screenshots', content = {} } = config;
+    const { id = 'gallery', title = 'Screenshots', content = {} } = config;
     const { layout = 'grid', columns = 2, images = [] } = content;
 
     const lines = [`<h2 id="${id}">${title}</h2>`, ''];

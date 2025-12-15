@@ -3,7 +3,7 @@
  */
 
 export async function renderUsage(config, context = {}) {
-    const { id = 'usage', title = '🚀 Usage', content = {} } = config;
+    const { id = 'usage', title = 'Usage', content = {} } = config;
     const { examples = [], quickStart = null } = content;
 
     const lines = [`<h2 id="${id}">${title}</h2>`, ''];

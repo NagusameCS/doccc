@@ -250,7 +250,7 @@ export async function preview(config, options = {}) {
     });
 
     server.listen(port, () => {
-        console.log(chalk.green(`\n🌐 Preview server running at http://localhost:${port}\n`));
+        console.log(chalk.green(`\nPreview server running at http://localhost:${port}\n`));
         console.log(chalk.gray('  Press Ctrl+C to stop\n'));
 
         if (options.open) {
@@ -266,7 +266,7 @@ export async function preview(config, options = {}) {
     const { watch: fsWatch } = await import('fs');
     fsWatch(readmePath, () => {
         lastModified = Date.now();
-        console.log(chalk.blue('  📄 README updated'));
+        console.log(chalk.blue('  README updated'));
     });
 
     // Keep process alive

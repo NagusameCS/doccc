@@ -5,7 +5,7 @@
 import { readFileSync, existsSync } from 'fs';
 
 export async function renderChangelog(config, context = {}) {
-    const { id = 'changelog', title = '📝 Changelog', content = {} } = config;
+    const { id = 'changelog', title = 'Changelog', content = {} } = config;
     const { source = 'CHANGELOG.md', showLatest = 5, collapsible = true } = content;
 
     const lines = [`<h2 id="${id}">${title}</h2>`, ''];

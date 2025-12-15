@@ -62,7 +62,7 @@ export async function generateActions(options = {}) {
           WEBHOOK_URL: \${{ secrets.NOTIFY_WEBHOOK_URL }}
         run: |
           curl -s -X POST -H "Content-Type: application/json" \\
-            -d '{"content": "📄 README updated successfully!"}' \\
+            -d '{"content": "README updated successfully!"}' \\
             "$WEBHOOK_URL" || true`;
     }
 
@@ -76,7 +76,7 @@ export async function generateActions(options = {}) {
       
       - name: Summary
         run: |
-          echo "### ✅ README Updated" >> $GITHUB_STEP_SUMMARY
+          echo "### README Updated" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- Generated at: $(date -u)" >> $GITHUB_STEP_SUMMARY
           echo "- Triggered by: \${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY`;

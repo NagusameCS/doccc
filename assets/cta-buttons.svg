@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 520 70">
+  <defs>
+    <filter id="btnShadow" x="-5%" y="-10%" width="110%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-opacity="0.2"/>
+    </filter>
+    
+    <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24"/>
+      <stop offset="100%" style="stop-color:#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="forkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#2563eb"/>
+    </linearGradient>
+    <linearGradient id="npmGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ef4444"/>
+      <stop offset="100%" style="stop-color:#dc2626"/>
+    </linearGradient>
+    
+    <!-- Material Icons -->
+    <symbol id="icon-star" viewBox="0 0 24 24">
+      <path fill="white" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+    </symbol>
+    <symbol id="icon-fork" viewBox="0 0 24 24">
+      <path fill="white" d="M6 2c1.1 0 2 .9 2 2 0 .74-.4 1.39-1 1.73V7h2l4 4 4-4h2V5.73c-.6-.34-1-.99-1-1.73 0-1.1.9-2 2-2s2 .9 2 2c0 .74-.4 1.39-1 1.73V8l-5 5v3.27c.6.34 1 .99 1 1.73 0 1.1-.9 2-2 2s-2-.9-2-2c0-.74.4-1.39 1-1.73V13l-5-5V5.73c-.6-.34-1-.99-1-1.73 0-1.1.9-2 2-2z"/>
+    </symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24">
+      <path fill="white" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+    </symbol>
+  </defs>
+  
+  <style>
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(200%); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    
+    .btn { cursor: pointer; transition: all 0.2s ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:hover .btn-bg { filter: brightness(1.1); }
+    
+    .shimmer-mask { overflow: hidden; }
+    .shimmer {
+      fill: rgba(255,255,255,0.3);
+      animation: shimmer 2.5s ease-in-out infinite;
+    }
+    
+    .btn-text { 
+      font-family: system-ui, -apple-system, sans-serif; 
+      font-size: 13px; 
+      font-weight: 600; 
+      fill: white;
+    }
+  </style>
+  
+  <!-- Star Button -->
+  <a xlink:href="https://github.com/NagusameCS/doccc/stargazers" target="_blank">
+    <g class="btn" filter="url(#btnShadow)">
+      <rect class="btn-bg" x="10" y="12" width="150" height="46" rx="8" fill="url(#starGrad)"/>
+      <clipPath id="clip1"><rect x="10" y="12" width="150" height="46" rx="8"/></clipPath>
+      <g clip-path="url(#clip1)">
+        <rect class="shimmer" x="10" y="12" width="60" height="46" transform="skewX(-20)"/>
+      </g>
+      <use xlink:href="#icon-star" x="30" y="23" width="24" height="24"/>
+      <text class="btn-text" x="62" y="41">Star on GitHub</text>
+    </g>
+  </a>
+  
+  <!-- Fork Button -->
+  <a xlink:href="https://github.com/NagusameCS/doccc/fork" target="_blank">
+    <g class="btn" filter="url(#btnShadow)">
+      <rect class="btn-bg" x="175" y="12" width="150" height="46" rx="8" fill="url(#forkGrad)"/>
+      <clipPath id="clip2"><rect x="175" y="12" width="150" height="46" rx="8"/></clipPath>
+      <g clip-path="url(#clip2)">
+        <rect class="shimmer" x="175" y="12" width="60" height="46" transform="skewX(-20)" style="animation-delay: 0.5s;"/>
+      </g>
+      <use xlink:href="#icon-fork" x="198" y="23" width="24" height="24"/>
+      <text class="btn-text" x="232" y="41">Fork Project</text>
+    </g>
+  </a>
+  
+  <!-- NPM Button -->
+  <a xlink:href="https://www.npmjs.com/package/doccc" target="_blank">
+    <g class="btn" filter="url(#btnShadow)">
+      <rect class="btn-bg" x="340" y="12" width="170" height="46" rx="8" fill="url(#npmGrad)"/>
+      <clipPath id="clip3"><rect x="340" y="12" width="170" height="46" rx="8"/></clipPath>
+      <g clip-path="url(#clip3)">
+        <rect class="shimmer" x="340" y="12" width="60" height="46" transform="skewX(-20)" style="animation-delay: 1s;"/>
+      </g>
+      <use xlink:href="#icon-download" x="360" y="23" width="24" height="24"/>
+      <text class="btn-text" x="393" y="41">npm i -g doccc</text>
+    </g>
+  </a>
+</svg>

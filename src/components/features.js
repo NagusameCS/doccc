@@ -10,7 +10,7 @@
 export async function renderFeatures(config, context = {}) {
     const {
         id = 'features',
-        title = '✨ Features',
+        title = 'Features',
         content = {},
     } = config;
 

@@ -74,7 +74,7 @@ const COMPONENT_TEMPLATES = {
         defaultConfig: {
             type: 'features',
             id: 'features',
-            title: '✨ Features',
+            title: 'Features',
             content: {
                 layout: 'grid',
                 columns: 3,
@@ -82,7 +82,7 @@ const COMPONENT_TEMPLATES = {
             },
         },
         prompts: [
-            { type: 'input', name: 'title', message: 'Section title:', default: '✨ Features' },
+            { type: 'input', name: 'title', message: 'Section title:', default: 'Features' },
             { type: 'list', name: 'layout', message: 'Layout:', choices: ['grid', 'list', 'cards'], default: 'grid' },
             { type: 'list', name: 'columns', message: 'Columns:', choices: ['2', '3', '4'], default: '3' },
         ],
@@ -94,7 +94,7 @@ const COMPONENT_TEMPLATES = {
         defaultConfig: {
             type: 'stats',
             id: 'stats',
-            title: '📊 Statistics',
+            title: 'Statistics',
             content: {
                 showLanguages: true,
                 showLineCount: true,
@@ -116,7 +116,7 @@ const COMPONENT_TEMPLATES = {
         defaultConfig: {
             type: 'installation',
             id: 'installation',
-            title: '📦 Installation',
+            title: 'Installation',
             content: {
                 packageManager: 'auto',
                 showAll: true,
@@ -146,13 +146,13 @@ const COMPONENT_TEMPLATES = {
         defaultConfig: {
             type: 'usage',
             id: 'usage',
-            title: '🚀 Usage',
+            title: 'Usage',
             content: {
                 examples: [],
             },
         },
         prompts: [
-            { type: 'input', name: 'title', message: 'Section title:', default: '🚀 Usage' },
+            { type: 'input', name: 'title', message: 'Section title:', default: 'Usage' },
         ],
     },
 
@@ -162,7 +162,7 @@ const COMPONENT_TEMPLATES = {
         defaultConfig: {
             type: 'api',
             id: 'api',
-            title: '📖 API',
+            title: 'API',
             content: {
                 source: 'jsdoc', // 'jsdoc', 'typescript', 'manual'
                 sections: [],
@@ -189,7 +189,7 @@ const COMPONENT_TEMPLATES = {
         defaultConfig: {
             type: 'faq',
             id: 'faq',
-            title: '❓ FAQ',
+            title: 'FAQ',
             content: {
                 collapsible: true,
                 items: [],
@@ -206,7 +206,7 @@ const COMPONENT_TEMPLATES = {
         defaultConfig: {
             type: 'changelog',
             id: 'changelog',
-            title: '📝 Changelog',
+            title: 'Changelog',
             content: {
                 source: 'CHANGELOG.md',
                 showLatest: 5,
@@ -225,7 +225,7 @@ const COMPONENT_TEMPLATES = {
         defaultConfig: {
             type: 'contributors',
             id: 'contributors',
-            title: '👥 Contributors',
+            title: 'Contributors',
             content: {
                 source: 'github',
                 showAvatars: true,
@@ -255,7 +255,7 @@ const COMPONENT_TEMPLATES = {
         defaultConfig: {
             type: 'license',
             id: 'license',
-            title: '📄 License',
+            title: 'License',
             content: {
                 type: 'MIT',
                 showBadge: true,
@@ -280,14 +280,14 @@ const COMPONENT_TEMPLATES = {
         defaultConfig: {
             type: 'timeline',
             id: 'timeline',
-            title: '🗓️ Roadmap',
+            title: 'Roadmap',
             content: {
                 style: 'vertical',
                 items: [],
             },
         },
         prompts: [
-            { type: 'input', name: 'title', message: 'Section title:', default: '🗓️ Roadmap' },
+            { type: 'input', name: 'title', message: 'Section title:', default: 'Roadmap' },
             { type: 'list', name: 'style', message: 'Timeline style:', choices: ['vertical', 'horizontal', 'table'], default: 'vertical' },
         ],
     },
@@ -298,7 +298,7 @@ const COMPONENT_TEMPLATES = {
         defaultConfig: {
             type: 'gallery',
             id: 'gallery',
-            title: '📸 Screenshots',
+            title: 'Screenshots',
             content: {
                 layout: 'grid',
                 columns: 2,
@@ -306,7 +306,7 @@ const COMPONENT_TEMPLATES = {
             },
         },
         prompts: [
-            { type: 'input', name: 'title', message: 'Section title:', default: '📸 Screenshots' },
+            { type: 'input', name: 'title', message: 'Section title:', default: 'Screenshots' },
             { type: 'list', name: 'columns', message: 'Columns:', choices: ['1', '2', '3', '4'], default: '2' },
         ],
     },

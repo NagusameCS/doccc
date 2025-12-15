@@ -31,7 +31,7 @@ export async function watch(config, options = {}) {
         }
 
         isBuilding = true;
-        console.log(chalk.blue('🔨 Building...'));
+        console.log(chalk.blue('Building...'));
 
         try {
             const result = await build(config, options);

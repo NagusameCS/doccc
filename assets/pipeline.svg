@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 620 110">
+  <defs>
+    <linearGradient id="pipeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="25%" style="stop-color:#8b5cf6"/>
+      <stop offset="50%" style="stop-color:#ec4899"/>
+      <stop offset="75%" style="stop-color:#f43f5e"/>
+      <stop offset="100%" style="stop-color:#22c55e"/>
+    </linearGradient>
+    
+    <filter id="nodeShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.2"/>
+    </filter>
+    
+    <!-- Material Icons -->
+    <symbol id="icon-file-config" viewBox="0 0 24 24">
+      <path fill="white" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-1 9c0 1.66-1.34 3-3 3s-3-1.34-3-3 1.34-3 3-3 3 1.34 3 3zm-3 4c2.76 0 5 1.79 5 4H5c0-2.21 2.24-4 5-4z"/>
+    </symbol>
+    <symbol id="icon-build-circle" viewBox="0 0 24 24">
+      <path fill="white" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.9 13.49l-1.4 1.4c-.2.2-.51.2-.71 0l-.71-.71c-.2-.2-.2-.51 0-.71l.71-.71-1.06-1.06-2.3 2.3c-.2.2-.51.2-.71 0l-2.12-2.12c-.2-.2-.2-.51 0-.71l2.3-2.3L9.84 9.8l-.71.71c-.2.2-.51.2-.71 0l-.71-.71c-.2-.2-.2-.51 0-.71l1.4-1.4c.2-.2.51-.2.71 0l.71.71c.2.2.2.51 0 .71l-.71.71 1.06 1.06 2.3-2.3c.2-.2.51-.2.71 0l2.12 2.12c.2.2.2.51 0 .71l-2.3 2.3 1.06 1.06.71-.71c.2-.2.51-.2.71 0l.71.71c.2.2.2.51 0 .71z"/>
+    </symbol>
+    <symbol id="icon-bar-chart" viewBox="0 0 24 24">
+      <path fill="white" d="M5 9.2h3V19H5V9.2zM10.6 5h2.8v14h-2.8V5zm5.6 8H19v6h-2.8v-6z"/>
+    </symbol>
+    <symbol id="icon-article" viewBox="0 0 24 24">
+      <path fill="white" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+    </symbol>
+    <symbol id="icon-check-circle" viewBox="0 0 24 24">
+      <path fill="white" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+    </symbol>
+  </defs>
+  
+  <style>
+    @keyframes flowRight {
+      0% { stroke-dashoffset: 24; }
+      100% { stroke-dashoffset: 0; }
+    }
+    @keyframes nodeGlow {
+      0%, 100% { filter: drop-shadow(0 0 4px currentColor); }
+      50% { filter: drop-shadow(0 0 10px currentColor); }
+    }
+    @keyframes nodePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    .flow-line {
+      stroke-dasharray: 12 6;
+      animation: flowRight 0.8s linear infinite;
+    }
+    .node {
+      animation: nodeGlow 2s ease-in-out infinite;
+    }
+    .node-inner {
+      animation: nodePulse 2s ease-in-out infinite;
+    }
+    .label { font-family: system-ui, -apple-system, sans-serif; }
+  </style>
+  
+  <!-- Background -->
+  <rect width="620" height="110" rx="12" fill="#f8fafc"/>
+  
+  <!-- Flow lines -->
+  <line x1="90" y1="55" x2="160" y2="55" stroke="#6366f1" stroke-width="3" class="flow-line"/>
+  <line x1="220" y1="55" x2="290" y2="55" stroke="#8b5cf6" stroke-width="3" class="flow-line" style="animation-delay: 0.2s;"/>
+  <line x1="350" y1="55" x2="420" y2="55" stroke="#ec4899" stroke-width="3" class="flow-line" style="animation-delay: 0.4s;"/>
+  <line x1="480" y1="55" x2="540" y2="55" stroke="#22c55e" stroke-width="3" class="flow-line" style="animation-delay: 0.6s;"/>
+  
+  <!-- Node 1: Config -->
+  <g class="node" style="color: #6366f1;" filter="url(#nodeShadow)">
+    <circle class="node-inner" cx="55" cy="55" r="32" fill="#6366f1"/>
+    <use xlink:href="#icon-file-config" x="39" y="39" width="32" height="32"/>
+    <text class="label" x="55" y="100" text-anchor="middle" font-size="10" fill="#475569" font-weight="500">Config</text>
+  </g>
+  
+  <!-- Node 2: Build -->
+  <g class="node" style="color: #8b5cf6; animation-delay: 0.3s;" filter="url(#nodeShadow)">
+    <circle class="node-inner" cx="190" cy="55" r="32" fill="#8b5cf6" style="animation-delay: 0.3s;"/>
+    <use xlink:href="#icon-build-circle" x="174" y="39" width="32" height="32"/>
+    <text class="label" x="190" y="100" text-anchor="middle" font-size="10" fill="#475569" font-weight="500">Build</text>
+  </g>
+  
+  <!-- Node 3: Stats -->
+  <g class="node" style="color: #ec4899; animation-delay: 0.6s;" filter="url(#nodeShadow)">
+    <circle class="node-inner" cx="320" cy="55" r="32" fill="#ec4899" style="animation-delay: 0.6s;"/>
+    <use xlink:href="#icon-bar-chart" x="304" y="39" width="32" height="32"/>
+    <text class="label" x="320" y="100" text-anchor="middle" font-size="10" fill="#475569" font-weight="500">Stats</text>
+  </g>
+  
+  <!-- Node 4: README -->
+  <g class="node" style="color: #f43f5e; animation-delay: 0.9s;" filter="url(#nodeShadow)">
+    <circle class="node-inner" cx="450" cy="55" r="32" fill="#f43f5e" style="animation-delay: 0.9s;"/>
+    <use xlink:href="#icon-article" x="434" y="39" width="32" height="32"/>
+    <text class="label" x="450" y="100" text-anchor="middle" font-size="10" fill="#475569" font-weight="500">README</text>
+  </g>
+  
+  <!-- Node 5: Done -->
+  <g class="node" style="color: #22c55e; animation-delay: 1.2s;" filter="url(#nodeShadow)">
+    <circle class="node-inner" cx="570" cy="55" r="26" fill="#22c55e" style="animation-delay: 1.2s;"/>
+    <use xlink:href="#icon-check-circle" x="556" y="41" width="28" height="28"/>
+  </g>
+</svg>

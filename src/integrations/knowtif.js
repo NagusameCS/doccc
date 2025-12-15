@@ -15,49 +15,49 @@ export const GITHUB_EVENTS = {
     push: {
         name: 'Push',
         description: 'Code pushed to repository',
-        icon: '🚀',
+        icon: 'send',
         trigger: 'push',
     },
     release: {
         name: 'Release',
         description: 'New release published',
-        icon: '🎉',
+        icon: 'new_releases',
         trigger: 'release',
     },
     pr: {
         name: 'Pull Request',
         description: 'Pull request opened or merged',
-        icon: '📝',
+        icon: 'description',
         trigger: 'pull_request',
     },
     issue: {
         name: 'Issue',
         description: 'Issue opened or closed',
-        icon: '🐛',
+        icon: 'bug_report',
         trigger: 'issues',
     },
     star: {
         name: 'Star',
         description: 'Repository starred',
-        icon: '⭐',
+        icon: 'star',
         trigger: 'watch',
     },
     fork: {
         name: 'Fork',
         description: 'Repository forked',
-        icon: '🍴',
+        icon: 'call_split',
         trigger: 'fork',
     },
     discussion: {
         name: 'Discussion',
         description: 'Discussion created or answered',
-        icon: '💬',
+        icon: 'forum',
         trigger: 'discussion',
     },
     deployment: {
         name: 'Deployment',
         description: 'Deployment completed',
-        icon: '📦',
+        icon: 'cloud_upload',
         trigger: 'deployment_status',
     },
 };
@@ -116,7 +116,7 @@ export async function tryKnowtifPackage() {
  * Generate notification payload
  */
 export function generateNotificationPayload(event, data, config = {}) {
-    const eventInfo = GITHUB_EVENTS[event] || { name: event, icon: '📬' };
+    const eventInfo = GITHUB_EVENTS[event] || { name: event, icon: 'notifications' };
     const timestamp = new Date().toISOString();
 
     // Base payload
@@ -246,7 +246,7 @@ export function formatDiscordEmbed(payload) {
     // Add stats if present
     if (payload.stats) {
         embed.fields.push({
-            name: '📊 Code Stats',
+            name: 'Code Stats',
             value: `${payload.stats.totalLines?.toLocaleString() || 0} lines • ${payload.stats.languages?.join(', ') || 'N/A'}`,
             inline: false,
         });
@@ -266,7 +266,7 @@ export function formatSlackBlock(payload) {
                 text: {
                     type: 'plain_text',
                     text: payload.message,
-                    emoji: true,
+                    emoji: false,
                 },
             },
             {
@@ -284,7 +284,7 @@ export function formatSlackBlock(payload) {
                 elements: [
                     {
                         type: 'mrkdwn',
-                        text: `📍 ${payload.repository} • ${new Date(payload.timestamp).toLocaleString()}`,
+                        text: `${payload.repository} • ${new Date(payload.timestamp).toLocaleString()}`,
                     },
                 ],
             },
@@ -335,25 +335,25 @@ export function generateKnowtifWorkflow(config) {
           # Build message based on event
           case "$EVENT_NAME" in
             push)
-              MSG="🚀 New push to $REPO by $ACTOR"
+              MSG="[Push] New push to $REPO by $ACTOR"
               ;;
             release)
-              MSG="🎉 New release: \${{ github.event.release.tag_name }}"
+              MSG="[Release] New release: \${{ github.event.release.tag_name }}"
               ;;
             pull_request)
-              MSG="📝 PR \${{ github.event.action }}: \${{ github.event.pull_request.title }}"
+              MSG="[PR] \${{ github.event.action }}: \${{ github.event.pull_request.title }}"
               ;;
             issues)
-              MSG="🐛 Issue \${{ github.event.action }}: \${{ github.event.issue.title }}"
+              MSG="[Issue] \${{ github.event.action }}: \${{ github.event.issue.title }}"
               ;;
             watch)
-              MSG="⭐ New star from \${{ github.event.sender.login }}"
+              MSG="[Star] New star from \${{ github.event.sender.login }}"
               ;;
             fork)
-              MSG="🍴 Forked by \${{ github.event.sender.login }}"
+              MSG="[Fork] Forked by \${{ github.event.sender.login }}"
               ;;
             *)
-              MSG="📬 Event: $EVENT_NAME in $REPO"
+              MSG="[Event] $EVENT_NAME in $REPO"
               ;;
           esac
           
@@ -378,7 +378,7 @@ jobs:
       
       - name: Job Summary
         run: |
-          echo "### 📬 Notification Processed" >> $GITHUB_STEP_SUMMARY
+          echo "### Notification Processed" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
           echo "|----------|-------|" >> $GITHUB_STEP_SUMMARY

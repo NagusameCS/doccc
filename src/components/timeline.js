@@ -3,7 +3,7 @@
  */
 
 export async function renderTimeline(config, context = {}) {
-    const { id = 'timeline', title = '🗓️ Roadmap', content = {} } = config;
+    const { id = 'timeline', title = 'Roadmap', content = {} } = config;
     const { style = 'vertical', items = [] } = content;
 
     const lines = [`<h2 id="${id}">${title}</h2>`, ''];
@@ -17,12 +17,12 @@ export async function renderTimeline(config, context = {}) {
         lines.push('| Status | Milestone | Target |');
         lines.push('|:------:|-----------|--------|');
         for (const item of items) {
-            const status = item.done ? '✅' : item.inProgress ? '🔄' : '📋';
+            const status = item.done ? 'Done' : item.inProgress ? 'Active' : 'Planned';
             lines.push(`| ${status} | ${item.title} | ${item.date || 'TBD'} |`);
         }
     } else {
         for (const item of items) {
-            const icon = item.done ? '✅' : item.inProgress ? '🔄' : '⏳';
+            const icon = item.done ? '[Done]' : item.inProgress ? '[Active]' : '[Planned]';
             const dateStr = item.date ? ` (${item.date})` : '';
             lines.push(`- ${icon} **${item.title}**${dateStr}`);
             if (item.description) lines.push(`  - ${item.description}`);

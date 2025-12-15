@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 700 380">
+  <defs>
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.1"/>
+    </filter>
+    
+    <linearGradient id="arrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    
+    <marker id="arrow" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <path d="M0,0 L12,4 L0,8 L3,4 Z" fill="#6366f1"/>
+    </marker>
+    
+    <!-- Material Icons as paths -->
+    <!-- Settings icon -->
+    <symbol id="icon-settings" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M19.14,12.94c0.04-0.31,0.06-0.63,0.06-0.94c0-0.31-0.02-0.63-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.37,4.8,11.69,4.8,12s0.02,0.63,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+    </symbol>
+    
+    <!-- Build icon -->
+    <symbol id="icon-build" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M22.7,19l-9.1-9.1c0.9-2.3,0.4-5-1.5-6.9c-2-2-5-2.4-7.4-1.3L9,6L6,9L1.6,4.7C0.4,7.1,0.9,10.1,2.9,12.1 c1.9,1.9,4.6,2.4,6.9,1.5l9.1,9.1c0.4,0.4,1,0.4,1.4,0l2.3-2.3C23.1,20,23.1,19.3,22.7,19z"/>
+    </symbol>
+    
+    <!-- Description/Document icon -->
+    <symbol id="icon-doc" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M14,2H6C4.9,2,4,2.9,4,4v16c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V8L14,2z M16,18H8v-2h8V18z M16,14H8v-2h8V14z M13,9V3.5L18.5,9H13z"/>
+    </symbol>
+    
+    <!-- Extension/Plugin icon -->
+    <symbol id="icon-extension" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M20.5,11H19V7c0-1.1-0.9-2-2-2h-4V3.5C13,2.12,11.88,1,10.5,1S8,2.12,8,3.5V5H4C2.9,5,2,5.9,2,7v3.8h1.5 c1.49,0,2.7,1.21,2.7,2.7s-1.21,2.7-2.7,2.7H2V20c0,1.1,0.9,2,2,2h3.8v-1.5c0-1.49,1.21-2.7,2.7-2.7s2.7,1.21,2.7,2.7V22H17 c1.1,0,2-0.9,2-2v-4h1.5c1.38,0,2.5-1.12,2.5-2.5S21.88,11,20.5,11z"/>
+    </symbol>
+  </defs>
+  
+  <style>
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+    @keyframes flow { 0% { stroke-dashoffset: 16; } 100% { stroke-dashoffset: 0; } }
+    @keyframes iconBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+    
+    .bg { fill: #f8fafc; }
+    .card { fill: white; stroke: #e2e8f0; stroke-width: 1; }
+    .card-config { fill: #eff6ff; stroke: #3b82f6; }
+    .card-engine { fill: #fefce8; stroke: #eab308; }
+    .card-output { fill: #f0fdf4; stroke: #22c55e; }
+    .card-integrations { fill: #fdf4ff; stroke: #d946ef; }
+    
+    .title { font-family: system-ui, -apple-system, sans-serif; font-size: 15px; fill: #1e293b; font-weight: 600; }
+    .card-title { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: 600; }
+    .card-label { font-family: system-ui, -apple-system, sans-serif; font-size: 10px; fill: #64748b; }
+    
+    .icon-config { color: #3b82f6; animation: iconBounce 2s ease-in-out infinite; }
+    .icon-engine { color: #eab308; animation: iconBounce 2s ease-in-out infinite 0.3s; }
+    .icon-output { color: #22c55e; animation: iconBounce 2s ease-in-out infinite 0.6s; }
+    
+    .flow-line { stroke: url(#arrowGrad); stroke-width: 2; fill: none; stroke-dasharray: 8 4; animation: flow 0.6s linear infinite; }
+    .connector { fill: #6366f1; animation: pulse 1.5s ease-in-out infinite; }
+  </style>
+  
+  <!-- Background -->
+  <rect class="bg" width="700" height="380" rx="12"/>
+  
+  <!-- Title -->
+  <text class="title" x="350" y="32" text-anchor="middle">doccc Architecture</text>
+  
+  <!-- Config Card -->
+  <g filter="url(#boxShadow)">
+    <rect class="card card-config" x="30" y="60" width="140" height="220" rx="10"/>
+    <use xlink:href="#icon-settings" class="icon-config" x="75" y="80" width="30" height="30"/>
+    <text class="card-title" x="100" y="130" text-anchor="middle" fill="#1d4ed8">Config</text>
+    <text class="card-label" x="100" y="152" text-anchor="middle">.js / .yaml / .json</text>
+    <text class="card-label" x="100" y="168" text-anchor="middle">package.json</text>
+    <text class="card-label" x="100" y="184" text-anchor="middle">CLI flags</text>
+    <text class="card-label" x="100" y="200" text-anchor="middle">Themes</text>
+    <text class="card-label" x="100" y="216" text-anchor="middle">Plugins</text>
+    <text class="card-label" x="100" y="232" text-anchor="middle">Templates</text>
+    <text class="card-label" x="100" y="248" text-anchor="middle">Sections</text>
+    <text class="card-label" x="100" y="264" text-anchor="middle">Components</text>
+  </g>
+  
+  <!-- Engine Card -->
+  <g filter="url(#boxShadow)">
+    <rect class="card card-engine" x="230" y="60" width="160" height="220" rx="10"/>
+    <use xlink:href="#icon-build" class="icon-engine" x="285" y="80" width="30" height="30"/>
+    <text class="card-title" x="310" y="130" text-anchor="middle" fill="#a16207">Build Engine</text>
+    <text class="card-label" x="310" y="152" text-anchor="middle">Component Loader</text>
+    <text class="card-label" x="310" y="168" text-anchor="middle">SVG Generator</text>
+    <text class="card-label" x="310" y="184" text-anchor="middle">Markdown Compiler</text>
+    <text class="card-label" x="310" y="200" text-anchor="middle">Asset Pipeline</text>
+    <text class="card-label" x="310" y="216" text-anchor="middle">Template Engine</text>
+    <text class="card-label" x="310" y="232" text-anchor="middle">Validator</text>
+    <text class="card-label" x="310" y="248" text-anchor="middle">Linehook Stats</text>
+    <text class="card-label" x="310" y="264" text-anchor="middle">Knowtif Events</text>
+  </g>
+  
+  <!-- Output Card -->
+  <g filter="url(#boxShadow)">
+    <rect class="card card-output" x="450" y="60" width="140" height="220" rx="10"/>
+    <use xlink:href="#icon-doc" class="icon-output" x="495" y="80" width="30" height="30"/>
+    <text class="card-title" x="520" y="130" text-anchor="middle" fill="#15803d">Output</text>
+    <text class="card-label" x="520" y="152" text-anchor="middle">README.md</text>
+    <text class="card-label" x="520" y="168" text-anchor="middle">SVG Assets</text>
+    <text class="card-label" x="520" y="184" text-anchor="middle">Animated Badges</text>
+    <text class="card-label" x="520" y="200" text-anchor="middle">Charts / Graphs</text>
+    <text class="card-label" x="520" y="216" text-anchor="middle">GitHub Actions</text>
+    <text class="card-label" x="520" y="232" text-anchor="middle">Workflows</text>
+    <text class="card-label" x="520" y="248" text-anchor="middle">Navigation</text>
+    <text class="card-label" x="520" y="264" text-anchor="middle">Table of Contents</text>
+  </g>
+  
+  <!-- Integrations Card -->
+  <g filter="url(#boxShadow)">
+    <rect class="card card-integrations" x="230" y="300" width="260" height="60" rx="10"/>
+    <use xlink:href="#icon-extension" x="250" y="315" width="28" height="28" style="color: #d946ef;"/>
+    <text class="card-title" x="360" y="335" text-anchor="middle" fill="#a21caf">Integrations: linehook + knowtif</text>
+  </g>
+  
+  <!-- Flow arrows -->
+  <path class="flow-line" d="M 170 170 L 230 170" marker-end="url(#arrow)"/>
+  <path class="flow-line" d="M 390 170 L 450 170" marker-end="url(#arrow)" style="animation-delay: 0.2s;"/>
+  <path class="flow-line" d="M 310 280 L 310 300" marker-end="url(#arrow)" style="animation-delay: 0.4s;"/>
+  
+  <!-- Connector dots -->
+  <circle class="connector" cx="200" cy="170" r="4"/>
+  <circle class="connector" cx="420" cy="170" r="4" style="animation-delay: 0.3s;"/>
+  <circle class="connector" cx="310" cy="290" r="4" style="animation-delay: 0.6s;"/>
+  
+  <!-- Interactive hint -->
+  <g opacity="0.6">
+    <rect x="600" y="340" width="90" height="28" rx="14" fill="#f1f5f9"/>
+    <text x="645" y="358" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#64748b">Interactive</text>
+  </g>
+</svg>
