@@ -11,62 +11,62 @@ import chalk from 'chalk';
 import { watch } from './watch.js';
 
 const MIME_TYPES = {
-    '.html': 'text/html',
-    '.css': 'text/css',
-    '.js': 'text/javascript',
-    '.json': 'application/json',
-    '.png': 'image/png',
-    '.jpg': 'image/jpeg',
-    '.jpeg': 'image/jpeg',
-    '.gif': 'image/gif',
-    '.svg': 'image/svg+xml',
-    '.md': 'text/markdown',
+  '.html': 'text/html',
+  '.css': 'text/css',
+  '.js': 'text/javascript',
+  '.json': 'application/json',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
+  '.svg': 'image/svg+xml',
+  '.md': 'text/markdown',
 };
 
 /**
  * Convert markdown to simple HTML for preview
  */
 function markdownToHtml(markdown, title = 'README Preview') {
-    // Simple markdown to HTML conversion for preview
-    let html = markdown
-        // Headers
-        .replace(/^######\s+(.+)$/gm, '<h6>$1</h6>')
-        .replace(/^#####\s+(.+)$/gm, '<h5>$1</h5>')
-        .replace(/^####\s+(.+)$/gm, '<h4>$1</h4>')
-        .replace(/^###\s+(.+)$/gm, '<h3>$1</h3>')
-        .replace(/^##\s+(.+)$/gm, '<h2>$1</h2>')
-        .replace(/^#\s+(.+)$/gm, '<h1>$1</h1>')
-        // Bold and italic
-        .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
-        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\*(.+?)\*/g, '<em>$1</em>')
-        // Code blocks
-        .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>')
-        .replace(/`([^`]+)`/g, '<code>$1</code>')
-        // Links and images
-        .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">')
-        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
-        // Lists
-        .replace(/^\s*[-*+]\s+(.+)$/gm, '<li>$1</li>')
-        .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>')
-        .replace(/^\s*(\d+)\.\s+(.+)$/gm, '<li>$2</li>')
-        // Blockquotes
-        .replace(/^>\s+(.+)$/gm, '<blockquote>$1</blockquote>')
-        // Horizontal rules
-        .replace(/^---$/gm, '<hr>')
-        // Details/summary
-        .replace(/<details>/g, '<details>')
-        .replace(/<\/details>/g, '</details>')
-        .replace(/<summary>/g, '<summary>')
-        .replace(/<\/summary>/g, '</summary>')
-        // Paragraphs
-        .replace(/\n\n/g, '</p><p>')
-        .replace(/^(.+)$/gm, (match) => {
-            if (match.startsWith('<')) return match;
-            return match;
-        });
+  // Simple markdown to HTML conversion for preview
+  let html = markdown
+    // Headers
+    .replace(/^######\s+(.+)$/gm, '<h6>$1</h6>')
+    .replace(/^#####\s+(.+)$/gm, '<h5>$1</h5>')
+    .replace(/^####\s+(.+)$/gm, '<h4>$1</h4>')
+    .replace(/^###\s+(.+)$/gm, '<h3>$1</h3>')
+    .replace(/^##\s+(.+)$/gm, '<h2>$1</h2>')
+    .replace(/^#\s+(.+)$/gm, '<h1>$1</h1>')
+    // Bold and italic
+    .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    // Code blocks
+    .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    // Links and images
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+    // Lists
+    .replace(/^\s*[-*+]\s+(.+)$/gm, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>')
+    .replace(/^\s*(\d+)\.\s+(.+)$/gm, '<li>$2</li>')
+    // Blockquotes
+    .replace(/^>\s+(.+)$/gm, '<blockquote>$1</blockquote>')
+    // Horizontal rules
+    .replace(/^---$/gm, '<hr>')
+    // Details/summary
+    .replace(/<details>/g, '<details>')
+    .replace(/<\/details>/g, '</details>')
+    .replace(/<summary>/g, '<summary>')
+    .replace(/<\/summary>/g, '</summary>')
+    // Paragraphs
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/^(.+)$/gm, (match) => {
+      if (match.startsWith('<')) return match;
+      return match;
+    });
 
-    return `<!DOCTYPE html>
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -190,85 +190,85 @@ function markdownToHtml(markdown, title = 'README Preview') {
  * Start preview server
  */
 export async function preview(config, options = {}) {
-    const port = parseInt(options.port, 10) || 3000;
-    const outputDir = options.output || '.';
-    const readmePath = join(outputDir, config.output?.readme || 'README.md');
+  const port = parseInt(options.port, 10) || 3000;
+  const outputDir = options.output || '.';
+  const readmePath = join(outputDir, config.output?.readme || 'README.md');
 
-    let lastModified = Date.now();
+  let lastModified = Date.now();
 
-    const server = createServer((req, res) => {
-        const url = new URL(req.url, `http://localhost:${port}`);
-        const pathname = url.pathname;
+  const server = createServer((req, res) => {
+    const url = new URL(req.url, `http://localhost:${port}`);
+    const pathname = url.pathname;
 
-        // API endpoint for checking modifications
-        if (pathname === '/api/modified') {
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ modified: lastModified }));
-            return;
-        }
+    // API endpoint for checking modifications
+    if (pathname === '/api/modified') {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ modified: lastModified }));
+      return;
+    }
 
-        // Serve README as HTML preview
-        if (pathname === '/' || pathname === '/index.html') {
-            try {
-                const markdown = readFileSync(readmePath, 'utf-8');
-                const html = markdownToHtml(markdown, config.project?.name || 'README Preview');
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.end(html);
-            } catch (error) {
-                res.writeHead(500);
-                res.end('Error loading README');
-            }
-            return;
-        }
+    // Serve README as HTML preview
+    if (pathname === '/' || pathname === '/index.html') {
+      try {
+        const markdown = readFileSync(readmePath, 'utf-8');
+        const html = markdownToHtml(markdown, config.project?.name || 'README Preview');
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(html);
+      } catch (error) {
+        res.writeHead(500);
+        res.end('Error loading README');
+      }
+      return;
+    }
 
-        // Serve raw README
-        if (pathname === '/README.md') {
-            try {
-                const content = readFileSync(readmePath, 'utf-8');
-                res.writeHead(200, { 'Content-Type': 'text/markdown' });
-                res.end(content);
-            } catch (error) {
-                res.writeHead(404);
-                res.end('Not found');
-            }
-            return;
-        }
-
-        // Serve static assets
-        const filePath = join(outputDir, pathname);
-        if (existsSync(filePath) && statSync(filePath).isFile()) {
-            const ext = extname(filePath);
-            const mimeType = MIME_TYPES[ext] || 'application/octet-stream';
-            const content = readFileSync(filePath);
-            res.writeHead(200, { 'Content-Type': mimeType });
-            res.end(content);
-            return;
-        }
-
+    // Serve raw README
+    if (pathname === '/README.md') {
+      try {
+        const content = readFileSync(readmePath, 'utf-8');
+        res.writeHead(200, { 'Content-Type': 'text/markdown' });
+        res.end(content);
+      } catch (error) {
         res.writeHead(404);
         res.end('Not found');
-    });
+      }
+      return;
+    }
 
-    server.listen(port, () => {
-        console.log(chalk.green(`\nPreview server running at http://localhost:${port}\n`));
-        console.log(chalk.gray('  Press Ctrl+C to stop\n'));
+    // Serve static assets
+    const filePath = join(outputDir, pathname);
+    if (existsSync(filePath) && statSync(filePath).isFile()) {
+      const ext = extname(filePath);
+      const mimeType = MIME_TYPES[ext] || 'application/octet-stream';
+      const content = readFileSync(filePath);
+      res.writeHead(200, { 'Content-Type': mimeType });
+      res.end(content);
+      return;
+    }
 
-        if (options.open) {
-            const open = require('open');
-            open(`http://localhost:${port}`);
-        }
-    });
+    res.writeHead(404);
+    res.end('Not found');
+  });
 
-    // Watch and rebuild in background
-    const originalWatch = await import('./watch.js');
+  server.listen(port, () => {
+    console.log(chalk.green(`\nPreview server running at http://localhost:${port}\n`));
+    console.log(chalk.gray('  Press Ctrl+C to stop\n'));
 
-    // Update lastModified on changes
-    const { watch: fsWatch } = await import('fs');
-    fsWatch(readmePath, () => {
-        lastModified = Date.now();
-        console.log(chalk.blue('  README updated'));
-    });
+    if (options.open) {
+      const open = require('open');
+      open(`http://localhost:${port}`);
+    }
+  });
 
-    // Keep process alive
-    return new Promise(() => { });
+  // Watch and rebuild in background
+  const originalWatch = await import('./watch.js');
+
+  // Update lastModified on changes
+  const { watch: fsWatch } = await import('fs');
+  fsWatch(readmePath, () => {
+    lastModified = Date.now();
+    console.log(chalk.blue('  README updated'));
+  });
+
+  // Keep process alive
+  return new Promise(() => { });
 }

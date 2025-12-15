@@ -6,32 +6,32 @@ import { writeFileSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
 export async function generateActions(options = {}) {
-    const {
-        schedule = '0 0 * * *',
-        onPush = true,
-        onRelease = true,
-        withStats = true,
-        withNotify = false,
-    } = options;
+  const {
+    schedule = '0 0 * * *',
+    onPush = true,
+    onRelease = true,
+    withStats = true,
+    withNotify = false,
+  } = options;
 
-    const workflowDir = '.github/workflows';
-    mkdirSync(workflowDir, { recursive: true });
+  const workflowDir = '.github/workflows';
+  mkdirSync(workflowDir, { recursive: true });
 
-    const triggers = ['  workflow_dispatch:'];
+  const triggers = ['  workflow_dispatch:'];
 
-    if (schedule) {
-        triggers.push(`  schedule:\n    - cron: '${schedule}'`);
-    }
+  if (schedule) {
+    triggers.push(`  schedule:\n    - cron: '${schedule}'`);
+  }
 
-    if (onPush) {
-        triggers.push('  push:\n    branches: [main, master]');
-    }
+  if (onPush) {
+    triggers.push('  push:\n    branches: [main, master]');
+  }
 
-    if (onRelease) {
-        triggers.push('  release:\n    types: [published]');
-    }
+  if (onRelease) {
+    triggers.push('  release:\n    types: [published]');
+  }
 
-    let steps = `
+  let steps = `
       - uses: actions/checkout@v4
       
       - name: Setup Node.js
@@ -46,15 +46,15 @@ export async function generateActions(options = {}) {
       - name: Build README
         run: npx doccc build`;
 
-    if (withStats) {
-        steps += `
+  if (withStats) {
+    steps += `
       
       - name: Generate Statistics
         run: npx doccc stats --format badge --output ./assets`;
-    }
+  }
 
-    if (withNotify) {
-        steps += `
+  if (withNotify) {
+    steps += `
       
       - name: Send Notification
         if: success()
@@ -64,9 +64,9 @@ export async function generateActions(options = {}) {
           curl -s -X POST -H "Content-Type: application/json" \\
             -d '{"content": "README updated successfully!"}' \\
             "$WEBHOOK_URL" || true`;
-    }
+  }
 
-    steps += `
+  steps += `
       
       - name: Commit and Push
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -81,7 +81,7 @@ export async function generateActions(options = {}) {
           echo "- Generated at: $(date -u)" >> $GITHUB_STEP_SUMMARY
           echo "- Triggered by: \${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY`;
 
-    const workflow = `name: Update README
+  const workflow = `name: Update README
 
 on:
 ${triggers.join('\n')}
@@ -95,7 +95,7 @@ jobs:
     steps:${steps}
 `;
 
-    writeFileSync(join(workflowDir, 'doccc.yml'), workflow, 'utf-8');
+  writeFileSync(join(workflowDir, 'doccc.yml'), workflow, 'utf-8');
 
-    return { path: join(workflowDir, 'doccc.yml') };
+  return { path: join(workflowDir, 'doccc.yml') };
 }
