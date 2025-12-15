@@ -1,0 +1,36 @@
+name: Update Live Date
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 0 * * *'  # Run daily at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  update-date:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Update live date in timeline.svg
+        run: |
+          CURRENT_DATE=$(date +"%B %d, %Y")
+          
+          # Update the timeline.svg with current date
+          if [ -f "assets/timeline.svg" ]; then
+            # Replace content between LIVE_DATE markers
+            sed -i "s|<!-- LIVE_DATE -->.*<!-- /LIVE_DATE -->|<!-- LIVE_DATE -->Last updated: $CURRENT_DATE<!-- /LIVE_DATE -->|g" assets/timeline.svg
+          fi
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -A
+          git diff --quiet && git diff --staged --quiet || git commit -m "chore: update live date [skip ci]"
+          git push

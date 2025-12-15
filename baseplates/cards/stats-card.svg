@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 80" data-baseplate="stats-card" data-version="1.0">
+  <defs>
+    <filter id="statsShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+  
+  <style>
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes countUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .card { fill: white; animation: fadeIn 0.3s ease-out forwards; }
+    .value { font-family: system-ui, -apple-system, sans-serif; font-size: 28px; font-weight: 700; animation: countUp 0.4s ease-out 0.2s forwards; opacity: 0; }
+    .label { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; fill: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+    .accent { fill: #22c55e; }
+  </style>
+  
+  <!-- Card background -->
+  <rect class="card" x="0" y="0" width="160" height="80" rx="12" filter="url(#statsShadow)"/>
+  
+  <!-- Accent bar -->
+  <rect class="accent" x="0" y="0" width="4" height="80" rx="2" data-field="color"/>
+  
+  <!-- Value -->
+  <text class="value accent" x="20" y="45" data-field="value">10.5K</text>
+  
+  <!-- Label -->
+  <text class="label" x="20" y="64" data-field="label">Downloads</text>
+</svg>

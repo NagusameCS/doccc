@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 180" data-baseplate="timeline-horizontal" data-version="1.0">
+  <defs>
+    <linearGradient id="timelineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" data-field="lineColor" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    
+    <filter id="nodeShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+  
+  <style>
+    @keyframes drawLine { from { stroke-dashoffset: 500; } to { stroke-dashoffset: 0; } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+    
+    .timeline-line { stroke: url(#timelineGrad); stroke-width: 4; fill: none; stroke-linecap: round; stroke-dasharray: 500; animation: drawLine 1.5s ease-out forwards; }
+    .node { animation: fadeIn 0.4s ease-out forwards; opacity: 0; }
+    .node-1 { animation-delay: 0.3s; }
+    .node-2 { animation-delay: 0.6s; }
+    .node-3 { animation-delay: 0.9s; }
+    .node-4 { animation-delay: 1.2s; }
+    .current { animation: pulse 2s ease-in-out infinite; }
+    
+    .bg { fill: #fafafa; }
+    .node-complete { fill: #22c55e; }
+    .node-active { fill: #3b82f6; }
+    .node-pending { fill: #e5e7eb; }
+    .check { stroke: white; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    
+    .text { font-family: system-ui, -apple-system, sans-serif; }
+    .version { font-family: 'SF Mono', Consolas, monospace; font-size: 12px; font-weight: 600; fill: #3b82f6; }
+    .milestone { font-size: 11px; font-weight: 500; fill: #1f2937; }
+    .status { font-size: 10px; fill: #6b7280; }
+    .title { font-size: 14px; font-weight: 600; fill: #1f2937; }
+  </style>
+  
+  <!-- Background -->
+  <rect class="bg" width="700" height="180" rx="12"/>
+  
+  <!-- Title -->
+  <text class="text title" x="350" y="28" text-anchor="middle" data-field="title">Development Roadmap</text>
+  
+  <!-- Timeline line -->
+  <path d="M 100 80 L 600 80" class="timeline-line"/>
+  
+  <!-- Node 1 -->
+  <g class="node node-1" filter="url(#nodeShadow)" data-node="1">
+    <circle cx="100" cy="80" r="16" class="node-complete"/>
+    <path d="M92 80 L98 86 L108 74" class="check"/>
+    <text class="text version" x="100" y="55" text-anchor="middle" data-field="node-1-version">v0.1</text>
+    <text class="text milestone" x="100" y="115" text-anchor="middle" data-field="node-1-label">Phase 1</text>
+    <text class="text status" x="100" y="130" text-anchor="middle" data-field="node-1-status">Complete</text>
+  </g>
+  
+  <!-- Node 2 -->
+  <g class="node node-2" filter="url(#nodeShadow)" data-node="2">
+    <circle cx="267" cy="80" r="16" class="node-complete"/>
+    <path d="M259 80 L265 86 L275 74" class="check"/>
+    <text class="text version" x="267" y="55" text-anchor="middle" data-field="node-2-version">v0.5</text>
+    <text class="text milestone" x="267" y="115" text-anchor="middle" data-field="node-2-label">Phase 2</text>
+    <text class="text status" x="267" y="130" text-anchor="middle" data-field="node-2-status">Complete</text>
+  </g>
+  
+  <!-- Node 3 -->
+  <g class="node node-3" filter="url(#nodeShadow)" data-node="3">
+    <circle cx="433" cy="80" r="16" class="node-complete"/>
+    <path d="M425 80 L431 86 L441 74" class="check"/>
+    <text class="text version" x="433" y="55" text-anchor="middle" data-field="node-3-version">v0.9</text>
+    <text class="text milestone" x="433" y="115" text-anchor="middle" data-field="node-3-label">Phase 3</text>
+    <text class="text status" x="433" y="130" text-anchor="middle" data-field="node-3-status">Complete</text>
+  </g>
+  
+  <!-- Node 4 (active) -->
+  <g class="node node-4 current" filter="url(#nodeShadow)" data-node="4">
+    <circle cx="600" cy="80" r="18" class="node-active"/>
+    <circle cx="600" cy="80" r="8" fill="white"/>
+    <text class="text version" x="600" y="55" text-anchor="middle" data-field="node-4-version">v1.0</text>
+    <text class="text milestone" x="600" y="115" text-anchor="middle" data-field="node-4-label">Release</text>
+    <text class="text status" x="600" y="130" text-anchor="middle" data-field="node-4-status">In Progress</text>
+  </g>
+</svg>

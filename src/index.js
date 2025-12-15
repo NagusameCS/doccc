@@ -25,6 +25,9 @@ export * from './generators/svg/index.js';
 // Theme system
 export * from './theme/index.js';
 
+// Baseplates
+export * as baseplates from './baseplates/index.js';
+
 // Utilities
 export * from './utils/index.js';
 

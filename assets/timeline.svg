@@ -1,124 +1,91 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 210">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 700 180">
   <defs>
-    <linearGradient id="timelineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#86efac"/>
-      <stop offset="50%" stop-color="#4ade80"/>
-      <stop offset="100%" stop-color="#22c55e"/>
+    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
     </linearGradient>
     
-    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="120%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.08"/>
+    <filter id="nodeShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.1"/>
     </filter>
-    
-    <!-- Material Icons -->
-    <symbol id="icon-rocket" viewBox="0 0 24 24">
-      <path fill="currentColor" d="M12 2.5s4.5 2.04 4.5 10.5c0 2.49-1.04 5.57-1.6 7H9.1c-.56-1.43-1.6-4.51-1.6-7C7.5 4.54 12 2.5 12 2.5zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM5.5 13c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm13 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-    </symbol>
-    <symbol id="icon-widgets" viewBox="0 0 24 24">
-      <path fill="currentColor" d="M13 13v8h8v-8h-8zM3 21h8v-8H3v8zM3 3v8h8V3H3zm13.66-1.31L11 7.34 16.66 13l5.66-5.66-5.66-5.65z"/>
-    </symbol>
-    <symbol id="icon-insights" viewBox="0 0 24 24">
-      <path fill="currentColor" d="M21 8c-1.45 0-2.26 1.44-1.93 2.51l-3.55 3.56c-.3-.09-.74-.09-1.04 0l-2.55-2.55C12.27 10.45 11.46 9 10 9c-1.45 0-2.27 1.44-1.93 2.52l-4.56 4.55C2.44 15.74 1 16.55 1 18c0 1.1.9 2 2 2 1.45 0 2.26-1.44 1.93-2.51l4.55-4.56c.3.09.74.09 1.04 0l2.55 2.55C12.73 16.55 13.54 18 15 18c1.45 0 2.27-1.44 1.93-2.52l3.56-3.55c1.07.33 2.51-.48 2.51-1.93 0-1.1-.9-2-2-2z"/>
-    </symbol>
-    <symbol id="icon-check-circle" viewBox="0 0 24 24">
-      <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-    </symbol>
   </defs>
   
   <style>
-    @keyframes dash { to { stroke-dashoffset: 0; } }
-    @keyframes nodePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-    @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes drawLine { from { stroke-dashoffset: 500; } to { stroke-dashoffset: 0; } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
     
     .timeline-line { 
-      stroke: url(#timelineGrad); 
+      stroke: url(#lineGrad); 
       stroke-width: 4; 
       fill: none; 
-      stroke-dasharray: 600; 
-      stroke-dashoffset: 600; 
-      animation: dash 2s ease-out forwards;
       stroke-linecap: round;
+      stroke-dasharray: 500;
+      animation: drawLine 1.5s ease-out forwards;
     }
-    .node { transform-origin: center; }
-    .node-1 { animation: nodePulse 2s ease-in-out infinite; }
-    .node-2 { animation: nodePulse 2s ease-in-out infinite 0.3s; }
-    .node-3 { animation: nodePulse 2s ease-in-out infinite 0.6s; }
-    .node-4 { animation: nodePulse 2s ease-in-out infinite 0.9s; }
-    .card { animation: fadeSlideUp 0.5s ease-out forwards; opacity: 0; }
-    .card-1 { animation-delay: 0.5s; }
-    .card-2 { animation-delay: 0.8s; }
-    .card-3 { animation-delay: 1.1s; }
-    .card-4 { animation-delay: 1.4s; }
+    
+    .node { animation: fadeIn 0.4s ease-out forwards; opacity: 0; }
+    .node-1 { animation-delay: 0.3s; }
+    .node-2 { animation-delay: 0.6s; }
+    .node-3 { animation-delay: 0.9s; }
+    .node-4 { animation-delay: 1.2s; }
+    
+    .current { animation: pulse 2s ease-in-out infinite; }
+    
     .text { font-family: system-ui, -apple-system, sans-serif; }
-    .version { font-family: 'SF Mono', SFMono-Regular, Consolas, monospace; }
+    .version { font-family: 'SF Mono', Consolas, monospace; font-size: 12px; font-weight: 600; fill: #3b82f6; }
+    .milestone { font-size: 11px; font-weight: 500; fill: #1f2937; }
+    .status { font-size: 10px; fill: #6b7280; }
   </style>
   
   <!-- Background -->
-  <rect width="800" height="210" fill="#f8fafc" rx="12"/>
+  <rect width="700" height="180" fill="#fafafa" rx="12"/>
   
   <!-- Title -->
-  <text class="text" x="400" y="28" text-anchor="middle" font-size="14" fill="#1e293b" font-weight="600">Development Timeline</text>
+  <text class="text" x="350" y="28" text-anchor="middle" font-size="14" fill="#1f2937" font-weight="600">Development Roadmap</text>
   
-  <!-- Main timeline line -->
-  <path d="M 100 90 L 700 90" class="timeline-line"/>
+  <!-- Timeline line -->
+  <path d="M 100 80 L 600 80" class="timeline-line"/>
   
-  <!-- Timeline Nodes -->
-  <g class="node node-1">
-    <circle cx="100" cy="90" r="14" fill="#86efac" stroke="#22c55e" stroke-width="3"/>
-    <circle cx="100" cy="90" r="6" fill="#22c55e"/>
-  </g>
-  <g class="node node-2">
-    <circle cx="300" cy="90" r="14" fill="#4ade80" stroke="#22c55e" stroke-width="3"/>
-    <circle cx="300" cy="90" r="6" fill="#16a34a"/>
-  </g>
-  <g class="node node-3">
-    <circle cx="500" cy="90" r="14" fill="#22c55e" stroke="#16a34a" stroke-width="3"/>
-    <circle cx="500" cy="90" r="6" fill="#16a34a"/>
-  </g>
-  <g class="node node-4">
-    <circle cx="700" cy="90" r="16" fill="#16a34a" stroke="#15803d" stroke-width="3"/>
-    <use xlink:href="#icon-check-circle" x="690" y="80" width="20" height="20" style="color: white;"/>
+  <!-- Node 1: v0.1 - Done -->
+  <g class="node node-1" filter="url(#nodeShadow)">
+    <circle cx="100" cy="80" r="16" fill="#22c55e"/>
+    <path d="M92 80 L98 86 L108 74" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <text class="text version" x="100" y="55" text-anchor="middle">v0.1</text>
+    <text class="text milestone" x="100" y="115" text-anchor="middle">CLI Init</text>
+    <text class="text status" x="100" y="130" text-anchor="middle">Complete</text>
   </g>
   
-  <!-- Version labels (above) -->
-  <text class="version" x="100" y="52" text-anchor="middle" font-size="12" fill="#0284c7" font-weight="600">v0.1.0</text>
-  <text class="text" x="100" y="68" text-anchor="middle" font-size="10" fill="#64748b">Init</text>
-  
-  <text class="version" x="300" y="52" text-anchor="middle" font-size="12" fill="#0284c7" font-weight="600">v0.5.0</text>
-  <text class="text" x="300" y="68" text-anchor="middle" font-size="10" fill="#64748b">Components</text>
-  
-  <text class="version" x="500" y="52" text-anchor="middle" font-size="12" fill="#0284c7" font-weight="600">v0.9.0</text>
-  <text class="text" x="500" y="68" text-anchor="middle" font-size="10" fill="#64748b">Linehook</text>
-  
-  <text class="version" x="700" y="52" text-anchor="middle" font-size="12" fill="#0284c7" font-weight="600">v1.0.0</text>
-  <text class="text" x="700" y="68" text-anchor="middle" font-size="10" fill="#64748b">Release</text>
-  
-  <!-- Detail cards (below) -->
-  <g class="card card-1" filter="url(#cardShadow)">
-    <rect x="35" y="115" width="130" height="52" rx="8" fill="white" stroke="#e2e8f0"/>
-    <use xlink:href="#icon-rocket" x="45" y="125" width="18" height="18" style="color: #6366f1;"/>
-    <text class="text" x="68" y="138" font-size="10" fill="#1e293b" font-weight="500">CLI scaffold</text>
-    <text class="text" x="50" y="155" font-size="9" fill="#64748b">Config system</text>
+  <!-- Node 2: v0.5 - Done -->
+  <g class="node node-2" filter="url(#nodeShadow)">
+    <circle cx="267" cy="80" r="16" fill="#22c55e"/>
+    <path d="M259 80 L265 86 L275 74" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <text class="text version" x="267" y="55" text-anchor="middle">v0.5</text>
+    <text class="text milestone" x="267" y="115" text-anchor="middle">Components</text>
+    <text class="text status" x="267" y="130" text-anchor="middle">Complete</text>
   </g>
   
-  <g class="card card-2" filter="url(#cardShadow)">
-    <rect x="235" y="115" width="130" height="52" rx="8" fill="white" stroke="#e2e8f0"/>
-    <use xlink:href="#icon-widgets" x="245" y="125" width="18" height="18" style="color: #8b5cf6;"/>
-    <text class="text" x="268" y="138" font-size="10" fill="#1e293b" font-weight="500">14 components</text>
-    <text class="text" x="250" y="155" font-size="9" fill="#64748b">SVG generators</text>
+  <!-- Node 3: v0.9 - Done -->
+  <g class="node node-3" filter="url(#nodeShadow)">
+    <circle cx="433" cy="80" r="16" fill="#22c55e"/>
+    <path d="M425 80 L431 86 L441 74" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <text class="text version" x="433" y="55" text-anchor="middle">v0.9</text>
+    <text class="text milestone" x="433" y="115" text-anchor="middle">Integrations</text>
+    <text class="text status" x="433" y="130" text-anchor="middle">Complete</text>
   </g>
   
-  <g class="card card-3" filter="url(#cardShadow)">
-    <rect x="435" y="115" width="130" height="52" rx="8" fill="white" stroke="#e2e8f0"/>
-    <use xlink:href="#icon-insights" x="445" y="125" width="18" height="18" style="color: #ec4899;"/>
-    <text class="text" x="468" y="138" font-size="10" fill="#1e293b" font-weight="500">Stats + badges</text>
-    <text class="text" x="450" y="155" font-size="9" fill="#64748b">Integrations</text>
+  <!-- Node 4: v1.0 - Current -->
+  <g class="node node-4 current" filter="url(#nodeShadow)">
+    <circle cx="600" cy="80" r="18" fill="#3b82f6"/>
+    <circle cx="600" cy="80" r="8" fill="white"/>
+    <text class="text version" x="600" y="55" text-anchor="middle">v1.0</text>
+    <text class="text milestone" x="600" y="115" text-anchor="middle">Release</text>
+    <text class="text status" x="600" y="130" text-anchor="middle">In Progress</text>
   </g>
   
-  <g class="card card-4" filter="url(#cardShadow)">
-    <rect x="635" y="115" width="130" height="52" rx="8" fill="white" stroke="#e2e8f0"/>
-    <use xlink:href="#icon-check-circle" x="645" y="125" width="18" height="18" style="color: #22c55e;"/>
-    <text class="text" x="668" y="138" font-size="10" fill="#1e293b" font-weight="500">Full release</text>
-    <text class="text" x="650" y="155" font-size="9" fill="#64748b">npm publish</text>
+  <!-- Last updated badge -->
+  <g transform="translate(350, 160)">
+    <rect x="-80" y="-10" width="160" height="20" rx="10" fill="#f3f4f6"/>
+    <text x="0" y="4" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#6b7280"><!-- LIVE_DATE -->Last updated: June 10, 2025<!-- /LIVE_DATE --></text>
   </g>
 </svg>

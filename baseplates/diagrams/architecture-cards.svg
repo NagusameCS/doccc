@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 280" data-baseplate="architecture-cards" data-version="1.0">
+  <defs>
+    <filter id="archShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.1"/>
+    </filter>
+    
+    <marker id="archArrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#9ca3af"/>
+    </marker>
+  </defs>
+  
+  <style>
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes drawLine { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+    
+    .bg { fill: #fafafa; }
+    .card { fill: white; animation: fadeIn 0.4s ease-out forwards; opacity: 0; }
+    .card-1 { animation-delay: 0.1s; }
+    .card-2 { animation-delay: 0.3s; }
+    .card-3 { animation-delay: 0.5s; }
+    
+    .connector { stroke: #d1d5db; stroke-width: 2; fill: none; stroke-dasharray: 100; animation: drawLine 0.8s ease-out forwards; }
+    .connector-1 { animation-delay: 0.2s; }
+    .connector-2 { animation-delay: 0.4s; }
+    
+    .icon-bg { fill: #3b82f6; }
+    .icon { fill: white; }
+    
+    .text { font-family: system-ui, -apple-system, sans-serif; }
+    .title { font-size: 14px; font-weight: 600; fill: #1f2937; }
+    .card-title { font-size: 13px; font-weight: 600; fill: #1f2937; }
+    .card-desc { font-size: 11px; fill: #6b7280; }
+  </style>
+  
+  <!-- Background -->
+  <rect class="bg" width="700" height="280" rx="12"/>
+  
+  <!-- Title -->
+  <text class="text title" x="350" y="30" text-anchor="middle" data-field="title">System Architecture</text>
+  
+  <!-- Card 1: Input -->
+  <g class="card card-1" filter="url(#archShadow)" data-card="1">
+    <rect x="40" y="70" width="180" height="160" rx="12" fill="white"/>
+    <rect class="icon-bg" x="60" y="90" width="40" height="40" rx="8"/>
+    <path class="icon" transform="translate(68, 98)" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+    <text class="text card-title" x="130" y="115" text-anchor="middle" data-field="card-1-title">Configuration</text>
+    <text class="text card-desc" x="130" y="150" text-anchor="middle" data-field="card-1-line1">doccc.config.js</text>
+    <text class="text card-desc" x="130" y="168" text-anchor="middle" data-field="card-1-line2">Components defined</text>
+    <text class="text card-desc" x="130" y="186" text-anchor="middle" data-field="card-1-line3">Themes &amp; settings</text>
+  </g>
+  
+  <!-- Connector 1 -->
+  <path class="connector connector-1" d="M225 150 L265 150" marker-end="url(#archArrow)"/>
+  
+  <!-- Card 2: Process -->
+  <g class="card card-2" filter="url(#archShadow)" data-card="2">
+    <rect x="270" y="70" width="180" height="160" rx="12" fill="white"/>
+    <rect class="icon-bg" x="290" y="90" width="40" height="40" rx="8" fill="#8b5cf6"/>
+    <path class="icon" transform="translate(298, 98)" d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+    <text class="text card-title" x="360" y="115" text-anchor="middle" data-field="card-2-title">Build Engine</text>
+    <text class="text card-desc" x="360" y="150" text-anchor="middle" data-field="card-2-line1">Parse components</text>
+    <text class="text card-desc" x="360" y="168" text-anchor="middle" data-field="card-2-line2">Generate SVGs</text>
+    <text class="text card-desc" x="360" y="186" text-anchor="middle" data-field="card-2-line3">Compile markdown</text>
+  </g>
+  
+  <!-- Connector 2 -->
+  <path class="connector connector-2" d="M455 150 L495 150" marker-end="url(#archArrow)"/>
+  
+  <!-- Card 3: Output -->
+  <g class="card card-3" filter="url(#archShadow)" data-card="3">
+    <rect x="500" y="70" width="180" height="160" rx="12" fill="white"/>
+    <rect class="icon-bg" x="520" y="90" width="40" height="40" rx="8" fill="#22c55e"/>
+    <path class="icon" transform="translate(528, 98)" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8"/>
+    <text class="text card-title" x="590" y="115" text-anchor="middle" data-field="card-3-title">Output</text>
+    <text class="text card-desc" x="590" y="150" text-anchor="middle" data-field="card-3-line1">README.md</text>
+    <text class="text card-desc" x="590" y="168" text-anchor="middle" data-field="card-3-line2">SVG assets</text>
+    <text class="text card-desc" x="590" y="186" text-anchor="middle" data-field="card-3-line3">GitHub-ready docs</text>
+  </g>
+</svg>

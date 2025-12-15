@@ -1,101 +1,116 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 200">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 160">
   <defs>
-    <filter id="termShadow" x="-3%" y="-3%" width="106%" height="112%">
-      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-opacity="0.3"/>
+    <filter id="editorShadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-opacity="0.2"/>
     </filter>
     
-    <linearGradient id="termGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#1f2937"/>
-      <stop offset="100%" style="stop-color:#111827"/>
+    <linearGradient id="titlebarGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d2d2d"/>
+      <stop offset="100%" style="stop-color:#1e1e1e"/>
     </linearGradient>
+    
+    <!-- Copy icon -->
+    <symbol id="icon-copy" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+    </symbol>
   </defs>
   
   <style>
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-    @keyframes typeChar {
-      0% { opacity: 0; }
-      1% { opacity: 1; }
-      100% { opacity: 1; }
+    @keyframes fadeSlide { 
+      from { opacity: 0; transform: translateX(-8px); } 
+      to { opacity: 1; transform: translateX(0); } 
     }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    @keyframes copyPulse { 
+      0% { transform: scale(1); } 
+      50% { transform: scale(1.2); } 
+      100% { transform: scale(1); } 
     }
     
-    .terminal { fill: url(#termGrad); }
-    .titlebar { fill: #374151; }
-    .dot-red { fill: #ef4444; }
-    .dot-yellow { fill: #f59e0b; }
-    .dot-green { fill: #22c55e; }
+    .editor { fill: #1e1e1e; }
+    .titlebar { fill: url(#titlebarGrad); }
+    .dot-red { fill: #ff5f56; }
+    .dot-yellow { fill: #ffbd2e; }
+    .dot-green { fill: #27c93f; }
     
-    .code { font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', Consolas, monospace; font-size: 13px; }
-    .prompt { fill: #22c55e; }
-    .command { fill: #f8fafc; }
-    .output { fill: #94a3b8; }
-    .success { fill: #4ade80; }
-    .path { fill: #38bdf8; }
+    .code { font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', Consolas, monospace; }
+    .prompt { font-size: 14px; fill: #22c55e; }
+    .command { font-size: 14px; fill: #e5e5e5; }
+    .package { font-size: 14px; fill: #38bdf8; font-weight: 600; }
+    .cursor { fill: #e5e5e5; animation: blink 1s step-end infinite; }
+    .filename { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #9ca3af; }
     
-    .cursor { fill: #f8fafc; animation: blink 1s step-end infinite; }
+    .line { animation: fadeSlide 0.3s ease-out forwards; opacity: 0; }
+    .line-1 { animation-delay: 0.1s; }
+    .line-2 { animation-delay: 0.3s; }
+    .line-3 { animation-delay: 0.5s; }
     
-    .line-1 { animation: fadeIn 0.3s ease-out 0.2s both; }
-    .line-2 { animation: fadeIn 0.3s ease-out 0.8s both; }
-    .line-3 { animation: fadeIn 0.3s ease-out 1.2s both; }
-    .line-4 { animation: fadeIn 0.3s ease-out 1.6s both; }
-    .line-5 { animation: fadeIn 0.3s ease-out 2s both; }
-    .line-6 { animation: fadeIn 0.3s ease-out 2.4s both; }
+    .copy-btn { cursor: pointer; transition: all 0.2s ease; }
+    .copy-btn:hover { opacity: 1; }
+    .copy-btn:hover .copy-bg { fill: #3b82f6; }
+    .copy-btn:active .copy-icon { animation: copyPulse 0.3s ease; }
+    .copy-hint { font-family: system-ui, sans-serif; font-size: 9px; fill: #9ca3af; opacity: 0; transition: opacity 0.2s; }
+    .copy-btn:hover + .copy-hint { opacity: 1; }
   </style>
   
-  <!-- Terminal container -->
-  <g filter="url(#termShadow)">
-    <rect class="terminal" width="500" height="200" rx="10"/>
+  <!-- Editor container with shadow -->
+  <g filter="url(#editorShadow)">
+    <!-- Editor background -->
+    <rect class="editor" x="0" y="0" width="500" height="160" rx="10"/>
     
     <!-- Title bar -->
-    <rect class="titlebar" width="500" height="32" rx="10"/>
-    <rect class="titlebar" y="10" width="500" height="22"/>
+    <rect class="titlebar" x="0" y="0" width="500" height="36" rx="10"/>
+    <rect class="titlebar" x="0" y="10" width="500" height="26"/>
     
     <!-- Window controls -->
-    <circle class="dot-red" cx="18" cy="16" r="6"/>
-    <circle class="dot-yellow" cx="38" cy="16" r="6"/>
-    <circle class="dot-green" cx="58" cy="16" r="6"/>
+    <circle class="dot-red" cx="20" cy="18" r="6"/>
+    <circle class="dot-yellow" cx="40" cy="18" r="6"/>
+    <circle class="dot-green" cx="60" cy="18" r="6"/>
     
     <!-- Title -->
-    <text x="250" y="20" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#9ca3af">Terminal</text>
+    <text class="filename" x="250" y="22" text-anchor="middle">Terminal - Installation</text>
   </g>
   
-  <!-- Terminal content -->
-  <g class="code" transform="translate(16, 54)">
-    <!-- Line 1: npm install -->
-    <g class="line-1">
-      <text class="prompt" x="0" y="0">$</text>
-      <text class="command" x="16" y="0">npm install -g doccc</text>
-    </g>
+  <!-- Code content -->
+  <g class="code" transform="translate(20, 60)">
+    <!-- Line 1: npm install command -->
+    <a xlink:href="#" onclick="navigator.clipboard.writeText('npm install -g doccc'); return false;">
+      <g class="line line-1 copy-btn" opacity="0.9">
+        <rect class="copy-bg" x="-8" y="-16" width="420" height="26" rx="4" fill="transparent"/>
+        <text class="prompt" x="0" y="0">$</text>
+        <text class="command" x="20" y="0">npm install -g</text>
+        <text class="package" x="140" y="0">doccc</text>
+        <g class="copy-icon" transform="translate(380, -12)" style="color: #6b7280;">
+          <use xlink:href="#icon-copy" width="18" height="18"/>
+        </g>
+      </g>
+    </a>
+    <text class="copy-hint" x="400" y="3">Click to copy</text>
     
-    <!-- Line 2: Install output -->
-    <g class="line-2">
-      <text class="output" x="0" y="24">added 42 packages in 2.1s</text>
-    </g>
+    <!-- Line 2: yarn command -->
+    <a xlink:href="#" onclick="navigator.clipboard.writeText('yarn global add doccc'); return false;">
+      <g class="line line-2 copy-btn" opacity="0.9">
+        <rect class="copy-bg" x="-8" y="20" width="420" height="26" rx="4" fill="transparent"/>
+        <text class="prompt" x="0" y="36">$</text>
+        <text class="command" x="20" y="36">yarn global add</text>
+        <text class="package" x="156" y="36">doccc</text>
+        <g class="copy-icon" transform="translate(380, 24)" style="color: #6b7280;">
+          <use xlink:href="#icon-copy" width="18" height="18"/>
+        </g>
+      </g>
+    </a>
     
-    <!-- Line 3: Empty line + new prompt -->
-    <g class="line-3">
-      <text class="prompt" x="0" y="52">$</text>
-      <text class="command" x="16" y="52">doccc init</text>
-    </g>
-    
-    <!-- Line 4: Init output -->
-    <g class="line-4">
-      <text class="success" x="0" y="76">Creating new doccc project...</text>
-    </g>
-    
-    <!-- Line 5: Config created -->
-    <g class="line-5">
-      <text class="success" x="0" y="100">Created</text>
-      <text class="path" x="60" y="100">doccc.config.js</text>
-    </g>
-    
-    <!-- Line 6: Ready prompt with cursor -->
-    <g class="line-6">
-      <text class="prompt" x="0" y="128">$</text>
-      <rect class="cursor" x="16" y="115" width="8" height="16"/>
-    </g>
+    <!-- Line 3: pnpm command -->
+    <a xlink:href="#" onclick="navigator.clipboard.writeText('pnpm add -g doccc'); return false;">
+      <g class="line line-3 copy-btn" opacity="0.9">
+        <rect class="copy-bg" x="-8" y="56" width="420" height="26" rx="4" fill="transparent"/>
+        <text class="prompt" x="0" y="72">$</text>
+        <text class="command" x="20" y="72">pnpm add -g</text>
+        <text class="package" x="130" y="72">doccc</text>
+        <g class="copy-icon" transform="translate(380, 60)" style="color: #6b7280;">
+          <use xlink:href="#icon-copy" width="18" height="18"/>
+        </g>
+      </g>
+    </a>
   </g>
 </svg>

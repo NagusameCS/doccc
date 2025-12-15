@@ -24,6 +24,7 @@ import { preview } from '../src/commands/preview.js';
 import { generate } from '../src/commands/generate.js';
 import { stats } from '../src/commands/stats.js';
 import { notify } from '../src/commands/notify.js';
+import { createBaseplateCommand } from '../src/commands/baseplate.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -298,6 +299,11 @@ program
             process.exit(1);
         }
     });
+
+// ============================================================================
+// BASEPLATE COMMAND
+// ============================================================================
+program.addCommand(createBaseplateCommand());
 
 // Parse and execute
 program.parse();

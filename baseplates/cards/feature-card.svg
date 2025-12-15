@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 160" data-baseplate="feature-card" data-version="1.0">
+  <defs>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.1"/>
+    </filter>
+    
+    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" data-field="color" stop-color="#3b82f6"/>
+      <stop offset="100%" data-field="color-end" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  
+  <style>
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scaleIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+    
+    .card { fill: white; animation: fadeIn 0.4s ease-out forwards; }
+    .icon-bg { fill: url(#iconGrad); animation: scaleIn 0.3s ease-out 0.2s forwards; opacity: 0; }
+    .icon { fill: white; }
+    .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 600; fill: #1f2937; }
+    .description { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #6b7280; }
+  </style>
+  
+  <!-- Card background -->
+  <rect class="card" x="0" y="0" width="280" height="160" rx="16" filter="url(#cardShadow)"/>
+  
+  <!-- Icon circle -->
+  <circle class="icon-bg" cx="40" cy="45" r="24"/>
+  
+  <!-- Default icon (star) - replaceable -->
+  <g class="icon" transform="translate(28, 33)" data-field="icon">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+  </g>
+  
+  <!-- Title -->
+  <text class="title" x="24" y="100" data-field="title">Feature Title</text>
+  
+  <!-- Description -->
+  <text class="description" x="24" y="120" data-field="description">A brief description of this feature</text>
+  <text class="description" x="24" y="136" data-field="description-2">and what it does for users.</text>
+</svg>

@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" data-baseplate="bar-chart" data-version="1.0">
+  <defs>
+    <linearGradient id="bar1Grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#60a5fa"/>
+    </linearGradient>
+    <linearGradient id="bar2Grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#4ade80"/>
+    </linearGradient>
+    <linearGradient id="bar3Grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+    <linearGradient id="bar4Grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+  </defs>
+  
+  <style>
+    @keyframes growBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    
+    .bg { fill: #fafafa; }
+    .bar { transform-origin: left center; animation: growBar 0.6s ease-out forwards; }
+    .bar-1 { fill: url(#bar1Grad); animation-delay: 0.1s; }
+    .bar-2 { fill: url(#bar2Grad); animation-delay: 0.2s; }
+    .bar-3 { fill: url(#bar3Grad); animation-delay: 0.3s; }
+    .bar-4 { fill: url(#bar4Grad); animation-delay: 0.4s; }
+    
+    .label { animation: fadeIn 0.3s ease-out forwards; opacity: 0; }
+    .label-1 { animation-delay: 0.1s; }
+    .label-2 { animation-delay: 0.2s; }
+    .label-3 { animation-delay: 0.3s; }
+    .label-4 { animation-delay: 0.4s; }
+    
+    .grid { stroke: #e5e7eb; stroke-width: 1; }
+    
+    .text { font-family: system-ui, -apple-system, sans-serif; }
+    .title { font-size: 14px; font-weight: 600; fill: #1f2937; }
+    .bar-label { font-size: 12px; fill: #374151; }
+    .bar-value { font-size: 11px; fill: #6b7280; }
+  </style>
+  
+  <!-- Background -->
+  <rect class="bg" width="400" height="200" rx="12"/>
+  
+  <!-- Title -->
+  <text class="text title" x="200" y="25" text-anchor="middle" data-field="title">Statistics</text>
+  
+  <!-- Grid lines -->
+  <g transform="translate(100, 45)">
+    <line class="grid" x1="0" y1="0" x2="0" y2="130"/>
+    <line class="grid" x1="75" y1="0" x2="75" y2="130"/>
+    <line class="grid" x1="150" y1="0" x2="150" y2="130"/>
+    <line class="grid" x1="225" y1="0" x2="225" y2="130"/>
+    <line class="grid" x1="270" y1="0" x2="270" y2="130"/>
+  </g>
+  
+  <!-- Bars -->
+  <g transform="translate(100, 50)">
+    <!-- Bar 1 -->
+    <g data-bar="1">
+      <text class="text bar-label label label-1" x="-10" y="15" text-anchor="end" data-field="bar-1-label">JavaScript</text>
+      <rect class="bar bar-1" x="0" y="5" width="243" height="20" rx="4" data-field="bar-1-width"/>
+      <text class="text bar-value label label-1" x="250" y="20" data-field="bar-1-value">90%</text>
+    </g>
+    
+    <!-- Bar 2 -->
+    <g data-bar="2">
+      <text class="text bar-label label label-2" x="-10" y="50" text-anchor="end" data-field="bar-2-label">Python</text>
+      <rect class="bar bar-2" x="0" y="40" width="189" height="20" rx="4" data-field="bar-2-width"/>
+      <text class="text bar-value label label-2" x="196" y="55" data-field="bar-2-value">70%</text>
+    </g>
+    
+    <!-- Bar 3 -->
+    <g data-bar="3">
+      <text class="text bar-label label label-3" x="-10" y="85" text-anchor="end" data-field="bar-3-label">CSS</text>
+      <rect class="bar bar-3" x="0" y="75" width="135" height="20" rx="4" data-field="bar-3-width"/>
+      <text class="text bar-value label label-3" x="142" y="90" data-field="bar-3-value">50%</text>
+    </g>
+    
+    <!-- Bar 4 -->
+    <g data-bar="4">
+      <text class="text bar-label label label-4" x="-10" y="120" text-anchor="end" data-field="bar-4-label">Other</text>
+      <rect class="bar bar-4" x="0" y="110" width="81" height="20" rx="4" data-field="bar-4-width"/>
+      <text class="text bar-value label label-4" x="88" y="125" data-field="bar-4-value">30%</text>
+    </g>
+  </g>
+</svg>

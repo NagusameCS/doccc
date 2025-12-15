@@ -10,6 +10,7 @@
     "files": [
         "bin/",
         "src/",
+        "baseplates/",
         "templates/",
         "examples/",
         "README.md",
@@ -73,10 +74,5 @@
     },
     "devDependencies": {
         "eslint": "^8.57.0"
-    },
-    "files": [
-        "bin/",
-        "src/",
-        "templates/"
-    ]
+    }
 }

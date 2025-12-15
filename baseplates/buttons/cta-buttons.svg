@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 60" data-baseplate="cta-buttons" data-version="1.0">
+  <defs>
+    <filter id="btnShadow" x="-10%" y="-20%" width="120%" height="150%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.15"/>
+    </filter>
+    
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    
+    <linearGradient id="secondaryGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1f2937"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+  
+  <style>
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+    
+    .btn { filter: url(#btnShadow); cursor: pointer; }
+    .btn:hover { animation: pulse 0.3s ease-out; }
+    .btn-primary { fill: url(#primaryGrad); }
+    .btn-secondary { fill: url(#secondaryGrad); }
+    
+    .text { font-family: system-ui, -apple-system, sans-serif; }
+    .btn-text { font-size: 14px; font-weight: 600; fill: white; }
+    .icon { fill: white; }
+  </style>
+  
+  <!-- Button 1: Primary -->
+  <g class="btn" data-button="1">
+    <rect class="btn-primary" x="20" y="10" width="160" height="44" rx="10"/>
+    <g class="icon" transform="translate(45, 22)">
+      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" transform="scale(0.8)"/>
+    </g>
+    <text class="text btn-text" x="100" y="38" text-anchor="middle" data-field="btn-1-text">Fork on GitHub</text>
+  </g>
+  
+  <!-- Button 2: Secondary -->
+  <g class="btn" data-button="2">
+    <rect class="btn-secondary" x="200" y="10" width="180" height="44" rx="10"/>
+    <g class="icon" transform="translate(225, 22)">
+      <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z M8 12h8" transform="scale(0.75)"/>
+    </g>
+    <text class="text btn-text" x="290" y="38" text-anchor="middle" data-field="btn-2-text">npm install doccc</text>
+  </g>
+</svg>

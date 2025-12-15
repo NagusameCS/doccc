@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 28" data-baseplate="badge-animated" data-version="1.0">
+  <defs>
+    <linearGradient id="badgeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" data-field="color" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#16a34a"/>
+    </linearGradient>
+    
+    <linearGradient id="shimmer" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
+      <stop offset="50%" stop-color="rgba(255,255,255,0.3)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+      <animateTransform attributeName="gradientTransform" type="translate" from="-1" to="1" dur="2s" repeatCount="indefinite"/>
+    </linearGradient>
+  </defs>
+  
+  <style>
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.85; } }
+    
+    .badge { animation: pulse 3s ease-in-out infinite; }
+    .label-bg { fill: #555; }
+    .value-bg { fill: url(#badgeGrad); }
+    .shimmer-overlay { fill: url(#shimmer); }
+    
+    .text { font-family: 'DejaVu Sans', Verdana, Geneva, sans-serif; font-size: 11px; fill: white; }
+    .shadow { fill: rgba(0,0,0,0.25); }
+  </style>
+  
+  <g class="badge">
+    <!-- Shadow -->
+    <rect class="shadow" x="0" y="1" width="120" height="20" rx="4"/>
+    
+    <!-- Label section -->
+    <rect class="label-bg" x="0" y="0" width="55" height="20" rx="4"/>
+    <rect class="label-bg" x="51" y="0" width="4" height="20"/>
+    
+    <!-- Value section -->
+    <rect class="value-bg" x="55" y="0" width="65" height="20" rx="4"/>
+    <rect class="value-bg" x="55" y="0" width="4" height="20"/>
+    
+    <!-- Shimmer effect -->
+    <rect class="shimmer-overlay" x="55" y="0" width="65" height="20" rx="4"/>
+    
+    <!-- Text -->
+    <text class="text" x="27" y="14" text-anchor="middle" data-field="label">version</text>
+    <text class="text" x="87" y="14" text-anchor="middle" data-field="value">1.0.0</text>
+  </g>
+</svg>
