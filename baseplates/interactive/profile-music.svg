@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" data-baseplate="profile-music" data-category="interactive">
+  <defs>
+    <!-- Profile picture clip -->
+    <clipPath id="profileClip">
+      <circle cx="150" cy="120" r="60"/>
+    </clipPath>
+    
+    <!-- Glow effect -->
+    <filter id="profileGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Gradient ring -->
+    <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1db954"/>
+      <stop offset="50%" style="stop-color:#1ed760"/>
+      <stop offset="100%" style="stop-color:#1db954"/>
+    </linearGradient>
+    
+    <!-- Music note gradient -->
+    <linearGradient id="musicGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b6b"/>
+      <stop offset="100%" style="stop-color:#ee5a5a"/>
+    </linearGradient>
+  </defs>
+  
+  <style>
+    .bg { fill: #0d1117; }
+    .profile-ring { fill: none; stroke: url(#ringGradient); stroke-width: 4; }
+    .profile-placeholder { fill: #21262d; }
+    .profile-icon { fill: #8b949e; }
+    .song-card { fill: #161b22; opacity: 0; }
+    .song-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 600; fill: #e6edf3; }
+    .song-artist { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 12px; fill: #8b949e; }
+    .music-icon { fill: #1db954; }
+    .play-button { fill: #1db954; cursor: pointer; }
+    .username { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 600; fill: #e6edf3; }
+    .hint-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 10px; fill: #484f58; }
+    
+    /* Spin animation */
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    @keyframes spinReverse {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    
+    @keyframes noteFloat {
+      0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+      20% { opacity: 1; }
+      100% { opacity: 0; transform: translate(20px, -40px) scale(1); }
+    }
+    
+    @keyframes slideReveal {
+      from { transform: translateX(-20px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    .profile-group {
+      transform-origin: 150px 120px;
+      animation: spin 8s linear infinite;
+    }
+    
+    .profile-ring-outer {
+      transform-origin: 150px 120px;
+      animation: spinReverse 12s linear infinite;
+    }
+    
+    .profile-content {
+      transform-origin: 150px 120px;
+      animation: spinReverse 8s linear infinite;
+    }
+    
+    /* Hover reveal */
+    .hover-trigger { cursor: pointer; }
+    
+    .song-reveal {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    .hover-trigger:hover + .song-reveal,
+    .song-reveal:hover {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .hover-trigger:hover ~ .music-notes .note {
+      animation: noteFloat 1.5s ease-out infinite;
+    }
+    
+    .note-1 { animation-delay: 0s; }
+    .note-2 { animation-delay: 0.3s; }
+    .note-3 { animation-delay: 0.6s; }
+    
+    .play-button:hover {
+      fill: #1ed760;
+    }
+    
+    .click-area {
+      cursor: pointer;
+      fill: transparent;
+    }
+  </style>
+  
+  <!-- Background -->
+  <rect class="bg" width="300" height="300" rx="16"/>
+  
+  <!-- Outer decorative ring (spins opposite) -->
+  <g class="profile-ring-outer">
+    <circle class="profile-ring" cx="150" cy="120" r="70" stroke-dasharray="8 4"/>
+  </g>
+  
+  <!-- Main profile group (spins) -->
+  <g class="profile-group">
+    <!-- Profile ring -->
+    <circle class="profile-ring" cx="150" cy="120" r="64" stroke-width="3"/>
+    
+    <!-- Profile content (counter-rotates to stay upright) -->
+    <g class="profile-content">
+      <!-- Placeholder profile circle -->
+      <circle class="profile-placeholder" cx="150" cy="120" r="58"/>
+      
+      <!-- Default user icon -->
+      <g class="profile-icon" transform="translate(150, 120)">
+        <circle cx="0" cy="-15" r="18"/>
+        <path d="M -30 35 Q -30 5 0 5 Q 30 5 30 35" fill="#8b949e"/>
+      </g>
+    </g>
+  </g>
+  
+  <!-- Hover trigger (invisible, over profile) -->
+  <circle class="hover-trigger" cx="150" cy="120" r="70" fill="transparent"/>
+  
+  <!-- Song reveal card (shows on hover) -->
+  <g class="song-reveal">
+    <rect class="song-card" x="40" y="200" width="220" height="70" rx="12" style="opacity: 1;"/>
+    
+    <!-- Spotify/Music icon -->
+    <g transform="translate(60, 235)">
+      <circle class="music-icon" cx="0" cy="0" r="15"/>
+      <path fill="#000" d="M -6 -4 C 2 -6 8 -4 8 -4 M -6 0 C 2 -2 8 0 8 0 M -6 4 C 2 2 8 4 8 4" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    
+    <!-- Song info -->
+    <text class="song-title" x="85" y="228" data-field="songTitle">Favourite Song</text>
+    <text class="song-artist" x="85" y="248" data-field="artistName">Artist Name</text>
+    
+    <!-- Play button (clickable link) -->
+    <a href="#" data-field="musicLink" target="_blank">
+      <g transform="translate(230, 235)">
+        <circle class="play-button" cx="0" cy="0" r="14"/>
+        <path fill="#000" d="M -4 -6 L 6 0 L -4 6 Z"/>
+      </g>
+      <rect class="click-area" x="216" y="221" width="28" height="28" rx="14"/>
+    </a>
+  </g>
+  
+  <!-- Floating music notes (appear on hover) -->
+  <g class="music-notes" transform="translate(200, 140)">
+    <text class="note note-1" fill="#1db954" font-size="16" opacity="0">♪</text>
+    <text class="note note-2" fill="#1ed760" font-size="14" opacity="0" x="15" y="-10">♫</text>
+    <text class="note note-3" fill="#1db954" font-size="12" opacity="0" x="-10" y="-5">♪</text>
+  </g>
+  
+  <!-- Username below -->
+  <text class="username" x="150" y="285" text-anchor="middle" data-field="username">@username</text>
+  
+  <!-- Hover hint -->
+  <text class="hint-text" x="150" y="195" text-anchor="middle">Hover to reveal • Click to play</text>
+</svg>

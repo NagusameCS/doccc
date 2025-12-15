@@ -25,7 +25,7 @@ export function getCatalog() {
     if (catalogCache) {
         return catalogCache;
     }
-    
+
     try {
         const content = readFileSync(CATALOG_PATH, 'utf-8');
         catalogCache = JSON.parse(content);
@@ -62,11 +62,11 @@ export function getAnimations() {
 export function listBaseplates(options = {}) {
     const catalog = getCatalog();
     let baseplates = catalog.baseplates || [];
-    
+
     if (options.category) {
         baseplates = baseplates.filter(bp => bp.category === options.category);
     }
-    
+
     return baseplates;
 }
 
@@ -90,21 +90,21 @@ export function loadBaseplate(id) {
     if (baseplateCache.has(id)) {
         return baseplateCache.get(id);
     }
-    
+
     const info = getBaseplateInfo(id);
     if (!info) {
         throw new Error(`Baseplate not found: ${id}`);
     }
-    
+
     const svgPath = join(BASEPLATES_DIR, info.file);
-    
+
     if (!existsSync(svgPath)) {
         throw new Error(`Baseplate file not found: ${info.file}`);
     }
-    
+
     const content = readFileSync(svgPath, 'utf-8');
     baseplateCache.set(id, content);
-    
+
     return content;
 }
 
@@ -116,7 +116,7 @@ export function loadBaseplate(id) {
  */
 export function useBaseplate(id, customizations = {}) {
     let svg = loadBaseplate(id);
-    
+
     // Apply text customizations
     for (const [field, value] of Object.entries(customizations)) {
         // Replace data-field content
@@ -126,7 +126,7 @@ export function useBaseplate(id, customizations = {}) {
         );
         svg = svg.replace(fieldRegex, `$1${escapeXml(value)}$3`);
     }
-    
+
     return svg;
 }
 
@@ -154,7 +154,7 @@ export function getBaseplateDataUrl(id, customizations = {}) {
     const svg = Object.keys(customizations).length > 0
         ? useBaseplate(id, customizations)
         : loadBaseplate(id);
-    
+
     const encoded = Buffer.from(svg).toString('base64');
     return `data:image/svg+xml;base64,${encoded}`;
 }
@@ -169,11 +169,11 @@ export function getBaseplateEncodedUrl(id, customizations = {}) {
     const svg = Object.keys(customizations).length > 0
         ? useBaseplate(id, customizations)
         : loadBaseplate(id);
-    
+
     const encoded = encodeURIComponent(svg)
         .replace(/'/g, '%27')
         .replace(/"/g, '%22');
-    
+
     return `data:image/svg+xml,${encoded}`;
 }
 
@@ -187,13 +187,13 @@ export function getBaseplateFields(id) {
     const fieldRegex = /data-field="([^"]+)"/g;
     const fields = [];
     let match;
-    
+
     while ((match = fieldRegex.exec(svg)) !== null) {
         if (!fields.includes(match[1])) {
             fields.push(match[1]);
         }
     }
-    
+
     return fields;
 }
 
@@ -204,13 +204,13 @@ export function getBaseplateFields(id) {
  */
 export function discoverBaseplates(dir = BASEPLATES_DIR) {
     const discovered = [];
-    
+
     function scanDir(currentDir, prefix = '') {
         const entries = readdirSync(currentDir, { withFileTypes: true });
-        
+
         for (const entry of entries) {
             const path = join(currentDir, entry.name);
-            
+
             if (entry.isDirectory() && entry.name !== 'node_modules') {
                 scanDir(path, join(prefix, entry.name));
             } else if (entry.isFile() && extname(entry.name) === '.svg') {
@@ -222,7 +222,7 @@ export function discoverBaseplates(dir = BASEPLATES_DIR) {
             }
         }
     }
-    
+
     scanDir(dir);
     return discovered;
 }

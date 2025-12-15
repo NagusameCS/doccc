@@ -1,240 +1,692 @@
 {
-  "version": "1.0.0",
-  "baseplates": [
-    {
-      "id": "terminal-dark",
-      "name": "Dark Terminal",
-      "category": "code",
-      "description": "Dark terminal window with syntax highlighting and typing animation",
-      "preview": "terminal-dark.svg",
-      "file": "code/terminal-dark.svg",
-      "tags": ["terminal", "code", "dark", "animated"],
-      "animations": ["fadeSlide", "blink"],
-      "customizable": {
-        "filename": { "type": "text", "default": "terminal" },
-        "commands": { "type": "array", "default": [] },
-        "theme": { "type": "select", "options": ["dark", "light", "dracula", "monokai"] }
-      },
-      "author": "doccc",
-      "downloads": 0,
-      "featured": true
-    },
-    {
-      "id": "editor-window",
-      "name": "Code Editor",
-      "category": "code",
-      "description": "VS Code-style editor window with line numbers and syntax colors",
-      "preview": "editor-window.svg",
-      "file": "code/editor-window.svg",
-      "tags": ["editor", "code", "vscode", "syntax"],
-      "animations": ["fadeSlide", "highlight"],
-      "customizable": {
-        "filename": { "type": "text", "default": "index.js" },
-        "language": { "type": "select", "options": ["javascript", "typescript", "python", "json"] },
-        "lines": { "type": "array", "default": [] }
-      },
-      "author": "doccc",
-      "downloads": 0,
-      "featured": true
-    },
-    {
-      "id": "feature-card",
-      "name": "Feature Card",
-      "category": "cards",
-      "description": "Rounded card with icon, title, and description",
-      "preview": "feature-card.svg",
-      "file": "cards/feature-card.svg",
-      "tags": ["card", "feature", "icon", "minimal"],
-      "animations": ["fadeIn", "scaleIn"],
-      "customizable": {
-        "title": { "type": "text", "default": "Feature" },
-        "description": { "type": "text", "default": "Description text" },
-        "icon": { "type": "icon", "default": "star" },
-        "color": { "type": "color", "default": "#3b82f6" }
-      },
-      "author": "doccc",
-      "downloads": 0,
-      "featured": true
-    },
-    {
-      "id": "stats-card",
-      "name": "Stats Card",
-      "category": "cards",
-      "description": "Compact stats display with label and value",
-      "preview": "stats-card.svg",
-      "file": "cards/stats-card.svg",
-      "tags": ["stats", "numbers", "badge", "compact"],
-      "animations": ["countUp", "fadeIn"],
-      "customizable": {
-        "label": { "type": "text", "default": "Downloads" },
-        "value": { "type": "text", "default": "10K" },
-        "color": { "type": "color", "default": "#22c55e" }
-      },
-      "author": "doccc",
-      "downloads": 0,
-      "featured": false
-    },
-    {
-      "id": "hero-banner",
-      "name": "Hero Banner",
-      "category": "headers",
-      "description": "Large hero section with gradient background and title",
-      "preview": "hero-banner.svg",
-      "file": "headers/hero-banner.svg",
-      "tags": ["hero", "header", "gradient", "title"],
-      "animations": ["gradientShift", "fadeIn", "particles"],
-      "customizable": {
-        "title": { "type": "text", "default": "Project Name" },
-        "subtitle": { "type": "text", "default": "A short description" },
-        "gradientStart": { "type": "color", "default": "#3b82f6" },
-        "gradientEnd": { "type": "color", "default": "#8b5cf6" }
-      },
-      "author": "doccc",
-      "downloads": 0,
-      "featured": true
-    },
-    {
-      "id": "timeline-horizontal",
-      "name": "Horizontal Timeline",
-      "category": "diagrams",
-      "description": "Horizontal roadmap/timeline with milestone nodes",
-      "preview": "timeline-horizontal.svg",
-      "file": "diagrams/timeline-horizontal.svg",
-      "tags": ["timeline", "roadmap", "milestones", "progress"],
-      "animations": ["drawLine", "fadeIn", "pulse"],
-      "customizable": {
-        "nodes": { "type": "array", "default": [] },
-        "lineColor": { "type": "color", "default": "#22c55e" }
-      },
-      "author": "doccc",
-      "downloads": 0,
-      "featured": false
-    },
-    {
-      "id": "flow-pipeline",
-      "name": "Pipeline Flow",
-      "category": "diagrams",
-      "description": "Horizontal flow diagram with connected nodes",
-      "preview": "flow-pipeline.svg",
-      "file": "diagrams/flow-pipeline.svg",
-      "tags": ["pipeline", "flow", "process", "steps"],
-      "animations": ["drawLine", "flowRight", "fadeIn"],
-      "customizable": {
-        "nodes": { "type": "array", "default": [] },
-        "arrowColor": { "type": "color", "default": "#3b82f6" }
-      },
-      "author": "doccc",
-      "downloads": 0,
-      "featured": false
-    },
-    {
-      "id": "architecture-cards",
-      "name": "Architecture Diagram",
-      "category": "diagrams",
-      "description": "Three-column architecture layout with connected cards",
-      "preview": "architecture-cards.svg",
-      "file": "diagrams/architecture-cards.svg",
-      "tags": ["architecture", "system", "diagram", "cards"],
-      "animations": ["fadeIn", "drawLine"],
-      "customizable": {
-        "cards": { "type": "array", "default": [] }
-      },
-      "author": "doccc",
-      "downloads": 0,
-      "featured": false
-    },
-    {
-      "id": "cta-buttons",
-      "name": "CTA Buttons",
-      "category": "buttons",
-      "description": "Call-to-action button group with icons",
-      "preview": "cta-buttons.svg",
-      "file": "buttons/cta-buttons.svg",
-      "tags": ["button", "cta", "action", "icon"],
-      "animations": ["pulse", "hover"],
-      "customizable": {
-        "buttons": { "type": "array", "default": [] }
-      },
-      "author": "doccc",
-      "downloads": 0,
-      "featured": false
-    },
-    {
-      "id": "badge-animated",
-      "name": "Animated Badge",
-      "category": "badges",
-      "description": "Shield-style badge with pulse animation",
-      "preview": "badge-animated.svg",
-      "file": "badges/badge-animated.svg",
-      "tags": ["badge", "shield", "status", "animated"],
-      "animations": ["pulse", "shimmer"],
-      "customizable": {
-        "label": { "type": "text", "default": "version" },
-        "value": { "type": "text", "default": "1.0.0" },
-        "color": { "type": "color", "default": "#22c55e" }
-      },
-      "author": "doccc",
-      "downloads": 0,
-      "featured": false
-    },
-    {
-      "id": "pie-chart",
-      "name": "Pie Chart",
-      "category": "charts",
-      "description": "Animated pie/donut chart with legend",
-      "preview": "pie-chart.svg",
-      "file": "charts/pie-chart.svg",
-      "tags": ["chart", "pie", "donut", "data"],
-      "animations": ["drawSegment", "fadeIn"],
-      "customizable": {
-        "segments": { "type": "array", "default": [] },
-        "donut": { "type": "boolean", "default": true }
-      },
-      "author": "doccc",
-      "downloads": 0,
-      "featured": false
-    },
-    {
-      "id": "bar-chart",
-      "name": "Bar Chart",
-      "category": "charts",
-      "description": "Horizontal or vertical bar chart with labels",
-      "preview": "bar-chart.svg",
-      "file": "charts/bar-chart.svg",
-      "tags": ["chart", "bar", "graph", "data"],
-      "animations": ["growBar", "fadeIn"],
-      "customizable": {
-        "bars": { "type": "array", "default": [] },
-        "orientation": { "type": "select", "options": ["horizontal", "vertical"] }
-      },
-      "author": "doccc",
-      "downloads": 0,
-      "featured": false
+    "version": "1.0.0",
+    "baseplates": [
+        {
+            "id": "terminal-dark",
+            "name": "Dark Terminal",
+            "category": "code",
+            "description": "Dark terminal window with syntax highlighting and typing animation",
+            "preview": "terminal-dark.svg",
+            "file": "code/terminal-dark.svg",
+            "tags": [
+                "terminal",
+                "code",
+                "dark",
+                "animated"
+            ],
+            "animations": [
+                "fadeSlide",
+                "blink"
+            ],
+            "customizable": {
+                "filename": {
+                    "type": "text",
+                    "default": "terminal"
+                },
+                "commands": {
+                    "type": "array",
+                    "default": []
+                },
+                "theme": {
+                    "type": "select",
+                    "options": [
+                        "dark",
+                        "light",
+                        "dracula",
+                        "monokai"
+                    ]
+                }
+            },
+            "author": "doccc",
+            "downloads": 0,
+            "featured": true
+        },
+        {
+            "id": "editor-window",
+            "name": "Code Editor",
+            "category": "code",
+            "description": "VS Code-style editor window with line numbers and syntax colors",
+            "preview": "editor-window.svg",
+            "file": "code/editor-window.svg",
+            "tags": [
+                "editor",
+                "code",
+                "vscode",
+                "syntax"
+            ],
+            "animations": [
+                "fadeSlide",
+                "highlight"
+            ],
+            "customizable": {
+                "filename": {
+                    "type": "text",
+                    "default": "index.js"
+                },
+                "language": {
+                    "type": "select",
+                    "options": [
+                        "javascript",
+                        "typescript",
+                        "python",
+                        "json"
+                    ]
+                },
+                "lines": {
+                    "type": "array",
+                    "default": []
+                }
+            },
+            "author": "doccc",
+            "downloads": 0,
+            "featured": true
+        },
+        {
+            "id": "feature-card",
+            "name": "Feature Card",
+            "category": "cards",
+            "description": "Rounded card with icon, title, and description",
+            "preview": "feature-card.svg",
+            "file": "cards/feature-card.svg",
+            "tags": [
+                "card",
+                "feature",
+                "icon",
+                "minimal"
+            ],
+            "animations": [
+                "fadeIn",
+                "scaleIn"
+            ],
+            "customizable": {
+                "title": {
+                    "type": "text",
+                    "default": "Feature"
+                },
+                "description": {
+                    "type": "text",
+                    "default": "Description text"
+                },
+                "icon": {
+                    "type": "icon",
+                    "default": "star"
+                },
+                "color": {
+                    "type": "color",
+                    "default": "#3b82f6"
+                }
+            },
+            "author": "doccc",
+            "downloads": 0,
+            "featured": true
+        },
+        {
+            "id": "stats-card",
+            "name": "Stats Card",
+            "category": "cards",
+            "description": "Compact stats display with label and value",
+            "preview": "stats-card.svg",
+            "file": "cards/stats-card.svg",
+            "tags": [
+                "stats",
+                "numbers",
+                "badge",
+                "compact"
+            ],
+            "animations": [
+                "countUp",
+                "fadeIn"
+            ],
+            "customizable": {
+                "label": {
+                    "type": "text",
+                    "default": "Downloads"
+                },
+                "value": {
+                    "type": "text",
+                    "default": "10K"
+                },
+                "color": {
+                    "type": "color",
+                    "default": "#22c55e"
+                }
+            },
+            "author": "doccc",
+            "downloads": 0,
+            "featured": false
+        },
+        {
+            "id": "hero-banner",
+            "name": "Hero Banner",
+            "category": "headers",
+            "description": "Large hero section with gradient background and title",
+            "preview": "hero-banner.svg",
+            "file": "headers/hero-banner.svg",
+            "tags": [
+                "hero",
+                "header",
+                "gradient",
+                "title"
+            ],
+            "animations": [
+                "gradientShift",
+                "fadeIn",
+                "particles"
+            ],
+            "customizable": {
+                "title": {
+                    "type": "text",
+                    "default": "Project Name"
+                },
+                "subtitle": {
+                    "type": "text",
+                    "default": "A short description"
+                },
+                "gradientStart": {
+                    "type": "color",
+                    "default": "#3b82f6"
+                },
+                "gradientEnd": {
+                    "type": "color",
+                    "default": "#8b5cf6"
+                }
+            },
+            "author": "doccc",
+            "downloads": 0,
+            "featured": true
+        },
+        {
+            "id": "timeline-horizontal",
+            "name": "Horizontal Timeline",
+            "category": "diagrams",
+            "description": "Horizontal roadmap/timeline with milestone nodes",
+            "preview": "timeline-horizontal.svg",
+            "file": "diagrams/timeline-horizontal.svg",
+            "tags": [
+                "timeline",
+                "roadmap",
+                "milestones",
+                "progress"
+            ],
+            "animations": [
+                "drawLine",
+                "fadeIn",
+                "pulse"
+            ],
+            "customizable": {
+                "nodes": {
+                    "type": "array",
+                    "default": []
+                },
+                "lineColor": {
+                    "type": "color",
+                    "default": "#22c55e"
+                }
+            },
+            "author": "doccc",
+            "downloads": 0,
+            "featured": false
+        },
+        {
+            "id": "flow-pipeline",
+            "name": "Pipeline Flow",
+            "category": "diagrams",
+            "description": "Horizontal flow diagram with connected nodes",
+            "preview": "flow-pipeline.svg",
+            "file": "diagrams/flow-pipeline.svg",
+            "tags": [
+                "pipeline",
+                "flow",
+                "process",
+                "steps"
+            ],
+            "animations": [
+                "drawLine",
+                "flowRight",
+                "fadeIn"
+            ],
+            "customizable": {
+                "nodes": {
+                    "type": "array",
+                    "default": []
+                },
+                "arrowColor": {
+                    "type": "color",
+                    "default": "#3b82f6"
+                }
+            },
+            "author": "doccc",
+            "downloads": 0,
+            "featured": false
+        },
+        {
+            "id": "architecture-cards",
+            "name": "Architecture Diagram",
+            "category": "diagrams",
+            "description": "Three-column architecture layout with connected cards",
+            "preview": "architecture-cards.svg",
+            "file": "diagrams/architecture-cards.svg",
+            "tags": [
+                "architecture",
+                "system",
+                "diagram",
+                "cards"
+            ],
+            "animations": [
+                "fadeIn",
+                "drawLine"
+            ],
+            "customizable": {
+                "cards": {
+                    "type": "array",
+                    "default": []
+                }
+            },
+            "author": "doccc",
+            "downloads": 0,
+            "featured": false
+        },
+        {
+            "id": "cta-buttons",
+            "name": "CTA Buttons",
+            "category": "buttons",
+            "description": "Call-to-action button group with icons",
+            "preview": "cta-buttons.svg",
+            "file": "buttons/cta-buttons.svg",
+            "tags": [
+                "button",
+                "cta",
+                "action",
+                "icon"
+            ],
+            "animations": [
+                "pulse",
+                "hover"
+            ],
+            "customizable": {
+                "buttons": {
+                    "type": "array",
+                    "default": []
+                }
+            },
+            "author": "doccc",
+            "downloads": 0,
+            "featured": false
+        },
+        {
+            "id": "badge-animated",
+            "name": "Animated Badge",
+            "category": "badges",
+            "description": "Shield-style badge with pulse animation",
+            "preview": "badge-animated.svg",
+            "file": "badges/badge-animated.svg",
+            "tags": [
+                "badge",
+                "shield",
+                "status",
+                "animated"
+            ],
+            "animations": [
+                "pulse",
+                "shimmer"
+            ],
+            "customizable": {
+                "label": {
+                    "type": "text",
+                    "default": "version"
+                },
+                "value": {
+                    "type": "text",
+                    "default": "1.0.0"
+                },
+                "color": {
+                    "type": "color",
+                    "default": "#22c55e"
+                }
+            },
+            "author": "doccc",
+            "downloads": 0,
+            "featured": false
+        },
+        {
+            "id": "pie-chart",
+            "name": "Pie Chart",
+            "category": "charts",
+            "description": "Animated pie/donut chart with legend",
+            "preview": "pie-chart.svg",
+            "file": "charts/pie-chart.svg",
+            "tags": [
+                "chart",
+                "pie",
+                "donut",
+                "data"
+            ],
+            "animations": [
+                "drawSegment",
+                "fadeIn"
+            ],
+            "customizable": {
+                "segments": {
+                    "type": "array",
+                    "default": []
+                },
+                "donut": {
+                    "type": "boolean",
+                    "default": true
+                }
+            },
+            "author": "doccc",
+            "downloads": 0,
+            "featured": false
+        },
+        {
+            "id": "bar-chart",
+            "name": "Bar Chart",
+            "category": "charts",
+            "description": "Horizontal or vertical bar chart with labels",
+            "preview": "bar-chart.svg",
+            "file": "charts/bar-chart.svg",
+            "tags": [
+                "chart",
+                "bar",
+                "graph",
+                "data"
+            ],
+            "animations": [
+                "growBar",
+                "fadeIn"
+            ],
+            "customizable": {
+                "bars": {
+                    "type": "array",
+                    "default": []
+                },
+                "orientation": {
+                    "type": "select",
+                    "options": [
+                        "horizontal",
+                        "vertical"
+                    ]
+                }
+            },
+            "author": "doccc",
+            "downloads": 0,
+            "featured": false
+        },
+        {
+            "id": "commit-snake",
+            "name": "Commit Snake",
+            "category": "interactive",
+            "description": "Snake game that eats through your commit history",
+            "preview": "commit-snake.svg",
+            "file": "interactive/commit-snake.svg",
+            "tags": [
+                "snake",
+                "game",
+                "commits",
+                "github",
+                "animated",
+                "interactive"
+            ],
+            "animations": [
+                "slither",
+                "snakeMove",
+                "eatCommit"
+            ],
+            "customizable": {
+                "title": {
+                    "type": "text",
+                    "default": "Commit History"
+                },
+                "hash1": {
+                    "type": "text",
+                    "default": "a1b2c3d"
+                },
+                "msg1": {
+                    "type": "text",
+                    "default": "Initial commit"
+                },
+                "hash2": {
+                    "type": "text",
+                    "default": "e4f5g6h"
+                },
+                "msg2": {
+                    "type": "text",
+                    "default": "Add feature"
+                },
+                "hash3": {
+                    "type": "text",
+                    "default": "i7j8k9l"
+                },
+                "msg3": {
+                    "type": "text",
+                    "default": "Fix bug"
+                }
+            },
+            "author": "doccc",
+            "downloads": 0,
+            "featured": true
+        },
+        {
+            "id": "profile-music",
+            "name": "Profile Music Reveal",
+            "category": "interactive",
+            "description": "Spinning profile picture that reveals favorite song on hover",
+            "preview": "profile-music.svg",
+            "file": "interactive/profile-music.svg",
+            "tags": [
+                "profile",
+                "music",
+                "spotify",
+                "hover",
+                "interactive",
+                "animated"
+            ],
+            "animations": [
+                "spin",
+                "reveal",
+                "noteFloat"
+            ],
+            "customizable": {
+                "username": {
+                    "type": "text",
+                    "default": "@username"
+                },
+                "songTitle": {
+                    "type": "text",
+                    "default": "Favourite Song"
+                },
+                "artistName": {
+                    "type": "text",
+                    "default": "Artist Name"
+                },
+                "musicLink": {
+                    "type": "url",
+                    "default": "https://open.spotify.com"
+                }
+            },
+            "author": "doccc",
+            "downloads": 0,
+            "featured": true
+        },
+        {
+            "id": "ufo-abduction",
+            "name": "UFO Cow Abduction",
+            "category": "interactive",
+            "description": "UFO flies in, zaps a cow with tractor beam, and flies off",
+            "preview": "ufo-abduction.svg",
+            "file": "interactive/ufo-abduction.svg",
+            "tags": [
+                "ufo",
+                "cow",
+                "abduction",
+                "funny",
+                "animated",
+                "interactive"
+            ],
+            "animations": [
+                "ufoFly",
+                "beamPulse",
+                "cowFloat",
+                "twinkle"
+            ],
+            "customizable": {
+                "title": {
+                    "type": "text",
+                    "default": "Strange Lights Reported"
+                }
+            },
+            "author": "doccc",
+            "downloads": 0,
+            "featured": true
+        }
+    ],
+    "categories": [
+        {
+            "id": "code",
+            "name": "Code & Terminal",
+            "icon": "terminal",
+            "description": "Terminal windows, code editors, syntax blocks"
+        },
+        {
+            "id": "cards",
+            "name": "Cards",
+            "icon": "card",
+            "description": "Feature cards, info cards, stats displays"
+        },
+        {
+            "id": "headers",
+            "name": "Headers & Heroes",
+            "icon": "header",
+            "description": "Hero banners, page headers, title blocks"
+        },
+        {
+            "id": "diagrams",
+            "name": "Diagrams",
+            "icon": "diagram",
+            "description": "Flowcharts, timelines, architecture diagrams"
+        },
+        {
+            "id": "buttons",
+            "name": "Buttons",
+            "icon": "button",
+            "description": "CTA buttons, action groups, links"
+        },
+        {
+            "id": "badges",
+            "name": "Badges",
+            "icon": "badge",
+            "description": "Status badges, shields, labels"
+        },
+        {
+            "id": "charts",
+            "name": "Charts",
+            "icon": "chart",
+            "description": "Pie charts, bar charts, data visualizations"
+        },
+        {
+            "id": "interactive",
+            "name": "Interactive",
+            "icon": "game",
+            "description": "Fun animated and interactive elements"
+        }
+    ],
+    "animations": {
+        "fadeIn": {
+            "name": "Fade In",
+            "keyframes": "from { opacity: 0; } to { opacity: 1; }"
+        },
+        "fadeSlide": {
+            "name": "Fade Slide",
+            "keyframes": "from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); }"
+        },
+        "scaleIn": {
+            "name": "Scale In",
+            "keyframes": "from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); }"
+        },
+        "drawLine": {
+            "name": "Draw Line",
+            "keyframes": "from { stroke-dashoffset: 500; } to { stroke-dashoffset: 0; }"
+        },
+        "pulse": {
+            "name": "Pulse",
+            "keyframes": "0%, 100% { opacity: 1; } 50% { opacity: 0.6; }"
+        },
+        "blink": {
+            "name": "Blink",
+            "keyframes": "0%, 100% { opacity: 1; } 50% { opacity: 0; }"
+        },
+        "gradientShift": {
+            "name": "Gradient Shift",
+            "keyframes": "0% { stop-color: var(--start); } 50% { stop-color: var(--end); } 100% { stop-color: var(--start); }"
+        },
+        "flowRight": {
+            "name": "Flow Right",
+            "keyframes": "from { transform: translateX(-100%); } to { transform: translateX(100%); }"
+        },
+        "shimmer": {
+            "name": "Shimmer",
+            "keyframes": "0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; }"
+        },
+        "countUp": {
+            "name": "Count Up",
+            "keyframes": "from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); }"
+        },
+        "growBar": {
+            "name": "Grow Bar",
+            "keyframes": "from { transform: scaleX(0); } to { transform: scaleX(1); }"
+        },
+        "drawSegment": {
+            "name": "Draw Segment",
+            "keyframes": "from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; }"
+        },
+        "float": {
+            "name": "Float",
+            "keyframes": "0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); }"
+        },
+        "highlight": {
+            "name": "Highlight",
+            "keyframes": "0%, 100% { background: transparent; } 50% { background: rgba(255, 255, 255, 0.05); }"
+        },
+        "slither": {
+            "name": "Slither",
+            "keyframes": "0%, 100% { transform: translateY(0); } 25% { transform: translateY(-3px); } 75% { transform: translateY(3px); }"
+        },
+        "snakeMove": {
+            "name": "Snake Move",
+            "keyframes": "0% { transform: translateX(-100px); } 100% { transform: translateX(850px); }"
+        },
+        "eatCommit": {
+            "name": "Eat Commit",
+            "keyframes": "0%, 15% { opacity: 1; } 16%, 100% { opacity: 0; }"
+        },
+        "spin": {
+            "name": "Spin",
+            "keyframes": "from { transform: rotate(0deg); } to { transform: rotate(360deg); }"
+        },
+        "reveal": {
+            "name": "Reveal",
+            "keyframes": "from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; }"
+        },
+        "noteFloat": {
+            "name": "Note Float",
+            "keyframes": "0% { opacity: 0; transform: translate(0, 0) scale(0.5); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(20px, -40px) scale(1); }"
+        },
+        "ufoFly": {
+            "name": "UFO Fly",
+            "keyframes": "0% { transform: translate(-150px, 50px); } 20% { transform: translate(150px, 0px); } 50% { transform: translate(150px, 0px); } 70% { transform: translate(400px, -80px); } 100% { transform: translate(750px, -150px); }"
+        },
+        "beamPulse": {
+            "name": "Beam Pulse",
+            "keyframes": "0%, 20%, 55%, 100% { opacity: 0; transform: scaleY(0); } 25%, 50% { opacity: 1; transform: scaleY(1); }"
+        },
+        "cowFloat": {
+            "name": "Cow Float",
+            "keyframes": "0%, 20% { transform: translate(0, 0); } 40% { transform: translate(0, -80px) rotate(10deg); } 50% { transform: translate(0, -100px); opacity: 1; } 51%, 100% { opacity: 0; }"
+        },
+        "twinkle": {
+            "name": "Twinkle",
+            "keyframes": "0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); }"
+        }
     }
-  ],
-  "categories": [
-    { "id": "code", "name": "Code & Terminal", "icon": "terminal", "description": "Terminal windows, code editors, syntax blocks" },
-    { "id": "cards", "name": "Cards", "icon": "card", "description": "Feature cards, info cards, stats displays" },
-    { "id": "headers", "name": "Headers & Heroes", "icon": "header", "description": "Hero banners, page headers, title blocks" },
-    { "id": "diagrams", "name": "Diagrams", "icon": "diagram", "description": "Flowcharts, timelines, architecture diagrams" },
-    { "id": "buttons", "name": "Buttons", "icon": "button", "description": "CTA buttons, action groups, links" },
-    { "id": "badges", "name": "Badges", "icon": "badge", "description": "Status badges, shields, labels" },
-    { "id": "charts", "name": "Charts", "icon": "chart", "description": "Pie charts, bar charts, data visualizations" }
-  ],
-  "animations": {
-    "fadeIn": { "name": "Fade In", "keyframes": "from { opacity: 0; } to { opacity: 1; }" },
-    "fadeSlide": { "name": "Fade Slide", "keyframes": "from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); }" },
-    "scaleIn": { "name": "Scale In", "keyframes": "from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); }" },
-    "drawLine": { "name": "Draw Line", "keyframes": "from { stroke-dashoffset: 500; } to { stroke-dashoffset: 0; }" },
-    "pulse": { "name": "Pulse", "keyframes": "0%, 100% { opacity: 1; } 50% { opacity: 0.6; }" },
-    "blink": { "name": "Blink", "keyframes": "0%, 100% { opacity: 1; } 50% { opacity: 0; }" },
-    "gradientShift": { "name": "Gradient Shift", "keyframes": "0% { stop-color: var(--start); } 50% { stop-color: var(--end); } 100% { stop-color: var(--start); }" },
-    "flowRight": { "name": "Flow Right", "keyframes": "from { transform: translateX(-100%); } to { transform: translateX(100%); }" },
-    "shimmer": { "name": "Shimmer", "keyframes": "0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; }" },
-    "countUp": { "name": "Count Up", "keyframes": "from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); }" },
-    "growBar": { "name": "Grow Bar", "keyframes": "from { transform: scaleX(0); } to { transform: scaleX(1); }" },
-    "drawSegment": { "name": "Draw Segment", "keyframes": "from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; }" },
-    "float": { "name": "Float", "keyframes": "0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); }" },
-    "highlight": { "name": "Highlight", "keyframes": "0%, 100% { background: transparent; } 50% { background: rgba(255, 255, 255, 0.05); }" }
-  }
 }

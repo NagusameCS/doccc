@@ -3,289 +3,289 @@
    ======================================== */
 
 .timeline-panel {
-  height: var(--timeline-height);
-  background: var(--bg-secondary);
-  border-top: 1px solid var(--border-color);
-  display: flex;
-  flex-direction: column;
+    height: var(--timeline-height);
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
 }
 
 .timeline-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 16px;
-  border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .timeline-header h4 {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
 }
 
 .timeline-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .timeline-time {
-  font-family: 'SF Mono', Consolas, monospace;
-  font-size: 12px;
-  color: var(--text-primary);
-  min-width: 50px;
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 12px;
+    color: var(--text-primary);
+    min-width: 50px;
 }
 
 .timeline-controls input[type="number"] {
-  width: 50px;
-  padding: 4px 8px;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  color: var(--text-primary);
-  font-size: 12px;
-  text-align: center;
+    width: 50px;
+    padding: 4px 8px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-size: 12px;
+    text-align: center;
 }
 
 .timeline-content {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
+    flex: 1;
+    display: flex;
+    overflow: hidden;
 }
 
 /* Timeline Layers Column */
 .timeline-layers {
-  width: 180px;
-  background: var(--bg-tertiary);
-  border-right: 1px solid var(--border-color);
-  overflow-y: auto;
+    width: 180px;
+    background: var(--bg-tertiary);
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
 }
 
 .timeline-layer {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 28px;
-  padding: 0 12px;
-  border-bottom: 1px solid var(--border-subtle);
-  font-size: 11px;
-  color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 28px;
+    padding: 0 12px;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 11px;
+    color: var(--text-secondary);
 }
 
 .timeline-layer.selected {
-  background: rgba(59, 130, 246, 0.15);
-  color: var(--text-primary);
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--text-primary);
 }
 
 .timeline-layer-icon {
-  width: 14px;
-  height: 14px;
-  color: var(--text-muted);
+    width: 14px;
+    height: 14px;
+    color: var(--text-muted);
 }
 
 .timeline-layer-name {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* Timeline Tracks Area */
 .timeline-tracks {
-  flex: 1;
-  position: relative;
-  overflow-x: auto;
-  overflow-y: auto;
+    flex: 1;
+    position: relative;
+    overflow-x: auto;
+    overflow-y: auto;
 }
 
 /* Ruler */
 .timeline-ruler {
-  height: 24px;
-  background: var(--bg-primary);
-  border-bottom: 1px solid var(--border-color);
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  display: flex;
+    height: 24px;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: flex;
 }
 
 .ruler-tick {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .ruler-tick::after {
-  content: '';
-  width: 1px;
-  height: 8px;
-  background: var(--border-color);
-  margin-top: auto;
+    content: '';
+    width: 1px;
+    height: 8px;
+    background: var(--border-color);
+    margin-top: auto;
 }
 
 .ruler-tick.major::after {
-  height: 14px;
-  background: var(--text-muted);
+    height: 14px;
+    background: var(--text-muted);
 }
 
 .ruler-label {
-  font-size: 9px;
-  color: var(--text-muted);
-  margin-top: 4px;
+    font-size: 9px;
+    color: var(--text-muted);
+    margin-top: 4px;
 }
 
 /* Keyframes Area */
 .timeline-keyframes {
-  position: relative;
-  min-height: calc(100% - 24px);
+    position: relative;
+    min-height: calc(100% - 24px);
 }
 
 .keyframe-track {
-  height: 28px;
-  border-bottom: 1px solid var(--border-subtle);
-  position: relative;
+    height: 28px;
+    border-bottom: 1px solid var(--border-subtle);
+    position: relative;
 }
 
 .keyframe-track.selected {
-  background: rgba(59, 130, 246, 0.05);
+    background: rgba(59, 130, 246, 0.05);
 }
 
 /* Keyframe Points */
 .keyframe {
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(45deg);
-  width: 10px;
-  height: 10px;
-  background: var(--accent-primary);
-  border: 2px solid white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  z-index: 2;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background: var(--accent-primary);
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    z-index: 2;
 }
 
 .keyframe:hover {
-  transform: translate(-50%, -50%) rotate(45deg) scale(1.2);
+    transform: translate(-50%, -50%) rotate(45deg) scale(1.2);
 }
 
 .keyframe.selected {
-  background: var(--accent-secondary);
+    background: var(--accent-secondary);
 }
 
 /* Animation Bar */
 .animation-bar {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 6px;
-  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-  border-radius: 3px;
-  opacity: 0.6;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 6px;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 3px;
+    opacity: 0.6;
 }
 
 /* Playhead */
 .timeline-playhead {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--accent-danger);
-  z-index: 10;
-  cursor: ew-resize;
-  left: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--accent-danger);
+    z-index: 10;
+    cursor: ew-resize;
+    left: 0;
 }
 
 .timeline-playhead::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -5px;
-  width: 12px;
-  height: 12px;
-  background: var(--accent-danger);
-  clip-path: polygon(50% 100%, 0 0, 100% 0);
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -5px;
+    width: 12px;
+    height: 12px;
+    background: var(--accent-danger);
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
 }
 
 /* Easing Curve Preview */
 .easing-preview {
-  width: 80px;
-  height: 40px;
-  background: var(--bg-primary);
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  margin-top: 8px;
+    width: 80px;
+    height: 40px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin-top: 8px;
 }
 
 .easing-curve {
-  fill: none;
-  stroke: var(--accent-primary);
-  stroke-width: 2;
+    fill: none;
+    stroke: var(--accent-primary);
+    stroke-width: 2;
 }
 
 /* Timeline Actions */
 .timeline-actions {
-  display: flex;
-  gap: 4px;
-  padding: 8px 12px;
-  background: var(--bg-tertiary);
-  border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 4px;
+    padding: 8px 12px;
+    background: var(--bg-tertiary);
+    border-top: 1px solid var(--border-color);
 }
 
 .timeline-action-btn {
-  padding: 4px 10px;
-  background: transparent;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  color: var(--text-secondary);
-  font-size: 11px;
-  cursor: pointer;
-  transition: var(--transition-fast);
+    padding: 4px 10px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-secondary);
+    font-size: 11px;
+    cursor: pointer;
+    transition: var(--transition-fast);
 }
 
 .timeline-action-btn:hover {
-  background: var(--bg-secondary);
-  border-color: var(--accent-primary);
-  color: var(--text-primary);
+    background: var(--bg-secondary);
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
 }
 
 /* Keyframe Editor Popover */
 .keyframe-editor {
-  position: absolute;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 12px;
-  width: 200px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  z-index: 100;
+    position: absolute;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px;
+    width: 200px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    z-index: 100;
 }
 
 .keyframe-editor h5 {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
 }
 
 .keyframe-editor .property-row {
-  margin-bottom: 8px;
+    margin-bottom: 8px;
 }
 
 .keyframe-editor label {
-  font-size: 10px;
-  color: var(--text-muted);
+    font-size: 10px;
+    color: var(--text-muted);
 }
 
 .keyframe-editor input {
-  flex: 1;
-  padding: 4px 6px;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  color: var(--text-primary);
-  font-size: 11px;
+    flex: 1;
+    padding: 4px 6px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-size: 11px;
 }

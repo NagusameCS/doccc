@@ -1,451 +1,460 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Doccc Baseplate Editor</title>
-  <link rel="stylesheet" href="css/editor.css">
-  <link rel="stylesheet" href="css/panels.css">
-  <link rel="stylesheet" href="css/timeline.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doccc Baseplate Editor</title>
+    <link rel="stylesheet" href="css/editor.css">
+    <link rel="stylesheet" href="css/panels.css">
+    <link rel="stylesheet" href="css/timeline.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
 </head>
+
 <body>
-  <div id="app">
-    <!-- Top Toolbar -->
-    <header class="toolbar">
-      <div class="toolbar-left">
-        <div class="logo">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <polyline points="14 2 14 8 20 8" fill="none" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          <span>Doccc Editor</span>
-        </div>
-        <div class="toolbar-divider"></div>
-        <button class="tool-btn" data-tool="select" title="Select (V)">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/>
-          </svg>
-        </button>
-        <button class="tool-btn" data-tool="move" title="Move (H)">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="5 9 2 12 5 15"/>
-            <polyline points="9 5 12 2 15 5"/>
-            <polyline points="15 19 12 22 9 19"/>
-            <polyline points="19 9 22 12 19 15"/>
-            <line x1="2" y1="12" x2="22" y2="12"/>
-            <line x1="12" y1="2" x2="12" y2="22"/>
-          </svg>
-        </button>
-        <button class="tool-btn" data-tool="rect" title="Rectangle (R)">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="18" height="18" rx="2"/>
-          </svg>
-        </button>
-        <button class="tool-btn" data-tool="circle" title="Circle (O)">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-          </svg>
-        </button>
-        <button class="tool-btn" data-tool="text" title="Text (T)">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="4 7 4 4 20 4 20 7"/>
-            <line x1="9" y1="20" x2="15" y2="20"/>
-            <line x1="12" y1="4" x2="12" y2="20"/>
-          </svg>
-        </button>
-        <button class="tool-btn" data-tool="path" title="Path (P)">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 19l7-7 3 3-7 7-3-3z"/>
-            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
-          </svg>
-        </button>
-      </div>
-      <div class="toolbar-center">
-        <input type="text" id="baseplate-name" placeholder="Untitled Baseplate" value="Untitled Baseplate">
-      </div>
-      <div class="toolbar-right">
-        <button class="btn btn-ghost" id="btn-preview">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-            <circle cx="12" cy="12" r="3"/>
-          </svg>
-          Preview
-        </button>
-        <button class="btn btn-primary" id="btn-export">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
-          Export SVG
-        </button>
-        <button class="btn btn-accent" id="btn-publish">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
-            <polyline points="16 6 12 2 8 6"/>
-            <line x1="12" y1="2" x2="12" y2="15"/>
-          </svg>
-          Publish
-        </button>
-      </div>
-    </header>
+    <div id="app">
+        <!-- Top Toolbar -->
+        <header class="toolbar">
+            <div class="toolbar-left">
+                <div class="logo">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" fill="none" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                    <span>Doccc Editor</span>
+                </div>
+                <div class="toolbar-divider"></div>
+                <button class="tool-btn" data-tool="select" title="Select (V)">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" />
+                    </svg>
+                </button>
+                <button class="tool-btn" data-tool="move" title="Move (H)">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="5 9 2 12 5 15" />
+                        <polyline points="9 5 12 2 15 5" />
+                        <polyline points="15 19 12 22 9 19" />
+                        <polyline points="19 9 22 12 19 15" />
+                        <line x1="2" y1="12" x2="22" y2="12" />
+                        <line x1="12" y1="2" x2="12" y2="22" />
+                    </svg>
+                </button>
+                <button class="tool-btn" data-tool="rect" title="Rectangle (R)">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                    </svg>
+                </button>
+                <button class="tool-btn" data-tool="circle" title="Circle (O)">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                    </svg>
+                </button>
+                <button class="tool-btn" data-tool="text" title="Text (T)">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="4 7 4 4 20 4 20 7" />
+                        <line x1="9" y1="20" x2="15" y2="20" />
+                        <line x1="12" y1="4" x2="12" y2="20" />
+                    </svg>
+                </button>
+                <button class="tool-btn" data-tool="path" title="Path (P)">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 19l7-7 3 3-7 7-3-3z" />
+                        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+                    </svg>
+                </button>
+            </div>
+            <div class="toolbar-center">
+                <input type="text" id="baseplate-name" placeholder="Untitled Baseplate" value="Untitled Baseplate">
+            </div>
+            <div class="toolbar-right">
+                <button class="btn btn-ghost" id="btn-preview">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                    Preview
+                </button>
+                <button class="btn btn-primary" id="btn-export">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Export SVG
+                </button>
+                <button class="btn btn-accent" id="btn-publish">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                        <polyline points="16 6 12 2 8 6" />
+                        <line x1="12" y1="2" x2="12" y2="15" />
+                    </svg>
+                    Publish
+                </button>
+            </div>
+        </header>
 
-    <div class="main-container">
-      <!-- Left Panel: Layers & Components -->
-      <aside class="panel panel-left">
-        <div class="panel-tabs">
-          <button class="panel-tab active" data-panel="layers">Layers</button>
-          <button class="panel-tab" data-panel="components">Components</button>
-          <button class="panel-tab" data-panel="community">Community</button>
-        </div>
-        
-        <!-- Layers Panel -->
-        <div class="panel-content" id="panel-layers">
-          <div class="layers-list" id="layers-list">
-            <!-- Dynamically populated -->
-          </div>
-          <div class="panel-footer">
-            <button class="btn-icon" id="btn-add-group" title="Add Group">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
-              </svg>
-            </button>
-            <button class="btn-icon" id="btn-delete-layer" title="Delete Selected">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="3 6 5 6 21 6"/>
-                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-        
-        <!-- Components Panel -->
-        <div class="panel-content hidden" id="panel-components">
-          <div class="component-categories" id="component-categories">
-            <!-- Dynamically populated from baseplates.json -->
-          </div>
-        </div>
-        
-        <!-- Community Panel -->
-        <div class="panel-content hidden" id="panel-community">
-          <div class="search-box">
-            <input type="text" placeholder="Search baseplates..." id="community-search">
-          </div>
-          <div class="community-filters">
-            <button class="filter-btn active" data-filter="featured">Featured</button>
-            <button class="filter-btn" data-filter="popular">Popular</button>
-            <button class="filter-btn" data-filter="recent">Recent</button>
-            <button class="filter-btn" data-filter="mine">My Baseplates</button>
-          </div>
-          <div class="community-list" id="community-list">
-            <!-- Dynamically populated -->
-          </div>
-        </div>
-      </aside>
+        <div class="main-container">
+            <!-- Left Panel: Layers & Components -->
+            <aside class="panel panel-left">
+                <div class="panel-tabs">
+                    <button class="panel-tab active" data-panel="layers">Layers</button>
+                    <button class="panel-tab" data-panel="components">Components</button>
+                    <button class="panel-tab" data-panel="community">Community</button>
+                </div>
 
-      <!-- Canvas Area -->
-      <main class="canvas-container">
-        <div class="canvas-controls">
-          <div class="zoom-controls">
-            <button class="btn-icon" id="zoom-out">−</button>
-            <span id="zoom-level">100%</span>
-            <button class="btn-icon" id="zoom-in">+</button>
-            <button class="btn-icon" id="zoom-fit">Fit</button>
-          </div>
-        </div>
-        <div class="canvas-wrapper" id="canvas-wrapper">
-          <svg id="canvas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
-            <defs id="canvas-defs"></defs>
-            <style id="canvas-styles"></style>
-            <rect id="canvas-bg" x="0" y="0" width="800" height="600" fill="#fafafa"/>
-            <g id="canvas-content"></g>
-            <g id="selection-overlay"></g>
-          </svg>
-        </div>
-      </main>
+                <!-- Layers Panel -->
+                <div class="panel-content" id="panel-layers">
+                    <div class="layers-list" id="layers-list">
+                        <!-- Dynamically populated -->
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn-icon" id="btn-add-group" title="Add Group">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                            </svg>
+                        </button>
+                        <button class="btn-icon" id="btn-delete-layer" title="Delete Selected">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polyline points="3 6 5 6 21 6" />
+                                <path
+                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
 
-      <!-- Right Panel: Properties -->
-      <aside class="panel panel-right">
-        <div class="panel-header">
-          <h3>Properties</h3>
+                <!-- Components Panel -->
+                <div class="panel-content hidden" id="panel-components">
+                    <div class="component-categories" id="component-categories">
+                        <!-- Dynamically populated from baseplates.json -->
+                    </div>
+                </div>
+
+                <!-- Community Panel -->
+                <div class="panel-content hidden" id="panel-community">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search baseplates..." id="community-search">
+                    </div>
+                    <div class="community-filters">
+                        <button class="filter-btn active" data-filter="featured">Featured</button>
+                        <button class="filter-btn" data-filter="popular">Popular</button>
+                        <button class="filter-btn" data-filter="recent">Recent</button>
+                        <button class="filter-btn" data-filter="mine">My Baseplates</button>
+                    </div>
+                    <div class="community-list" id="community-list">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Canvas Area -->
+            <main class="canvas-container">
+                <div class="canvas-controls">
+                    <div class="zoom-controls">
+                        <button class="btn-icon" id="zoom-out">−</button>
+                        <span id="zoom-level">100%</span>
+                        <button class="btn-icon" id="zoom-in">+</button>
+                        <button class="btn-icon" id="zoom-fit">Fit</button>
+                    </div>
+                </div>
+                <div class="canvas-wrapper" id="canvas-wrapper">
+                    <svg id="canvas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+                        <defs id="canvas-defs"></defs>
+                        <style id="canvas-styles"></style>
+                        <rect id="canvas-bg" x="0" y="0" width="800" height="600" fill="#fafafa" />
+                        <g id="canvas-content"></g>
+                        <g id="selection-overlay"></g>
+                    </svg>
+                </div>
+            </main>
+
+            <!-- Right Panel: Properties -->
+            <aside class="panel panel-right">
+                <div class="panel-header">
+                    <h3>Properties</h3>
+                </div>
+
+                <div class="panel-content" id="properties-panel">
+                    <!-- No selection state -->
+                    <div class="empty-state" id="no-selection">
+                        <p>Select an element to edit its properties</p>
+                    </div>
+
+                    <!-- Element properties (hidden by default) -->
+                    <div class="properties-form hidden" id="element-properties">
+                        <!-- Position & Size -->
+                        <div class="property-group">
+                            <h4>Transform</h4>
+                            <div class="property-row">
+                                <label>X</label>
+                                <input type="number" id="prop-x" step="1">
+                                <label>Y</label>
+                                <input type="number" id="prop-y" step="1">
+                            </div>
+                            <div class="property-row">
+                                <label>W</label>
+                                <input type="number" id="prop-width" step="1">
+                                <label>H</label>
+                                <input type="number" id="prop-height" step="1">
+                            </div>
+                            <div class="property-row">
+                                <label>Rotation</label>
+                                <input type="number" id="prop-rotation" step="1" min="0" max="360">
+                                <span>°</span>
+                            </div>
+                        </div>
+
+                        <!-- Fill -->
+                        <div class="property-group">
+                            <h4>Fill</h4>
+                            <div class="property-row">
+                                <input type="color" id="prop-fill" value="#3b82f6">
+                                <input type="text" id="prop-fill-hex" placeholder="#3b82f6">
+                            </div>
+                            <div class="property-row">
+                                <label>Opacity</label>
+                                <input type="range" id="prop-fill-opacity" min="0" max="100" value="100">
+                                <span id="prop-fill-opacity-value">100%</span>
+                            </div>
+                        </div>
+
+                        <!-- Stroke -->
+                        <div class="property-group">
+                            <h4>Stroke</h4>
+                            <div class="property-row">
+                                <input type="color" id="prop-stroke" value="#000000">
+                                <input type="text" id="prop-stroke-hex" placeholder="none">
+                            </div>
+                            <div class="property-row">
+                                <label>Width</label>
+                                <input type="number" id="prop-stroke-width" step="0.5" min="0" value="0">
+                            </div>
+                        </div>
+
+                        <!-- Text properties (shown for text elements) -->
+                        <div class="property-group" id="text-properties">
+                            <h4>Text</h4>
+                            <div class="property-row full">
+                                <textarea id="prop-text-content" rows="2" placeholder="Text content"></textarea>
+                            </div>
+                            <div class="property-row">
+                                <label>Font</label>
+                                <select id="prop-font-family">
+                                    <option value="system-ui, sans-serif">System UI</option>
+                                    <option value="'SF Mono', Consolas, monospace">Monospace</option>
+                                    <option value="Georgia, serif">Serif</option>
+                                </select>
+                            </div>
+                            <div class="property-row">
+                                <label>Size</label>
+                                <input type="number" id="prop-font-size" step="1" min="8" value="14">
+                                <label>Weight</label>
+                                <select id="prop-font-weight">
+                                    <option value="400">Regular</option>
+                                    <option value="500">Medium</option>
+                                    <option value="600">Semibold</option>
+                                    <option value="700">Bold</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Corner Radius -->
+                        <div class="property-group" id="radius-properties">
+                            <h4>Corner Radius</h4>
+                            <div class="property-row">
+                                <input type="number" id="prop-radius" step="1" min="0" value="0">
+                            </div>
+                        </div>
+
+                        <!-- Effects -->
+                        <div class="property-group">
+                            <h4>Effects</h4>
+                            <div class="effect-list" id="effect-list">
+                                <button class="btn btn-sm btn-ghost" id="add-shadow">+ Drop Shadow</button>
+                                <button class="btn btn-sm btn-ghost" id="add-blur">+ Blur</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Animation Panel -->
+                <div class="panel-section">
+                    <div class="panel-header collapsible" data-target="animations-panel">
+                        <h3>Animations</h3>
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </div>
+                    <div class="panel-content" id="animations-panel">
+                        <div class="animation-presets">
+                            <button class="anim-btn" data-animation="fadeIn">Fade In</button>
+                            <button class="anim-btn" data-animation="scaleIn">Scale In</button>
+                            <button class="anim-btn" data-animation="slideIn">Slide In</button>
+                            <button class="anim-btn" data-animation="pulse">Pulse</button>
+                            <button class="anim-btn" data-animation="drawLine">Draw Line</button>
+                            <button class="anim-btn" data-animation="blink">Blink</button>
+                        </div>
+                        <div class="animation-config hidden" id="animation-config">
+                            <div class="property-row">
+                                <label>Duration</label>
+                                <input type="number" id="anim-duration" step="0.1" min="0.1" value="0.5">
+                                <span>s</span>
+                            </div>
+                            <div class="property-row">
+                                <label>Delay</label>
+                                <input type="number" id="anim-delay" step="0.1" min="0" value="0">
+                                <span>s</span>
+                            </div>
+                            <div class="property-row">
+                                <label>Easing</label>
+                                <select id="anim-easing">
+                                    <option value="ease">Ease</option>
+                                    <option value="ease-in">Ease In</option>
+                                    <option value="ease-out">Ease Out</option>
+                                    <option value="ease-in-out">Ease In Out</option>
+                                    <option value="linear">Linear</option>
+                                </select>
+                            </div>
+                            <div class="property-row">
+                                <label>Iterations</label>
+                                <select id="anim-iterations">
+                                    <option value="1">Once</option>
+                                    <option value="2">Twice</option>
+                                    <option value="3">3 times</option>
+                                    <option value="infinite">Infinite</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
         </div>
-        
-        <div class="panel-content" id="properties-panel">
-          <!-- No selection state -->
-          <div class="empty-state" id="no-selection">
-            <p>Select an element to edit its properties</p>
-          </div>
-          
-          <!-- Element properties (hidden by default) -->
-          <div class="properties-form hidden" id="element-properties">
-            <!-- Position & Size -->
-            <div class="property-group">
-              <h4>Transform</h4>
-              <div class="property-row">
-                <label>X</label>
-                <input type="number" id="prop-x" step="1">
-                <label>Y</label>
-                <input type="number" id="prop-y" step="1">
-              </div>
-              <div class="property-row">
-                <label>W</label>
-                <input type="number" id="prop-width" step="1">
-                <label>H</label>
-                <input type="number" id="prop-height" step="1">
-              </div>
-              <div class="property-row">
-                <label>Rotation</label>
-                <input type="number" id="prop-rotation" step="1" min="0" max="360">
-                <span>°</span>
-              </div>
+
+        <!-- Bottom Timeline Panel -->
+        <footer class="timeline-panel" id="timeline-panel">
+            <div class="timeline-header">
+                <h4>Timeline</h4>
+                <div class="timeline-controls">
+                    <button class="btn-icon" id="timeline-play">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <polygon points="5 3 19 12 5 21 5 3" />
+                        </svg>
+                    </button>
+                    <button class="btn-icon" id="timeline-stop">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <rect x="6" y="4" width="4" height="16" />
+                            <rect x="14" y="4" width="4" height="16" />
+                        </svg>
+                    </button>
+                    <span class="timeline-time" id="timeline-current">0.00s</span>
+                    <span>/</span>
+                    <input type="number" id="timeline-duration" value="2" step="0.5" min="0.5"> s
+                </div>
             </div>
-            
-            <!-- Fill -->
-            <div class="property-group">
-              <h4>Fill</h4>
-              <div class="property-row">
-                <input type="color" id="prop-fill" value="#3b82f6">
-                <input type="text" id="prop-fill-hex" placeholder="#3b82f6">
-              </div>
-              <div class="property-row">
-                <label>Opacity</label>
-                <input type="range" id="prop-fill-opacity" min="0" max="100" value="100">
-                <span id="prop-fill-opacity-value">100%</span>
-              </div>
+            <div class="timeline-content">
+                <div class="timeline-layers" id="timeline-layers">
+                    <!-- Layer tracks populated here -->
+                </div>
+                <div class="timeline-tracks" id="timeline-tracks">
+                    <div class="timeline-ruler" id="timeline-ruler"></div>
+                    <div class="timeline-keyframes" id="timeline-keyframes">
+                        <!-- Keyframe tracks populated here -->
+                    </div>
+                    <div class="timeline-playhead" id="timeline-playhead"></div>
+                </div>
             </div>
-            
-            <!-- Stroke -->
-            <div class="property-group">
-              <h4>Stroke</h4>
-              <div class="property-row">
-                <input type="color" id="prop-stroke" value="#000000">
-                <input type="text" id="prop-stroke-hex" placeholder="none">
-              </div>
-              <div class="property-row">
-                <label>Width</label>
-                <input type="number" id="prop-stroke-width" step="0.5" min="0" value="0">
-              </div>
-            </div>
-            
-            <!-- Text properties (shown for text elements) -->
-            <div class="property-group" id="text-properties">
-              <h4>Text</h4>
-              <div class="property-row full">
-                <textarea id="prop-text-content" rows="2" placeholder="Text content"></textarea>
-              </div>
-              <div class="property-row">
-                <label>Font</label>
-                <select id="prop-font-family">
-                  <option value="system-ui, sans-serif">System UI</option>
-                  <option value="'SF Mono', Consolas, monospace">Monospace</option>
-                  <option value="Georgia, serif">Serif</option>
-                </select>
-              </div>
-              <div class="property-row">
-                <label>Size</label>
-                <input type="number" id="prop-font-size" step="1" min="8" value="14">
-                <label>Weight</label>
-                <select id="prop-font-weight">
-                  <option value="400">Regular</option>
-                  <option value="500">Medium</option>
-                  <option value="600">Semibold</option>
-                  <option value="700">Bold</option>
-                </select>
-              </div>
-            </div>
-            
-            <!-- Corner Radius -->
-            <div class="property-group" id="radius-properties">
-              <h4>Corner Radius</h4>
-              <div class="property-row">
-                <input type="number" id="prop-radius" step="1" min="0" value="0">
-              </div>
-            </div>
-            
-            <!-- Effects -->
-            <div class="property-group">
-              <h4>Effects</h4>
-              <div class="effect-list" id="effect-list">
-                <button class="btn btn-sm btn-ghost" id="add-shadow">+ Drop Shadow</button>
-                <button class="btn btn-sm btn-ghost" id="add-blur">+ Blur</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Animation Panel -->
-        <div class="panel-section">
-          <div class="panel-header collapsible" data-target="animations-panel">
-            <h3>Animations</h3>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="6 9 12 15 18 9"/>
-            </svg>
-          </div>
-          <div class="panel-content" id="animations-panel">
-            <div class="animation-presets">
-              <button class="anim-btn" data-animation="fadeIn">Fade In</button>
-              <button class="anim-btn" data-animation="scaleIn">Scale In</button>
-              <button class="anim-btn" data-animation="slideIn">Slide In</button>
-              <button class="anim-btn" data-animation="pulse">Pulse</button>
-              <button class="anim-btn" data-animation="drawLine">Draw Line</button>
-              <button class="anim-btn" data-animation="blink">Blink</button>
-            </div>
-            <div class="animation-config hidden" id="animation-config">
-              <div class="property-row">
-                <label>Duration</label>
-                <input type="number" id="anim-duration" step="0.1" min="0.1" value="0.5">
-                <span>s</span>
-              </div>
-              <div class="property-row">
-                <label>Delay</label>
-                <input type="number" id="anim-delay" step="0.1" min="0" value="0">
-                <span>s</span>
-              </div>
-              <div class="property-row">
-                <label>Easing</label>
-                <select id="anim-easing">
-                  <option value="ease">Ease</option>
-                  <option value="ease-in">Ease In</option>
-                  <option value="ease-out">Ease Out</option>
-                  <option value="ease-in-out">Ease In Out</option>
-                  <option value="linear">Linear</option>
-                </select>
-              </div>
-              <div class="property-row">
-                <label>Iterations</label>
-                <select id="anim-iterations">
-                  <option value="1">Once</option>
-                  <option value="2">Twice</option>
-                  <option value="3">3 times</option>
-                  <option value="infinite">Infinite</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </aside>
+        </footer>
     </div>
 
-    <!-- Bottom Timeline Panel -->
-    <footer class="timeline-panel" id="timeline-panel">
-      <div class="timeline-header">
-        <h4>Timeline</h4>
-        <div class="timeline-controls">
-          <button class="btn-icon" id="timeline-play">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-              <polygon points="5 3 19 12 5 21 5 3"/>
-            </svg>
-          </button>
-          <button class="btn-icon" id="timeline-stop">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-              <rect x="6" y="4" width="4" height="16"/>
-              <rect x="14" y="4" width="4" height="16"/>
-            </svg>
-          </button>
-          <span class="timeline-time" id="timeline-current">0.00s</span>
-          <span>/</span>
-          <input type="number" id="timeline-duration" value="2" step="0.5" min="0.5"> s
+    <!-- Modals -->
+    <div class="modal-overlay hidden" id="modal-overlay">
+        <!-- Export Modal -->
+        <div class="modal hidden" id="export-modal">
+            <div class="modal-header">
+                <h3>Export Baseplate</h3>
+                <button class="btn-icon modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="export-preview" id="export-preview"></div>
+                <div class="export-options">
+                    <label>
+                        <input type="checkbox" id="export-minify" checked>
+                        Minify SVG
+                    </label>
+                    <label>
+                        <input type="checkbox" id="export-include-animations" checked>
+                        Include Animations
+                    </label>
+                </div>
+                <textarea id="export-code" readonly></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost modal-close">Cancel</button>
+                <button class="btn btn-primary" id="copy-svg">Copy SVG</button>
+                <button class="btn btn-accent" id="download-svg">Download</button>
+            </div>
         </div>
-      </div>
-      <div class="timeline-content">
-        <div class="timeline-layers" id="timeline-layers">
-          <!-- Layer tracks populated here -->
-        </div>
-        <div class="timeline-tracks" id="timeline-tracks">
-          <div class="timeline-ruler" id="timeline-ruler"></div>
-          <div class="timeline-keyframes" id="timeline-keyframes">
-            <!-- Keyframe tracks populated here -->
-          </div>
-          <div class="timeline-playhead" id="timeline-playhead"></div>
-        </div>
-      </div>
-    </footer>
-  </div>
 
-  <!-- Modals -->
-  <div class="modal-overlay hidden" id="modal-overlay">
-    <!-- Export Modal -->
-    <div class="modal hidden" id="export-modal">
-      <div class="modal-header">
-        <h3>Export Baseplate</h3>
-        <button class="btn-icon modal-close">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="export-preview" id="export-preview"></div>
-        <div class="export-options">
-          <label>
-            <input type="checkbox" id="export-minify" checked>
-            Minify SVG
-          </label>
-          <label>
-            <input type="checkbox" id="export-include-animations" checked>
-            Include Animations
-          </label>
+        <!-- Publish Modal -->
+        <div class="modal hidden" id="publish-modal">
+            <div class="modal-header">
+                <h3>Publish to Community</h3>
+                <button class="btn-icon modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Baseplate Name</label>
+                    <input type="text" id="publish-name" placeholder="My Awesome Baseplate">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="publish-description" rows="3"
+                        placeholder="Describe what this baseplate does..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="publish-category">
+                        <option value="code">Code & Terminal</option>
+                        <option value="cards">Cards</option>
+                        <option value="headers">Headers & Heroes</option>
+                        <option value="diagrams">Diagrams</option>
+                        <option value="buttons">Buttons</option>
+                        <option value="badges">Badges</option>
+                        <option value="charts">Charts</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Tags (comma separated)</label>
+                    <input type="text" id="publish-tags" placeholder="animated, dark, minimal">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost modal-close">Cancel</button>
+                <button class="btn btn-accent" id="do-publish">Publish</button>
+            </div>
         </div>
-        <textarea id="export-code" readonly></textarea>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-ghost modal-close">Cancel</button>
-        <button class="btn btn-primary" id="copy-svg">Copy SVG</button>
-        <button class="btn btn-accent" id="download-svg">Download</button>
-      </div>
-    </div>
-    
-    <!-- Publish Modal -->
-    <div class="modal hidden" id="publish-modal">
-      <div class="modal-header">
-        <h3>Publish to Community</h3>
-        <button class="btn-icon modal-close">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label>Baseplate Name</label>
-          <input type="text" id="publish-name" placeholder="My Awesome Baseplate">
-        </div>
-        <div class="form-group">
-          <label>Description</label>
-          <textarea id="publish-description" rows="3" placeholder="Describe what this baseplate does..."></textarea>
-        </div>
-        <div class="form-group">
-          <label>Category</label>
-          <select id="publish-category">
-            <option value="code">Code & Terminal</option>
-            <option value="cards">Cards</option>
-            <option value="headers">Headers & Heroes</option>
-            <option value="diagrams">Diagrams</option>
-            <option value="buttons">Buttons</option>
-            <option value="badges">Badges</option>
-            <option value="charts">Charts</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Tags (comma separated)</label>
-          <input type="text" id="publish-tags" placeholder="animated, dark, minimal">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-ghost modal-close">Cancel</button>
-        <button class="btn btn-accent" id="do-publish">Publish</button>
-      </div>
-    </div>
-    
-    <!-- Preview Modal -->
-    <div class="modal modal-lg hidden" id="preview-modal">
-      <div class="modal-header">
-        <h3>Preview</h3>
-        <div class="preview-controls">
-          <button class="btn btn-sm" data-theme="light">Light</button>
-          <button class="btn btn-sm" data-theme="dark">Dark</button>
-        </div>
-        <button class="btn-icon modal-close">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="preview-frame" id="preview-frame"></div>
-      </div>
-    </div>
-  </div>
 
-  <script type="module" src="js/app.js"></script>
+        <!-- Preview Modal -->
+        <div class="modal modal-lg hidden" id="preview-modal">
+            <div class="modal-header">
+                <h3>Preview</h3>
+                <div class="preview-controls">
+                    <button class="btn btn-sm" data-theme="light">Light</button>
+                    <button class="btn btn-sm" data-theme="dark">Dark</button>
+                </div>
+                <button class="btn-icon modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="preview-frame" id="preview-frame"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
 </body>
+
 </html>
