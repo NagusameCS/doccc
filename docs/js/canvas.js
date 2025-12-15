@@ -32,6 +32,108 @@ export class Canvas {
         this.svg.addEventListener('mousemove', this.handleMouseMove.bind(this));
         this.svg.addEventListener('mouseup', this.handleMouseUp.bind(this));
         this.svg.addEventListener('click', this.handleClick.bind(this));
+
+        // Drag and drop SVG files
+        this.svg.addEventListener('dragover', this.handleDragOver.bind(this));
+        this.svg.addEventListener('dragleave', this.handleDragLeave.bind(this));
+        this.svg.addEventListener('drop', this.handleDrop.bind(this));
+    }
+
+    handleDragOver(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.svg.classList.add('drag-over');
+        e.dataTransfer.dropEffect = 'copy';
+    }
+
+    handleDragLeave(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.svg.classList.remove('drag-over');
+    }
+
+    handleDrop(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.svg.classList.remove('drag-over');
+
+        // Check for baseplate data from panel
+        const baseplateData = e.dataTransfer.getData('baseplate');
+        if (baseplateData) {
+            try {
+                const baseplate = JSON.parse(baseplateData);
+                this.loadBaseplateFromData(baseplate);
+                return;
+            } catch (err) {
+                console.error('Failed to parse baseplate data:', err);
+            }
+        }
+
+        // Handle file drops
+        const files = Array.from(e.dataTransfer.files);
+        const svgFile = files.find(f => f.type === 'image/svg+xml' || f.name.endsWith('.svg'));
+
+        if (svgFile) {
+            this.loadSVGFile(svgFile);
+        } else if (files.length > 0) {
+            if (this.app.toast) {
+                this.app.toast.error('Please drop an SVG file');
+            }
+        }
+    }
+
+    async loadSVGFile(file) {
+        try {
+            const text = await file.text();
+            this.loadSVG(text);
+            
+            // Set the name from filename
+            const nameInput = document.getElementById('baseplate-name');
+            if (nameInput) {
+                nameInput.value = file.name.replace('.svg', '');
+            }
+
+            if (this.app.toast) {
+                this.app.toast.success(`Loaded "${file.name}"`);
+            }
+        } catch (error) {
+            console.error('Failed to load SVG file:', error);
+            if (this.app.toast) {
+                this.app.toast.error('Failed to load SVG file');
+            }
+        }
+    }
+
+    async loadBaseplateFromData(baseplate) {
+        try {
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            let svgPath;
+            if (isGitHubPages) {
+                const pathParts = window.location.pathname.split('/');
+                const repoName = pathParts[1] || '';
+                svgPath = `/${repoName}/baseplates/${baseplate.file}`;
+            } else {
+                svgPath = `../baseplates/${baseplate.file}`;
+            }
+
+            const response = await fetch(svgPath);
+            const svgContent = await response.text();
+            this.loadSVG(svgContent);
+
+            const nameInput = document.getElementById('baseplate-name');
+            if (nameInput) {
+                nameInput.value = baseplate.name;
+            }
+
+            if (this.app.toast) {
+                this.app.toast.success(`Added "${baseplate.name}" to canvas`);
+            }
+        } catch (error) {
+            console.error('Failed to load baseplate:', error);
+            if (this.app.toast) {
+                this.app.toast.error('Failed to load baseplate');
+            }
+        }
     }
 
     setTool(tool) {

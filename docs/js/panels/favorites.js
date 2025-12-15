@@ -8,8 +8,20 @@ export class FavoritesPanel {
         this.app = app;
         this.favorites = [];
         this.baseplates = null;
+        this.baseplatesUrl = this.getBaseplatesUrl();
 
         this.loadFavorites();
+    }
+
+    getBaseplatesUrl() {
+        // Handle both local dev and GitHub Pages
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        if (isGitHubPages) {
+            const pathParts = window.location.pathname.split('/');
+            const repoName = pathParts[1] || '';
+            return `/${repoName}/baseplates/baseplates.json`;
+        }
+        return '../baseplates/baseplates.json';
     }
 
     async loadFavorites() {
@@ -19,7 +31,7 @@ export class FavoritesPanel {
             const favoriteIds = storedFavorites ? JSON.parse(storedFavorites) : [];
 
             // Load baseplates catalog to get full data
-            const response = await fetch('../baseplates/baseplates.json');
+            const response = await fetch(this.baseplatesUrl);
             this.baseplates = await response.json();
 
             // Filter to only favorited baseplates
@@ -126,7 +138,16 @@ export class FavoritesPanel {
 
     async addToCanvas(baseplate) {
         try {
-            const svgPath = `../baseplates/${baseplate.file}`;
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            let svgPath;
+            if (isGitHubPages) {
+                const pathParts = window.location.pathname.split('/');
+                const repoName = pathParts[1] || '';
+                svgPath = `/${repoName}/baseplates/${baseplate.file}`;
+            } else {
+                svgPath = `../baseplates/${baseplate.file}`;
+            }
+
             const response = await fetch(svgPath);
             const svgContent = await response.text();
 

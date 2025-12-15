@@ -7,7 +7,18 @@ export class ComponentsPanel {
         this.container = document.getElementById(containerId);
         this.app = app;
         this.baseplates = null;
-        this.baseplatesUrl = '../baseplates/baseplates.json';
+        this.baseplatesUrl = this.getBaseplatesUrl();
+    }
+
+    getBaseplatesUrl() {
+        // Handle both local dev and GitHub Pages
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        if (isGitHubPages) {
+            const pathParts = window.location.pathname.split('/');
+            const repoName = pathParts[1] || '';
+            return `/${repoName}/baseplates/baseplates.json`;
+        }
+        return '../baseplates/baseplates.json';
     }
 
     async loadBaseplates() {
@@ -17,18 +28,11 @@ export class ComponentsPanel {
             this.render();
         } catch (error) {
             console.error('Failed to load baseplates:', error);
-            // Try loading from local path
-            try {
-                const localResponse = await fetch('/baseplates/baseplates.json');
-                this.baseplates = await localResponse.json();
-                this.render();
-            } catch (localError) {
-                this.container.innerHTML = `
-          <div class="empty-state">
-            <p>Failed to load components</p>
-          </div>
-        `;
-            }
+            this.container.innerHTML = `
+                <div class="empty-state">
+                    <p>Failed to load components</p>
+                </div>
+            `;
         }
     }
 
@@ -114,7 +118,16 @@ export class ComponentsPanel {
     async addToCanvas(baseplate) {
         try {
             // Fetch the actual SVG file
-            const svgPath = `../baseplates/${baseplate.file}`;
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            let svgPath;
+            if (isGitHubPages) {
+                const pathParts = window.location.pathname.split('/');
+                const repoName = pathParts[1] || '';
+                svgPath = `/${repoName}/baseplates/${baseplate.file}`;
+            } else {
+                svgPath = `../baseplates/${baseplate.file}`;
+            }
+
             const response = await fetch(svgPath);
             const svgContent = await response.text();
 
