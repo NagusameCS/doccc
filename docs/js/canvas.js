@@ -46,6 +46,9 @@ export class Canvas {
             move: 'move',
             rect: 'crosshair',
             circle: 'crosshair',
+            line: 'crosshair',
+            star: 'crosshair',
+            polygon: 'crosshair',
             text: 'text',
             path: 'crosshair'
         };
@@ -77,7 +80,7 @@ export class Canvas {
             } else {
                 this.clearSelection();
             }
-        } else if (['rect', 'circle', 'path'].includes(this.tool)) {
+        } else if (['rect', 'circle', 'line', 'star', 'polygon', 'path'].includes(this.tool)) {
             this.isDrawing = true;
             this.currentElement = this.createElement(this.tool, pos);
             this.content.appendChild(this.currentElement);
@@ -155,10 +158,67 @@ export class Canvas {
                 element.setAttribute('stroke-width', 2);
                 element.setAttribute('fill', 'none');
                 break;
+
+            case 'line':
+                element = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                element.setAttribute('x1', pos.x);
+                element.setAttribute('y1', pos.y);
+                element.setAttribute('x2', pos.x);
+                element.setAttribute('y2', pos.y);
+                element.setAttribute('stroke', '#3b82f6');
+                element.setAttribute('stroke-width', 2);
+                element.setAttribute('stroke-linecap', 'round');
+                break;
+
+            case 'star':
+                element = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                element.setAttribute('points', this.getStarPoints(pos.x, pos.y, 0, 5));
+                element.setAttribute('fill', '#fbbf24');
+                element.setAttribute('stroke', '#f59e0b');
+                element.setAttribute('stroke-width', 2);
+                break;
+
+            case 'polygon':
+                element = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                element.setAttribute('points', this.getPolygonPoints(pos.x, pos.y, 0, 6));
+                element.setAttribute('fill', '#8b5cf6');
+                element.setAttribute('stroke', '#7c3aed');
+                element.setAttribute('stroke-width', 2);
+                break;
         }
 
         element.setAttribute('id', id);
         element.setAttribute('data-name', `${type.charAt(0).toUpperCase() + type.slice(1)} ${this.idCounter}`);
+
+        return element;
+    }
+
+    getStarPoints(cx, cy, radius, points = 5) {
+        const outerRadius = radius;
+        const innerRadius = radius * 0.4;
+        const step = Math.PI / points;
+        const pointsArr = [];
+
+        for (let i = 0; i < points * 2; i++) {
+            const r = i % 2 === 0 ? outerRadius : innerRadius;
+            const angle = i * step - Math.PI / 2;
+            pointsArr.push(`${cx + r * Math.cos(angle)},${cy + r * Math.sin(angle)}`);
+        }
+
+        return pointsArr.join(' ');
+    }
+
+    getPolygonPoints(cx, cy, radius, sides = 6) {
+        const pointsArr = [];
+        const step = (2 * Math.PI) / sides;
+
+        for (let i = 0; i < sides; i++) {
+            const angle = i * step - Math.PI / 2;
+            pointsArr.push(`${cx + radius * Math.cos(angle)},${cy + radius * Math.sin(angle)}`);
+        }
+
+        return pointsArr.join(' ');
+    }
 
         return element;
     }
@@ -204,6 +264,23 @@ export class Canvas {
             case 'path':
                 const d = element.getAttribute('d');
                 element.setAttribute('d', `${d} L ${end.x} ${end.y}`);
+                break;
+
+            case 'line':
+                element.setAttribute('x2', end.x);
+                element.setAttribute('y2', end.y);
+                break;
+
+            case 'polygon':
+                const radiusPoly = Math.sqrt(
+                    Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2)
+                );
+                // Check if it's a star or regular polygon
+                if (element.getAttribute('fill') === '#fbbf24') {
+                    element.setAttribute('points', this.getStarPoints(start.x, start.y, radiusPoly, 5));
+                } else {
+                    element.setAttribute('points', this.getPolygonPoints(start.x, start.y, radiusPoly, 6));
+                }
                 break;
         }
     }
@@ -416,5 +493,113 @@ export class Canvas {
         this.selectElement(element);
         this.saveState();
         this.app.layers.refresh();
+    }
+
+    clear() {
+        this.content.innerHTML = '';
+        this.defs.innerHTML = '';
+        this.styles.textContent = '';
+        this.clearSelection();
+        this.history = [];
+        this.historyIndex = -1;
+        this.idCounter = 0;
+        this.saveState();
+    }
+
+    selectAll() {
+        // For now, select the first element
+        const firstElement = this.content.firstElementChild;
+        if (firstElement) {
+            this.selectElement(firstElement);
+        }
+    }
+
+    bringForward() {
+        if (!this.selectedElement) return;
+        const next = this.selectedElement.nextElementSibling;
+        if (next) {
+            this.content.insertBefore(next, this.selectedElement);
+            this.saveState();
+            this.app.layers.refresh();
+        }
+    }
+
+    sendBackward() {
+        if (!this.selectedElement) return;
+        const prev = this.selectedElement.previousElementSibling;
+        if (prev) {
+            this.content.insertBefore(this.selectedElement, prev);
+            this.saveState();
+            this.app.layers.refresh();
+        }
+    }
+
+    bringToFront() {
+        if (!this.selectedElement) return;
+        this.content.appendChild(this.selectedElement);
+        this.saveState();
+        this.app.layers.refresh();
+    }
+
+    sendToBack() {
+        if (!this.selectedElement) return;
+        this.content.insertBefore(this.selectedElement, this.content.firstChild);
+        this.saveState();
+        this.app.layers.refresh();
+    }
+
+    group() {
+        // TODO: Implement grouping of multiple selected elements
+        if (this.app.toast) {
+            this.app.toast.info('Select multiple elements to group (coming soon)');
+        }
+    }
+
+    ungroup() {
+        if (!this.selectedElement || this.selectedElement.tagName !== 'g') {
+            if (this.app.toast) {
+                this.app.toast.info('Select a group to ungroup');
+            }
+            return;
+        }
+
+        const group = this.selectedElement;
+        const parent = group.parentNode;
+        const children = Array.from(group.children);
+
+        children.forEach(child => {
+            parent.insertBefore(child, group);
+        });
+
+        group.remove();
+        this.clearSelection();
+        this.saveState();
+        this.app.layers.refresh();
+    }
+
+    duplicate() {
+        if (this.selectedElement) {
+            const clone = this.selectedElement.cloneNode(true);
+            clone.setAttribute('id', `element-${++this.idCounter}`);
+
+            // Offset position
+            const type = clone.tagName.toLowerCase();
+            if (type === 'circle') {
+                const cx = parseFloat(clone.getAttribute('cx') || 0) + 20;
+                const cy = parseFloat(clone.getAttribute('cy') || 0) + 20;
+                clone.setAttribute('cx', cx);
+                clone.setAttribute('cy', cy);
+            } else {
+                const x = parseFloat(clone.getAttribute('x') || 0) + 20;
+                const y = parseFloat(clone.getAttribute('y') || 0) + 20;
+                clone.setAttribute('x', x);
+                clone.setAttribute('y', y);
+            }
+
+            this.content.appendChild(clone);
+            this.selectElement(clone);
+            this.saveState();
+            this.app.layers.refresh();
+        }
     }
 }

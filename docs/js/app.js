@@ -11,6 +11,12 @@ import { PropertiesPanel } from './panels/properties.js';
 import { Timeline } from './timeline.js';
 import { Storage } from './storage.js';
 import { exportSVG, downloadSVG } from './utils/export.js';
+import { ToastManager } from './utils/toast.js';
+import { ContextMenu } from './utils/context-menu.js';
+import { Grid } from './utils/grid.js';
+import { GradientEditor } from './utils/gradient-editor.js';
+import { KeyboardShortcuts } from './utils/keyboard-shortcuts.js';
+import { WelcomeScreen } from './utils/welcome.js';
 
 class App {
     constructor() {
@@ -21,6 +27,14 @@ class App {
         this.properties = null;
         this.timeline = null;
         this.storage = null;
+
+        // Utilities
+        this.toast = null;
+        this.contextMenu = null;
+        this.grid = null;
+        this.gradientEditor = null;
+        this.shortcuts = null;
+        this.welcome = null;
 
         this.currentTool = 'select';
         this.zoom = 1;
@@ -43,6 +57,14 @@ class App {
         this.properties = new PropertiesPanel('properties-panel', this);
         this.timeline = new Timeline('timeline-panel', this);
 
+        // Initialize utilities
+        this.toast = new ToastManager();
+        this.contextMenu = new ContextMenu(this);
+        this.grid = new Grid(this.canvas.svg);
+        this.gradientEditor = new GradientEditor(this);
+        this.shortcuts = new KeyboardShortcuts(this);
+        this.welcome = new WelcomeScreen(this);
+
         // Load baseplates catalog
         await this.components.loadBaseplates();
         await this.community.loadCommunityBaseplates();
@@ -52,9 +74,10 @@ class App {
         this.setupPanelTabs();
         this.setupZoomControls();
         this.setupModals();
-        this.setupKeyboardShortcuts();
+        this.setupGridControls();
 
         console.log('Doccc Baseplate Editor initialized');
+        this.toast.info('Editor ready! Press ? for keyboard shortcuts.');
     }
 
     setupToolbar() {
@@ -63,6 +86,20 @@ class App {
             btn.addEventListener('click', () => {
                 this.setTool(btn.dataset.tool);
             });
+        });
+
+        // Undo/Redo buttons
+        document.getElementById('btn-undo').addEventListener('click', () => {
+            this.canvas.undo();
+        });
+
+        document.getElementById('btn-redo').addEventListener('click', () => {
+            this.canvas.redo();
+        });
+
+        // Help button
+        document.getElementById('btn-help').addEventListener('click', () => {
+            this.shortcuts.showModal();
         });
 
         // Preview button
@@ -149,7 +186,7 @@ class App {
         document.getElementById('copy-svg').addEventListener('click', () => {
             const code = document.getElementById('export-code').value;
             navigator.clipboard.writeText(code);
-            // TODO: Show toast notification
+            this.toast.success('SVG copied to clipboard!');
         });
 
         document.getElementById('download-svg').addEventListener('click', () => {
@@ -157,6 +194,7 @@ class App {
             const code = document.getElementById('export-code').value;
             downloadSVG(code, name);
             this.closeModals();
+            this.toast.success('SVG downloaded!');
         });
 
         // Publish modal actions
@@ -173,50 +211,39 @@ class App {
         });
     }
 
-    setupKeyboardShortcuts() {
-        document.addEventListener('keydown', (e) => {
-            // Don't trigger if typing in input
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    setupGridControls() {
+        // Add grid toggle buttons to canvas controls
+        const canvasContainer = document.querySelector('.canvas-container');
+        const gridToggle = document.createElement('div');
+        gridToggle.className = 'grid-toggle';
+        gridToggle.innerHTML = `
+            <button class="btn-icon" id="toggle-grid" title="Toggle Grid (')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <line x1="9" y1="3" x2="9" y2="21"/>
+                    <line x1="15" y1="3" x2="15" y2="21"/>
+                    <line x1="3" y1="9" x2="21" y2="9"/>
+                    <line x1="3" y1="15" x2="21" y2="15"/>
+                </svg>
+            </button>
+            <button class="btn-icon" id="toggle-snap" title="Toggle Snap (Ctrl+;)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2v4m0 12v4M2 12h4m12 0h4"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+            </button>
+        `;
+        canvasContainer.appendChild(gridToggle);
 
-            switch (e.key.toLowerCase()) {
-                case 'v': this.setTool('select'); break;
-                case 'h': this.setTool('move'); break;
-                case 'r': this.setTool('rect'); break;
-                case 'o': this.setTool('circle'); break;
-                case 't': this.setTool('text'); break;
-                case 'p': this.setTool('path'); break;
-                case 'delete':
-                case 'backspace':
-                    if (this.selectedElements.length > 0) {
-                        this.canvas.deleteSelected();
-                    }
-                    break;
-                case 'escape':
-                    this.canvas.clearSelection();
-                    this.closeModals();
-                    break;
-                case 'z':
-                    if (e.ctrlKey || e.metaKey) {
-                        e.shiftKey ? this.canvas.redo() : this.canvas.undo();
-                    }
-                    break;
-                case 'c':
-                    if (e.ctrlKey || e.metaKey) {
-                        this.canvas.copy();
-                    }
-                    break;
-                case 'v':
-                    if (e.ctrlKey || e.metaKey) {
-                        this.canvas.paste();
-                    }
-                    break;
-                case 's':
-                    if (e.ctrlKey || e.metaKey) {
-                        e.preventDefault();
-                        this.saveProject();
-                    }
-                    break;
-            }
+        document.getElementById('toggle-grid').addEventListener('click', () => {
+            const active = this.grid.toggle();
+            document.getElementById('toggle-grid').classList.toggle('active', active);
+        });
+
+        document.getElementById('toggle-snap').addEventListener('click', () => {
+            const active = this.grid.toggleSnap();
+            document.getElementById('toggle-snap').classList.toggle('active', active);
+            this.toast.info(active ? 'Snap to grid enabled' : 'Snap to grid disabled');
         });
     }
 
@@ -307,8 +334,7 @@ class App {
         await this.community.loadCommunityBaseplates();
         this.closeModals();
 
-        // TODO: Show success toast
-        console.log('Baseplate published:', baseplate.name);
+        this.toast.success(`"${baseplate.name}" published successfully!`);
     }
 
     async saveProject() {
@@ -320,7 +346,40 @@ class App {
         };
 
         await this.storage.saveProject(project);
-        console.log('Project saved');
+        this.toast.success('Project saved!');
+    }
+
+    newProject() {
+        if (confirm('Start a new project? Unsaved changes will be lost.')) {
+            this.canvas.clear();
+            document.getElementById('baseplate-name').value = 'Untitled Baseplate';
+            this.layers.refresh();
+            this.timeline.refresh();
+            this.toast.info('New project started');
+        }
+    }
+
+    openProject() {
+        // TODO: Implement project opening
+        this.toast.info('Open project coming soon!');
+    }
+
+    saveProjectAs() {
+        // TODO: Implement save as
+        this.showExportModal();
+    }
+
+    exportAsPNG() {
+        // TODO: Implement PNG export
+        this.toast.info('PNG export coming soon!');
+    }
+
+    zoomToFit() {
+        this.fitToCanvas();
+    }
+
+    showGradientEditor(element) {
+        this.gradientEditor.show(element);
     }
 
     async loadBaseplate(baseplateId) {
