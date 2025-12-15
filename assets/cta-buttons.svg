@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 80">
+  <defs>
+    <style>
+      @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+      }
+      @keyframes glow {
+        0%, 100% { filter: drop-shadow(0 0 8px rgba(88, 166, 255, 0.5)); }
+        50% { filter: drop-shadow(0 0 15px rgba(88, 166, 255, 0.8)); }
+      }
+      
+      .button-group { animation: pulse 3s ease-in-out infinite; }
+      .btn-star { fill: #238636; animation: glow 2s ease-in-out infinite; }
+      .btn-fork { fill: #0969da; animation: glow 2s ease-in-out infinite 0.5s; }
+      .btn-npm { fill: #cb3837; animation: glow 2s ease-in-out infinite 1s; }
+      
+      .btn-text { 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        fill: white;
+        text-anchor: middle;
+        dominant-baseline: middle;
+      }
+      
+      .shimmer {
+        fill: rgba(255, 255, 255, 0.2);
+        animation: shimmer 2s ease-in-out infinite;
+      }
+    </style>
+    <clipPath id="starClip"><rect x="20" y="15" width="130" height="50" rx="6"/></clipPath>
+    <clipPath id="forkClip"><rect x="170" y="15" width="130" height="50" rx="6"/></clipPath>
+    <clipPath id="npmClip"><rect x="320" y="15" width="160" height="50" rx="6"/></clipPath>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="500" height="80" fill="transparent"/>
+  
+  <g class="button-group">
+    <!-- Star Button -->
+    <a href="https://github.com/NagusameCS/doccc/stargazers" target="_blank">
+      <rect class="btn-star" x="20" y="15" width="130" height="50" rx="6"/>
+      <g clip-path="url(#starClip)">
+        <rect class="shimmer" x="20" y="15" width="60" height="50" transform="skewX(-20)"/>
+      </g>
+      <text class="btn-text" x="85" y="40">⭐ Star on GitHub</text>
+    </a>
+    
+    <!-- Fork Button -->
+    <a href="https://github.com/NagusameCS/doccc/fork" target="_blank">
+      <rect class="btn-fork" x="170" y="15" width="130" height="50" rx="6"/>
+      <g clip-path="url(#forkClip)">
+        <rect class="shimmer" x="170" y="15" width="60" height="50" transform="skewX(-20)"/>
+      </g>
+      <text class="btn-text" x="235" y="40">🍴 Fork Project</text>
+    </a>
+    
+    <!-- NPM Button -->
+    <a href="https://www.npmjs.com/package/doccc" target="_blank">
+      <rect class="btn-npm" x="320" y="15" width="160" height="50" rx="6"/>
+      <g clip-path="url(#npmClip)">
+        <rect class="shimmer" x="320" y="15" width="60" height="50" transform="skewX(-20)"/>
+      </g>
+      <text class="btn-text" x="400" y="40">📦 npm i -g doccc</text>
+    </a>
+  </g>
+</svg>

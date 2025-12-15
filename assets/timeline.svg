@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200">
+  <defs>
+    <style>
+      @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.8; } }
+      @keyframes dash { to { stroke-dashoffset: 0; } }
+      @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+      .line { stroke: #30a14e; stroke-width: 3; fill: none; stroke-dasharray: 800; stroke-dashoffset: 800; animation: dash 2s ease-out forwards; }
+      .node { animation: pulse 2s ease-in-out infinite; }
+      .node:nth-child(2) { animation-delay: 0.3s; }
+      .node:nth-child(3) { animation-delay: 0.6s; }
+      .node:nth-child(4) { animation-delay: 0.9s; }
+      .node:nth-child(5) { animation-delay: 1.2s; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 11px; fill: #656d76; text-anchor: middle; }
+      .version { font-family: 'SF Mono', SFMono-Regular, Consolas, monospace; font-size: 12px; fill: #0969da; text-anchor: middle; font-weight: 600; }
+      .card { fill: #ffffff; stroke: #d0d7de; stroke-width: 1; rx: 8; animation: fadeIn 0.5s ease-out forwards; opacity: 0; }
+      .card:nth-of-type(1) { animation-delay: 0.5s; }
+      .card:nth-of-type(2) { animation-delay: 0.8s; }
+      .card:nth-of-type(3) { animation-delay: 1.1s; }
+      .card:nth-of-type(4) { animation-delay: 1.4s; }
+      .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 14px; fill: #24292f; font-weight: 600; }
+    </style>
+    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#9be9a8"/>
+      <stop offset="50%" stop-color="#40c463"/>
+      <stop offset="100%" stop-color="#30a14e"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="200" fill="#f6f8fa" rx="12"/>
+  
+  <!-- Title -->
+  <text x="400" y="28" class="title" text-anchor="middle">📅 Development Timeline</text>
+  
+  <!-- Main timeline line -->
+  <path d="M 100 100 L 700 100" class="line" stroke="url(#lineGrad)"/>
+  
+  <!-- Timeline Nodes -->
+  <g class="node">
+    <circle cx="100" cy="100" r="12" fill="#9be9a8" stroke="#30a14e" stroke-width="2"/>
+    <circle cx="100" cy="100" r="5" fill="#30a14e"/>
+  </g>
+  <g class="node">
+    <circle cx="300" cy="100" r="12" fill="#40c463" stroke="#30a14e" stroke-width="2"/>
+    <circle cx="300" cy="100" r="5" fill="#216e39"/>
+  </g>
+  <g class="node">
+    <circle cx="500" cy="100" r="12" fill="#30a14e" stroke="#216e39" stroke-width="2"/>
+    <circle cx="500" cy="100" r="5" fill="#216e39"/>
+  </g>
+  <g class="node">
+    <circle cx="700" cy="100" r="14" fill="#216e39" stroke="#0e4429" stroke-width="2"/>
+    <text x="700" y="104" font-family="sans-serif" font-size="10" fill="white" text-anchor="middle">✓</text>
+  </g>
+  
+  <!-- Labels (above) -->
+  <text x="100" y="60" class="version">v0.1.0</text>
+  <text x="100" y="75" class="label">Init</text>
+  
+  <text x="300" y="60" class="version">v0.5.0</text>
+  <text x="300" y="75" class="label">Components</text>
+  
+  <text x="500" y="60" class="version">v0.9.0</text>
+  <text x="500" y="75" class="label">Linehook</text>
+  
+  <text x="700" y="60" class="version">v1.0.0</text>
+  <text x="700" y="75" class="label">Release</text>
+  
+  <!-- Cards (below) -->
+  <rect x="40" y="120" width="120" height="50" class="card"/>
+  <text x="100" y="140" class="label" fill="#24292f">🏗️ CLI scaffold</text>
+  <text x="100" y="158" class="label">Config system</text>
+  
+  <rect x="240" y="120" width="120" height="50" class="card"/>
+  <text x="300" y="140" class="label" fill="#24292f">🧩 14 components</text>
+  <text x="300" y="158" class="label">SVG generators</text>
+  
+  <rect x="440" y="120" width="120" height="50" class="card"/>
+  <text x="500" y="140" class="label" fill="#24292f">📊 Stats & badges</text>
+  <text x="500" y="158" class="label">Integrations</text>
+  
+  <rect x="640" y="120" width="120" height="50" class="card"/>
+  <text x="700" y="140" class="label" fill="#24292f">🚀 Full release</text>
+  <text x="700" y="158" class="label">npm publish</text>
+</svg>

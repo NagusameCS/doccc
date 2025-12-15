@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="127" height="20">
+  <style>
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+    @keyframes countUp { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    .value-text { animation: countUp 0.5s ease-out, pulse 2s ease-in-out infinite; }
+  </style>
+  <defs>
+    <linearGradient id="anim-s44xdqetq" x2="0" y2="100%">
+      <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+      <stop offset="1" stop-opacity=".1"/>
+    </linearGradient>
+    <clipPath id="r"><rect width="127" height="20" rx="3"/></clipPath>
+  </defs>
+  <g clip-path="url(#r)">
+    <rect width="76" height="20" fill="#555"/>
+    <rect x="76" width="51" height="20" fill="#f59e0b"/>
+    <rect width="127" height="20" fill="url(#anim-s44xdqetq)"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif" font-size="11">
+    <text x="38" y="14">characters</text>
+    <text class="value-text" x="101.5" y="14">167.9K</text>
+  </g>
+</svg>

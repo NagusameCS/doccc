@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50">
+  <defs>
+    <linearGradient id="installGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#28a745"/>
+      <stop offset="100%" style="stop-color:#20c997"/>
+    </linearGradient>
+  </defs>
+  
+  <a href="#-installation">
+    <rect x="5" y="5" width="190" height="40" rx="20" fill="url(#installGrad)">
+      <animate attributeName="opacity" values="1;0.85;1" dur="1.5s" repeatCount="indefinite"/>
+    </rect>
+    <text x="100" y="31" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600" fill="white">
+      📦 Get Started
+    </text>
+  </a>
+</svg>

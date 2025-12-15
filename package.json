@@ -1,0 +1,82 @@
+{
+    "name": "doccc",
+    "version": "1.0.0",
+    "description": "A README website generator that compiles config-driven components into GitHub-safe, visually rich documentation",
+    "main": "src/index.js",
+    "type": "module",
+    "bin": {
+        "doccc": "./bin/doccc.js"
+    },
+    "files": [
+        "bin/",
+        "src/",
+        "templates/",
+        "examples/",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "test": "node --test",
+        "lint": "eslint src/ bin/",
+        "build": "node bin/doccc.js build",
+        "dev": "node bin/doccc.js watch",
+        "stats": "npx linehook stats",
+        "badges": "npx linehook badge --type all --style for-the-badge --animate --theme github --save",
+        "preview": "node bin/doccc.js preview"
+    },
+    "keywords": [
+        "readme",
+        "documentation",
+        "generator",
+        "github",
+        "markdown",
+        "cli",
+        "badges",
+        "svg",
+        "static-site",
+        "compile",
+        "components",
+        "linehook",
+        "knowtif",
+        "animated",
+        "dark-mode"
+    ],
+    "author": "NagusameCS",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/NagusameCS/doccc.git"
+    },
+    "bugs": {
+        "url": "https://github.com/NagusameCS/doccc/issues"
+    },
+    "homepage": "https://github.com/NagusameCS/doccc#readme",
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "dependencies": {
+        "chalk": "^5.3.0",
+        "commander": "^12.1.0",
+        "cosmiconfig": "^9.0.0",
+        "fast-glob": "^3.3.2",
+        "figures": "^6.1.0",
+        "fs-extra": "^11.2.0",
+        "gray-matter": "^4.0.3",
+        "inquirer": "^9.2.15",
+        "knowtif": "^1.0.0",
+        "linehook": "^1.0.5",
+        "lodash-es": "^4.17.21",
+        "mustache": "^4.2.0",
+        "ora": "^8.0.1",
+        "sharp": "^0.33.2",
+        "yaml": "^2.3.4"
+    },
+    "devDependencies": {
+        "eslint": "^8.57.0"
+    },
+    "files": [
+        "bin/",
+        "src/",
+        "templates/"
+    ]
+}

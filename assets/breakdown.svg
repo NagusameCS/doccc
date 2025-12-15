@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 240" width="600" height="240">
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+    .bar { transition: opacity 0.2s; }
+    .bar:hover { opacity: 0.8; }
+  </style>
+  <rect width="100%" height="100%" fill="#ffffff" rx="8"/>
+  <text x="300" y="25" text-anchor="middle" font-size="16" font-weight="bold" fill="#24292f">Lines by Language</text>
+  
+  
+    <text x="120" y="89" text-anchor="end" font-size="12" fill="#24292f">JavaScript</text>
+    <rect x="130" y="70" width="400" height="30" fill="#238636" rx="4" class="bar">
+      <title>JavaScript: 5,333 lines</title>
+    </rect>
+    <text x="538" y="89" font-size="11" fill="#57606a">5.3K</text>
+    <text x="120" y="129" text-anchor="end" font-size="12" fill="#24292f">Markdown</text>
+    <rect x="130" y="110" width="61.128820551284456" height="30" fill="#0969da" rx="4" class="bar">
+      <title>Markdown: 815 lines</title>
+    </rect>
+    <text x="199.12882055128446" y="129" font-size="11" fill="#57606a">815</text>
+    <text x="120" y="169" text-anchor="end" font-size="12" fill="#24292f">JSON</text>
+    <rect x="130" y="150" width="5.025314082130134" height="30" fill="#8250df" rx="4" class="bar">
+      <title>JSON: 67 lines</title>
+    </rect>
+    <text x="143.02531408213014" y="169" font-size="11" fill="#57606a">67</text>
+</svg>

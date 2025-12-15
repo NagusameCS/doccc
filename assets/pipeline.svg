@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 100">
+  <defs>
+    <linearGradient id="pipeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#667eea"/>
+      <stop offset="25%" style="stop-color:#764ba2"/>
+      <stop offset="50%" style="stop-color:#f093fb"/>
+      <stop offset="75%" style="stop-color:#f5576c"/>
+      <stop offset="100%" style="stop-color:#43e97b"/>
+    </linearGradient>
+  </defs>
+  
+  <style>
+    @keyframes flowRight {
+      0% { stroke-dashoffset: 60; }
+      100% { stroke-dashoffset: 0; }
+    }
+    @keyframes nodeGlow {
+      0%, 100% { filter: drop-shadow(0 0 3px currentColor); }
+      50% { filter: drop-shadow(0 0 8px currentColor); }
+    }
+    .flow-line {
+      stroke-dasharray: 15 5;
+      animation: flowRight 1s linear infinite;
+    }
+    .node {
+      animation: nodeGlow 2s ease-in-out infinite;
+    }
+    .text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+  </style>
+  
+  <!-- Pipeline background -->
+  <rect width="600" height="100" rx="12" fill="#f8f9fa"/>
+  
+  <!-- Flow lines -->
+  <line x1="90" y1="50" x2="170" y2="50" stroke="#667eea" stroke-width="3" class="flow-line"/>
+  <line x1="230" y1="50" x2="310" y2="50" stroke="#764ba2" stroke-width="3" class="flow-line" style="animation-delay: 0.2s;"/>
+  <line x1="370" y1="50" x2="450" y2="50" stroke="#f093fb" stroke-width="3" class="flow-line" style="animation-delay: 0.4s;"/>
+  <line x1="510" y1="50" x2="570" y2="50" stroke="#43e97b" stroke-width="3" class="flow-line" style="animation-delay: 0.6s;"/>
+  
+  <!-- Nodes -->
+  <g class="node" style="color: #667eea;">
+    <circle cx="50" cy="50" r="30" fill="#667eea"/>
+    <text class="text" x="50" y="45" text-anchor="middle" font-size="20" fill="white">📝</text>
+    <text class="text" x="50" y="62" text-anchor="middle" font-size="8" fill="white" font-weight="600">Config</text>
+  </g>
+  
+  <g class="node" style="color: #764ba2; animation-delay: 0.3s;">
+    <circle cx="200" cy="50" r="30" fill="#764ba2"/>
+    <text class="text" x="200" y="45" text-anchor="middle" font-size="20" fill="white">🔨</text>
+    <text class="text" x="200" y="62" text-anchor="middle" font-size="8" fill="white" font-weight="600">Build</text>
+  </g>
+  
+  <g class="node" style="color: #f093fb; animation-delay: 0.6s;">
+    <circle cx="340" cy="50" r="30" fill="#f093fb"/>
+    <text class="text" x="340" y="45" text-anchor="middle" font-size="20" fill="white">📊</text>
+    <text class="text" x="340" y="62" text-anchor="middle" font-size="8" fill="white" font-weight="600">Stats</text>
+  </g>
+  
+  <g class="node" style="color: #f5576c; animation-delay: 0.9s;">
+    <circle cx="480" cy="50" r="30" fill="#f5576c"/>
+    <text class="text" x="480" y="45" text-anchor="middle" font-size="20" fill="white">📄</text>
+    <text class="text" x="480" y="62" text-anchor="middle" font-size="8" fill="white" font-weight="600">README</text>
+  </g>
+  
+  <g class="node" style="color: #43e97b; animation-delay: 1.2s;">
+    <circle cx="570" cy="50" r="20" fill="#43e97b"/>
+    <text class="text" x="570" y="55" text-anchor="middle" font-size="16" fill="white">✓</text>
+  </g>
+</svg>

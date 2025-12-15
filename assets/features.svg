@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 120">
+  <style>
+    .feature-box { transition: transform 0.3s; }
+    .feature-box:hover { transform: scale(1.02); }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+    .icon { animation: float 3s ease-in-out infinite; }
+  </style>
+  <defs>
+    <linearGradient id="card1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea"/>
+      <stop offset="100%" style="stop-color:#764ba2"/>
+    </linearGradient>
+    <linearGradient id="card2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb"/>
+      <stop offset="100%" style="stop-color:#f5576c"/>
+    </linearGradient>
+    <linearGradient id="card3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4facfe"/>
+      <stop offset="100%" style="stop-color:#00f2fe"/>
+    </linearGradient>
+    <filter id="cardShadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  
+  <!-- Card 1: Components -->
+  <g class="feature-box" filter="url(#cardShadow)">
+    <rect x="10" y="10" width="180" height="100" rx="12" fill="url(#card1)"/>
+    <text class="icon" x="100" y="45" text-anchor="middle" font-size="28">🎨</text>
+    <text x="100" y="70" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="white">Visual Components</text>
+    <text x="100" y="88" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="white" opacity="0.85">Hero • Cards • Grids</text>
+  </g>
+  
+  <!-- Card 2: Stats -->
+  <g class="feature-box" filter="url(#cardShadow)">
+    <rect x="210" y="10" width="180" height="100" rx="12" fill="url(#card2)"/>
+    <text class="icon" x="300" y="45" text-anchor="middle" font-size="28" style="animation-delay: 0.5s;">📊</text>
+    <text x="300" y="70" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="white">linehook Stats</text>
+    <text x="300" y="88" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="white" opacity="0.85">Badges • Charts • Graphs</text>
+  </g>
+  
+  <!-- Card 3: Automation -->
+  <g class="feature-box" filter="url(#cardShadow)">
+    <rect x="410" y="10" width="180" height="100" rx="12" fill="url(#card3)"/>
+    <text class="icon" x="500" y="45" text-anchor="middle" font-size="28" style="animation-delay: 1s;">🔄</text>
+    <text x="500" y="70" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="white">Auto Updates</text>
+    <text x="500" y="88" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="white" opacity="0.85">Actions • Hooks • CI/CD</text>
+  </g>
+</svg>
