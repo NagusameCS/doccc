@@ -6,7 +6,7 @@
 import { Canvas } from './canvas.js';
 import { LayersPanel } from './panels/layers.js';
 import { ComponentsPanel } from './panels/components.js';
-import { CommunityPanel } from './panels/community.js';
+import { FavoritesPanel } from './panels/favorites.js';
 import { PropertiesPanel } from './panels/properties.js';
 import { Timeline } from './timeline.js';
 import { Storage } from './storage.js';
@@ -23,7 +23,7 @@ class App {
         this.canvas = null;
         this.layers = null;
         this.components = null;
-        this.community = null;
+        this.favorites = null;
         this.properties = null;
         this.timeline = null;
         this.storage = null;
@@ -53,7 +53,7 @@ class App {
         // Initialize panels
         this.layers = new LayersPanel('layers-list', this);
         this.components = new ComponentsPanel('component-categories', this);
-        this.community = new CommunityPanel('community-list', this);
+        this.favorites = new FavoritesPanel('favorites-list', this);
         this.properties = new PropertiesPanel('properties-panel', this);
         this.timeline = new Timeline('timeline-panel', this);
 
@@ -67,7 +67,6 @@ class App {
 
         // Load baseplates catalog
         await this.components.loadBaseplates();
-        await this.community.loadCommunityBaseplates();
 
         // Setup event listeners
         this.setupToolbar();

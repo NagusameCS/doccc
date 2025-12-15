@@ -6,12 +6,12 @@ export class Grid {
     constructor(canvas, app) {
         this.canvas = canvas;
         this.app = app;
-        
+
         this.enabled = true;
         this.visible = true;
         this.size = 20;
         this.snapThreshold = 10;
-        
+
         this.gridPattern = null;
         this.init();
     }
@@ -23,7 +23,7 @@ export class Grid {
 
     createGridPattern() {
         const defs = document.getElementById('canvas-defs');
-        
+
         // Create grid pattern
         const pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
         pattern.setAttribute('id', 'grid-pattern');
@@ -143,7 +143,7 @@ export class Grid {
 
         elements.forEach(el => {
             const bbox = el.getBBox();
-            
+
             // Horizontal alignment
             if (Math.abs(point.x - bbox.x) < this.snapThreshold) {
                 snappedX = bbox.x;
@@ -181,7 +181,7 @@ export class Grid {
 
     showGuides(guides) {
         this.clearGuides();
-        
+
         const svg = document.getElementById('canvas');
         const viewBox = svg.getAttribute('viewBox').split(' ').map(Number);
         const [, , width, height] = viewBox;
@@ -192,7 +192,7 @@ export class Grid {
 
         guides.forEach(guide => {
             const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            
+
             if (guide.type === 'vertical') {
                 line.setAttribute('x1', guide.x);
                 line.setAttribute('y1', 0);

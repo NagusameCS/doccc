@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Baseplates | doccc</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent: #6366f1;
+            --accent-hover: #818cf8;
+            --border: #30363d;
+            --success: #22c55e;
+            --warning: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        /* Hero Search */
+        .hero-search {
+            background: linear-gradient(135deg, #1a1f35 0%, #0d1117 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .search-stats {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .category-tab {
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .category-tab:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+
+        .category-tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .filter-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sort-select {
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .view-btn {
+            padding: 0.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .view-btn:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .view-btn:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .view-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        /* Baseplates Grid */
+        .baseplates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .baseplates-grid.list-view {
+            grid-template-columns: 1fr;
+        }
+
+        /* Baseplate Card */
+        .baseplate-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .baseplate-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-preview {
+            height: 180px;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-preview svg {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .card-preview-placeholder {
+            font-size: 3rem;
+        }
+
+        .card-badges {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .card-badge {
+            padding: 0.25rem 0.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .card-badge.featured {
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            color: white;
+        }
+
+        .card-badge.new {
+            background: var(--success);
+            color: white;
+        }
+
+        .card-content {
+            padding: 1rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-favorite {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0.25rem;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .card-favorite:hover,
+        .card-favorite.active {
+            color: #f43f5e;
+            transform: scale(1.2);
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-tag {
+            padding: 0.2rem 0.5rem;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .card-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .author-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .card-stats {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .card-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* List View Card */
+        .baseplates-grid.list-view .baseplate-card {
+            display: flex;
+        }
+
+        .baseplates-grid.list-view .card-preview {
+            width: 200px;
+            height: auto;
+            min-height: 120px;
+            flex-shrink: 0;
+        }
+
+        .baseplates-grid.list-view .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .modal-preview {
+            flex: 1;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            min-height: 400px;
+        }
+
+        .modal-preview svg {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .modal-content {
+            width: 320px;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .modal-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-section-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: 4rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-search {
+                padding: 2rem 1rem;
+            }
+
+            .hero-title {
+                font-size: 1.75rem;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .baseplates-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal {
+                flex-direction: column;
+            }
+
+            .modal-preview {
+                min-height: 200px;
+            }
+
+            .modal-content {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <a href="index.html" class="logo">doccc</a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Editor</a>
+                <a href="community.html" class="nav-link active">Community</a>
+                <a href="https://github.com" class="nav-link">Docs</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <button class="btn-primary" onclick="window.location.href='index.html'">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                    style="margin-right: 0.5rem;">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Create Baseplate
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Search -->
+    <section class="hero-search">
+        <h1 class="hero-title">Community Baseplates</h1>
+        <p class="hero-subtitle">Discover, download, and share beautiful animated SVG baseplates</p>
+
+        <div class="search-container">
+            <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input type="text" class="search-input" id="search-input"
+                placeholder="Search baseplates by name, category, or tag...">
+        </div>
+
+        <div class="search-stats">
+            <span class="stat"><span class="stat-value" id="total-count">15</span> Baseplates</span>
+            <span class="stat"><span class="stat-value">8</span> Categories</span>
+            <span class="stat"><span class="stat-value">24</span> Contributors</span>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div class="filter-left">
+                <div class="category-tabs">
+                    <button class="category-tab active" data-category="all">All</button>
+                    <button class="category-tab" data-category="code">⌨️ Code</button>
+                    <button class="category-tab" data-category="cards">🃏 Cards</button>
+                    <button class="category-tab" data-category="headers">📰 Headers</button>
+                    <button class="category-tab" data-category="diagrams">📊 Diagrams</button>
+                    <button class="category-tab" data-category="buttons">🔘 Buttons</button>
+                    <button class="category-tab" data-category="badges">🏷️ Badges</button>
+                    <button class="category-tab" data-category="charts">📈 Charts</button>
+                    <button class="category-tab" data-category="interactive">🎮 Interactive</button>
+                </div>
+            </div>
+            <div class="filter-right">
+                <select class="sort-select" id="sort-select">
+                    <option value="featured">Featured</option>
+                    <option value="popular">Most Popular</option>
+                    <option value="recent">Most Recent</option>
+                    <option value="downloads">Most Downloads</option>
+                </select>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="grid" title="Grid View">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <rect x="3" y="3" width="7" height="7" />
+                            <rect x="14" y="3" width="7" height="7" />
+                            <rect x="3" y="14" width="7" height="7" />
+                            <rect x="14" y="14" width="7" height="7" />
+                        </svg>
+                    </button>
+                    <button class="view-btn" data-view="list" title="List View">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <rect x="3" y="4" width="18" height="4" />
+                            <rect x="3" y="10" width="18" height="4" />
+                            <rect x="3" y="16" width="18" height="4" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Baseplates Grid -->
+        <div class="baseplates-grid" id="baseplates-grid">
+            <!-- Populated by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-preview" id="modal-preview">
+                <!-- SVG Preview -->
+            </div>
+            <div class="modal-content">
+                <button class="modal-close" id="modal-close">&times;</button>
+                <h2 class="modal-title" id="modal-title">Baseplate Name</h2>
+                <p class="modal-description" id="modal-description">Description goes here</p>
+
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Category</h3>
+                    <span class="card-tag" id="modal-category">code</span>
+                </div>
+
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Tags</h3>
+                    <div class="modal-tags" id="modal-tags">
+                        <!-- Tags -->
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Author</h3>
+                    <div class="card-author">
+                        <div class="author-avatar" id="modal-author-avatar">D</div>
+                        <span id="modal-author">doccc</span>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn-primary" id="modal-use">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 5v14M5 12h14" />
+                        </svg>
+                        Use in Editor
+                    </button>
+                    <button class="btn-secondary" id="modal-download">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        Download SVG
+                    </button>
+                    <button class="btn-secondary" id="modal-favorite">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                        </svg>
+                        Add to Favorites
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#" class="footer-link">About</a>
+            <a href="#" class="footer-link">Documentation</a>
+            <a href="https://github.com" class="footer-link">GitHub</a>
+            <a href="#" class="footer-link">Terms</a>
+            <a href="#" class="footer-link">Privacy</a>
+        </div>
+        <p>&copy; 2024 doccc. Open source and free forever.</p>
+    </footer>
+
+    <script type="module">
+        // Community Page Logic
+        class CommunityPage {
+            constructor() {
+                this.baseplates = [];
+                this.favorites = JSON.parse(localStorage.getItem('doccc-favorites') || '[]');
+                this.currentCategory = 'all';
+                this.currentSort = 'featured';
+                this.searchQuery = '';
+                this.currentView = 'grid';
+
+                this.init();
+            }
+
+            async init() {
+                await this.loadBaseplates();
+                this.setupEventListeners();
+                this.render();
+            }
+
+            async loadBaseplates() {
+                try {
+                    // Load from baseplates.json
+                    const response = await fetch('../baseplates/baseplates.json');
+                    const data = await response.json();
+
+                    // Transform baseplates with additional metadata
+                    this.baseplates = data.baseplates.map((bp, index) => ({
+                        ...bp,
+                        downloads: bp.downloads || Math.floor(Math.random() * 2000) + 100,
+                        publishedAt: bp.publishedAt || new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
+                        svg: null // Will load on demand
+                    }));
+
+                    document.getElementById('total-count').textContent = this.baseplates.length;
+                } catch (error) {
+                    console.error('Failed to load baseplates:', error);
+                }
+            }
+
+            setupEventListeners() {
+                // Search
+                document.getElementById('search-input').addEventListener('input', (e) => {
+                    this.searchQuery = e.target.value.toLowerCase();
+                    this.render();
+                });
+
+                // Category tabs
+                document.querySelectorAll('.category-tab').forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        this.currentCategory = tab.dataset.category;
+                        this.render();
+                    });
+                });
+
+                // Sort
+                document.getElementById('sort-select').addEventListener('change', (e) => {
+                    this.currentSort = e.target.value;
+                    this.render();
+                });
+
+                // View toggle
+                document.querySelectorAll('.view-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        this.currentView = btn.dataset.view;
+                        const grid = document.getElementById('baseplates-grid');
+                        grid.classList.toggle('list-view', this.currentView === 'list');
+                    });
+                });
+
+                // Modal close
+                document.getElementById('modal-close').addEventListener('click', () => this.closeModal());
+                document.getElementById('modal').addEventListener('click', (e) => {
+                    if (e.target.id === 'modal') this.closeModal();
+                });
+
+                // ESC key to close modal
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') this.closeModal();
+                });
+            }
+
+            getFilteredBaseplates() {
+                let filtered = this.baseplates;
+
+                // Category filter
+                if (this.currentCategory !== 'all') {
+                    filtered = filtered.filter(bp => bp.category === this.currentCategory);
+                }
+
+                // Search filter
+                if (this.searchQuery) {
+                    filtered = filtered.filter(bp =>
+                        bp.name.toLowerCase().includes(this.searchQuery) ||
+                        bp.description?.toLowerCase().includes(this.searchQuery) ||
+                        bp.tags?.some(tag => tag.toLowerCase().includes(this.searchQuery)) ||
+                        bp.category.toLowerCase().includes(this.searchQuery)
+                    );
+                }
+
+                // Sort
+                switch (this.currentSort) {
+                    case 'popular':
+                    case 'downloads':
+                        filtered.sort((a, b) => b.downloads - a.downloads);
+                        break;
+                    case 'recent':
+                        filtered.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+                        break;
+                    case 'featured':
+                    default:
+                        filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+                        break;
+                }
+
+                return filtered;
+            }
+
+            render() {
+                const grid = document.getElementById('baseplates-grid');
+                const filtered = this.getFilteredBaseplates();
+
+                if (filtered.length === 0) {
+                    grid.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon">🔍</div>
+                            <h3 class="empty-title">No baseplates found</h3>
+                            <p>Try adjusting your search or filter criteria</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                grid.innerHTML = filtered.map(bp => this.createCard(bp)).join('');
+
+                // Add click handlers
+                grid.querySelectorAll('.baseplate-card').forEach(card => {
+                    card.addEventListener('click', () => this.openModal(card.dataset.id));
+                });
+
+                // Favorite buttons
+                grid.querySelectorAll('.card-favorite').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.toggleFavorite(btn.dataset.id);
+                        btn.classList.toggle('active');
+                    });
+                });
+            }
+
+            createCard(baseplate) {
+                const isFavorite = this.favorites.includes(baseplate.id);
+                const isNew = new Date(baseplate.publishedAt) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+                const categoryIcon = this.getCategoryIcon(baseplate.category);
+
+                return `
+                    <div class="baseplate-card" data-id="${baseplate.id}">
+                        <div class="card-preview">
+                            <div class="card-preview-placeholder">${categoryIcon}</div>
+                            <div class="card-badges">
+                                ${baseplate.featured ? '<span class="card-badge featured">⭐ Featured</span>' : ''}
+                                ${isNew ? '<span class="card-badge new">New</span>' : ''}
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3 class="card-title">${baseplate.name}</h3>
+                                <button class="card-favorite ${isFavorite ? 'active' : ''}" data-id="${baseplate.id}">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="${isFavorite ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <p class="card-description">${baseplate.description || 'No description available'}</p>
+                            <div class="card-tags">
+                                ${(baseplate.tags || []).slice(0, 3).map(tag => `<span class="card-tag">${tag}</span>`).join('')}
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-author">
+                                    <div class="author-avatar">${(baseplate.author || 'D')[0].toUpperCase()}</div>
+                                    <span>${baseplate.author || 'doccc'}</span>
+                                </div>
+                                <div class="card-stats">
+                                    <span class="card-stat">
+                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                            <polyline points="7 10 12 15 17 10"/>
+                                            <line x1="12" y1="15" x2="12" y2="3"/>
+                                        </svg>
+                                        ${this.formatNumber(baseplate.downloads)}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            async openModal(id) {
+                const baseplate = this.baseplates.find(bp => bp.id === id);
+                if (!baseplate) return;
+
+                document.getElementById('modal-title').textContent = baseplate.name;
+                document.getElementById('modal-description').textContent = baseplate.description || 'No description available';
+                document.getElementById('modal-category').textContent = baseplate.category;
+                document.getElementById('modal-author').textContent = baseplate.author || 'doccc';
+                document.getElementById('modal-author-avatar').textContent = (baseplate.author || 'D')[0].toUpperCase();
+
+                // Tags
+                const tagsContainer = document.getElementById('modal-tags');
+                tagsContainer.innerHTML = (baseplate.tags || []).map(tag => `<span class="card-tag">${tag}</span>`).join('');
+
+                // Load SVG preview
+                const previewContainer = document.getElementById('modal-preview');
+                try {
+                    const response = await fetch(`../baseplates/${baseplate.file}`);
+                    const svgContent = await response.text();
+                    previewContainer.innerHTML = svgContent;
+                } catch (error) {
+                    previewContainer.innerHTML = `<div class="card-preview-placeholder">${this.getCategoryIcon(baseplate.category)}</div>`;
+                }
+
+                // Action buttons
+                document.getElementById('modal-use').onclick = () => {
+                    window.location.href = `index.html?baseplate=${baseplate.id}`;
+                };
+
+                document.getElementById('modal-download').onclick = async () => {
+                    try {
+                        const response = await fetch(`../baseplates/${baseplate.file}`);
+                        const svg = await response.text();
+                        const blob = new Blob([svg], { type: 'image/svg+xml' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `${baseplate.id}.svg`;
+                        a.click();
+                        URL.revokeObjectURL(url);
+                    } catch (error) {
+                        console.error('Download failed:', error);
+                    }
+                };
+
+                const favBtn = document.getElementById('modal-favorite');
+                const isFavorite = this.favorites.includes(id);
+                favBtn.innerHTML = `
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="${isFavorite ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    ${isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+                `;
+                favBtn.onclick = () => {
+                    this.toggleFavorite(id);
+                    this.openModal(id); // Refresh modal
+                };
+
+                document.getElementById('modal').classList.add('active');
+            }
+
+            closeModal() {
+                document.getElementById('modal').classList.remove('active');
+            }
+
+            toggleFavorite(id) {
+                const index = this.favorites.indexOf(id);
+                if (index > -1) {
+                    this.favorites.splice(index, 1);
+                } else {
+                    this.favorites.push(id);
+                }
+                localStorage.setItem('doccc-favorites', JSON.stringify(this.favorites));
+            }
+
+            getCategoryIcon(category) {
+                const icons = {
+                    code: '💻',
+                    cards: '🃏',
+                    headers: '🎨',
+                    diagrams: '📊',
+                    buttons: '🔘',
+                    badges: '🏷️',
+                    charts: '📈',
+                    interactive: '🎮'
+                };
+                return icons[category] || '📦';
+            }
+
+            formatNumber(num) {
+                if (num >= 1000) {
+                    return (num / 1000).toFixed(1) + 'K';
+                }
+                return num.toString();
+            }
+        }
+
+        // Initialize
+        new CommunityPage();
+    </script>
+</body>
+
+</html>

@@ -8,14 +8,14 @@ export class KeyboardShortcuts {
         this.enabled = true;
         this.modal = null;
         this.shortcuts = new Map();
-        
+
         this.registerDefaults();
         this.init();
     }
 
     init() {
         this.createModal();
-        
+
         document.addEventListener('keydown', (e) => {
             if (!this.enabled) return;
             this.handleKeydown(e);
@@ -104,7 +104,7 @@ export class KeyboardShortcuts {
         if (e.ctrlKey || e.metaKey) combo.push('ctrl');
         if (e.shiftKey) combo.push('shift');
         if (e.altKey) combo.push('alt');
-        
+
         const key = e.key.toLowerCase();
         if (!['control', 'shift', 'alt', 'meta'].includes(key)) {
             combo.push(key);
@@ -244,7 +244,7 @@ export class KeyboardShortcuts {
         this.modal.addEventListener('click', (e) => {
             if (e.target === this.modal) this.hideModal();
         });
-        
+
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && !this.modal.classList.contains('hidden')) {
                 this.hideModal();
@@ -254,7 +254,7 @@ export class KeyboardShortcuts {
 
     generateShortcutsHTML() {
         const categories = {};
-        
+
         this.shortcuts.forEach((value, key) => {
             if (!categories[value.category]) {
                 categories[value.category] = [];

@@ -172,7 +172,8 @@ export class ComponentsPanel {
             diagrams: '📊',
             buttons: '🔘',
             badges: '🏷️',
-            charts: '📈'
+            charts: '📈',
+            interactive: '🎮'
         };
         return icons[categoryId] || '📦';
     }
@@ -185,7 +186,8 @@ export class ComponentsPanel {
             diagrams: '🔀',
             buttons: '👆',
             badges: '🔖',
-            charts: '📊'
+            charts: '📊',
+            interactive: '🕹️'
         };
         return icons[categoryId] || '📦';
     }

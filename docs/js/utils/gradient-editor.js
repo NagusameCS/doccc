@@ -91,11 +91,11 @@ export class GradientEditor {
                 this.modal.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 this.gradientType = btn.dataset.type;
-                
+
                 // Show/hide angle for linear
                 const angleSection = this.modal.querySelector('#gradient-angle-section');
                 angleSection.style.display = this.gradientType === 'linear' ? 'flex' : 'none';
-                
+
                 this.updatePreview();
             });
         });
@@ -159,10 +159,10 @@ export class GradientEditor {
             marker.dataset.index = index;
             marker.style.left = `${stop.offset}%`;
             marker.style.backgroundColor = stop.color;
-            
+
             // Make draggable
             marker.addEventListener('mousedown', (e) => this.startDragStop(e, index));
-            
+
             track.appendChild(marker);
         });
     }
@@ -274,14 +274,14 @@ export class GradientEditor {
         if (this.gradientType === 'linear') {
             gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
             gradient.setAttribute('id', gradientId);
-            
+
             // Convert angle to coordinates
             const angle = this.angle * Math.PI / 180;
             const x1 = 50 - Math.cos(angle) * 50;
             const y1 = 50 + Math.sin(angle) * 50;
             const x2 = 50 + Math.cos(angle) * 50;
             const y2 = 50 - Math.sin(angle) * 50;
-            
+
             gradient.setAttribute('x1', `${x1}%`);
             gradient.setAttribute('y1', `${y1}%`);
             gradient.setAttribute('x2', `${x2}%`);
@@ -306,7 +306,7 @@ export class GradientEditor {
 
         // Apply to element
         this.targetElement.setAttribute('fill', `url(#${gradientId})`);
-        
+
         this.app.canvas.saveState();
         this.hide();
     }

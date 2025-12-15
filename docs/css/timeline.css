@@ -166,6 +166,7 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     z-index: 2;
+    transition: transform 0.15s ease;
 }
 
 .keyframe:hover {
@@ -174,6 +175,18 @@
 
 .keyframe.selected {
     background: var(--accent-secondary);
+}
+
+/* Easing indicator inside keyframe */
+.easing-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: white;
 }
 
 /* Animation Bar */

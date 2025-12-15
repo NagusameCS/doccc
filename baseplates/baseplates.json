@@ -687,6 +687,210 @@
         "twinkle": {
             "name": "Twinkle",
             "keyframes": "0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); }"
+        },
+        "typewriter": {
+            "name": "Typewriter",
+            "keyframes": "from { width: 0; } to { width: 100%; }"
+        },
+        "wiggle": {
+            "name": "Wiggle",
+            "keyframes": "0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-5deg); } 75% { transform: rotate(5deg); }"
+        },
+        "heartbeat": {
+            "name": "Heartbeat",
+            "keyframes": "0%, 100% { transform: scale(1); } 14% { transform: scale(1.3); } 28% { transform: scale(1); } 42% { transform: scale(1.3); } 70% { transform: scale(1); }"
+        },
+        "ripple": {
+            "name": "Ripple",
+            "keyframes": "0% { transform: scale(0); opacity: 1; } 100% { transform: scale(4); opacity: 0; }"
+        },
+        "colorShift": {
+            "name": "Color Shift",
+            "keyframes": "0% { fill: #3b82f6; } 33% { fill: #8b5cf6; } 66% { fill: #f43f5e; } 100% { fill: #3b82f6; }"
+        },
+        "jello": {
+            "name": "Jello",
+            "keyframes": "0%, 100% { transform: none; } 11% { transform: skewX(-12.5deg) skewY(-12.5deg); } 22% { transform: skewX(6.25deg) skewY(6.25deg); } 33% { transform: skewX(-3.125deg) skewY(-3.125deg); }"
+        },
+        "rubberBand": {
+            "name": "Rubber Band",
+            "keyframes": "0%, 100% { transform: scaleX(1); } 30% { transform: scaleX(1.25) scaleY(0.75); } 40% { transform: scaleX(0.75) scaleY(1.25); } 50% { transform: scaleX(1.15) scaleY(0.85); }"
+        },
+        "swing": {
+            "name": "Swing",
+            "keyframes": "0% { transform: rotate(0deg); } 20% { transform: rotate(15deg); } 40% { transform: rotate(-10deg); } 60% { transform: rotate(5deg); } 80% { transform: rotate(-5deg); } 100% { transform: rotate(0deg); }"
+        },
+        "tada": {
+            "name": "Tada",
+            "keyframes": "0%, 100% { transform: scale(1) rotate(0deg); } 10%, 20% { transform: scale(0.9) rotate(-3deg); } 30%, 50%, 70%, 90% { transform: scale(1.1) rotate(3deg); }"
+        },
+        "slideInUp": {
+            "name": "Slide In Up",
+            "keyframes": "from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; }"
+        },
+        "slideInDown": {
+            "name": "Slide In Down",
+            "keyframes": "from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; }"
+        },
+        "slideInLeft": {
+            "name": "Slide In Left",
+            "keyframes": "from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; }"
+        },
+        "slideInRight": {
+            "name": "Slide In Right",
+            "keyframes": "from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; }"
+        },
+        "zoomIn": {
+            "name": "Zoom In",
+            "keyframes": "from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; }"
+        },
+        "zoomOut": {
+            "name": "Zoom Out",
+            "keyframes": "from { transform: scale(1); opacity: 1; } to { transform: scale(0); opacity: 0; }"
+        },
+        "rotateIn": {
+            "name": "Rotate In",
+            "keyframes": "from { transform: rotate(-180deg) scale(0); opacity: 0; } to { transform: rotate(0deg) scale(1); opacity: 1; }"
+        },
+        "bounceIn": {
+            "name": "Bounce In",
+            "keyframes": "0% { opacity: 0; transform: scale(0.3); } 20% { transform: scale(1.1); } 40% { transform: scale(0.9); } 60% { opacity: 1; transform: scale(1.03); }"
+        },
+        "rollIn": {
+            "name": "Roll In",
+            "keyframes": "from { opacity: 0; transform: translateX(-100%) rotate(-120deg); } to { opacity: 1; transform: none; }"
+        }
+    },
+    "easings": {
+        "linear": {
+            "name": "Linear",
+            "value": "linear",
+            "category": "Basic"
+        },
+        "easeInQuad": {
+            "name": "Ease In (Quad)",
+            "value": "cubic-bezier(0.55, 0.085, 0.68, 0.53)",
+            "category": "Quadratic"
+        },
+        "easeOutQuad": {
+            "name": "Ease Out (Quad)",
+            "value": "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+            "category": "Quadratic"
+        },
+        "easeInOutQuad": {
+            "name": "Ease In-Out (Quad)",
+            "value": "cubic-bezier(0.455, 0.03, 0.515, 0.955)",
+            "category": "Quadratic"
+        },
+        "easeInCubic": {
+            "name": "Ease In (Cubic)",
+            "value": "cubic-bezier(0.55, 0.055, 0.675, 0.19)",
+            "category": "Cubic"
+        },
+        "easeOutCubic": {
+            "name": "Ease Out (Cubic)",
+            "value": "cubic-bezier(0.215, 0.61, 0.355, 1)",
+            "category": "Cubic"
+        },
+        "easeInOutCubic": {
+            "name": "Ease In-Out (Cubic)",
+            "value": "cubic-bezier(0.645, 0.045, 0.355, 1)",
+            "category": "Cubic"
+        },
+        "easeInQuart": {
+            "name": "Ease In (Quart)",
+            "value": "cubic-bezier(0.895, 0.03, 0.685, 0.22)",
+            "category": "Quartic"
+        },
+        "easeOutQuart": {
+            "name": "Ease Out (Quart)",
+            "value": "cubic-bezier(0.165, 0.84, 0.44, 1)",
+            "category": "Quartic"
+        },
+        "easeInOutQuart": {
+            "name": "Ease In-Out (Quart)",
+            "value": "cubic-bezier(0.77, 0, 0.175, 1)",
+            "category": "Quartic"
+        },
+        "easeInExpo": {
+            "name": "Ease In (Expo)",
+            "value": "cubic-bezier(0.95, 0.05, 0.795, 0.035)",
+            "category": "Exponential"
+        },
+        "easeOutExpo": {
+            "name": "Ease Out (Expo)",
+            "value": "cubic-bezier(0.19, 1, 0.22, 1)",
+            "category": "Exponential"
+        },
+        "easeInOutExpo": {
+            "name": "Ease In-Out (Expo)",
+            "value": "cubic-bezier(1, 0, 0, 1)",
+            "category": "Exponential"
+        },
+        "easeInCirc": {
+            "name": "Ease In (Circ)",
+            "value": "cubic-bezier(0.6, 0.04, 0.98, 0.335)",
+            "category": "Circular"
+        },
+        "easeOutCirc": {
+            "name": "Ease Out (Circ)",
+            "value": "cubic-bezier(0.075, 0.82, 0.165, 1)",
+            "category": "Circular"
+        },
+        "easeInOutCirc": {
+            "name": "Ease In-Out (Circ)",
+            "value": "cubic-bezier(0.785, 0.135, 0.15, 0.86)",
+            "category": "Circular"
+        },
+        "easeInBack": {
+            "name": "Ease In (Back)",
+            "value": "cubic-bezier(0.6, -0.28, 0.735, 0.045)",
+            "category": "Back"
+        },
+        "easeOutBack": {
+            "name": "Ease Out (Back)",
+            "value": "cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+            "category": "Back"
+        },
+        "easeInOutBack": {
+            "name": "Ease In-Out (Back)",
+            "value": "cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+            "category": "Back"
+        },
+        "easeInElastic": {
+            "name": "Ease In (Elastic)",
+            "value": "cubic-bezier(0.7, 0, 0.84, 0)",
+            "category": "Elastic"
+        },
+        "easeOutElastic": {
+            "name": "Ease Out (Elastic)",
+            "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "category": "Elastic"
+        },
+        "easeInOutElastic": {
+            "name": "Ease In-Out (Elastic)",
+            "value": "cubic-bezier(0.85, 0, 0.15, 1)",
+            "category": "Elastic"
+        },
+        "easeInBounce": {
+            "name": "Ease In (Bounce)",
+            "value": "cubic-bezier(0.6, 0, 0.4, 0)",
+            "category": "Bounce"
+        },
+        "easeOutBounce": {
+            "name": "Ease Out (Bounce)",
+            "value": "cubic-bezier(0.215, 0.61, 0.355, 1)",
+            "category": "Bounce"
+        },
+        "easeInOutBounce": {
+            "name": "Ease In-Out (Bounce)",
+            "value": "cubic-bezier(0.68, 0, 0.32, 1)",
+            "category": "Bounce"
+        },
+        "spring": {
+            "name": "Spring",
+            "value": "cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+            "category": "Special"
         }
     }
 }

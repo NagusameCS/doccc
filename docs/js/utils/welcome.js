@@ -12,7 +12,7 @@ export class WelcomeScreen {
 
     init() {
         this.createModal();
-        
+
         // Show on first visit
         if (!this.hasSeenWelcome) {
             setTimeout(() => this.show(), 500);
@@ -176,7 +176,7 @@ export class WelcomeScreen {
     loadHeroTemplate() {
         this.app.canvas.clear();
         const svg = this.app.canvas.svg;
-        
+
         // Background
         const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
         bg.setAttribute('x', '0');
@@ -193,7 +193,7 @@ export class WelcomeScreen {
         bar.setAttribute('width', '800');
         bar.setAttribute('height', '5');
         bar.setAttribute('fill', 'url(#hero-grad)');
-        
+
         // Add gradient def
         const defs = document.getElementById('canvas-defs');
         const gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
@@ -235,7 +235,7 @@ export class WelcomeScreen {
     loadStatsTemplate() {
         this.app.canvas.clear();
         const svg = this.app.canvas.svg;
-        
+
         // Background
         const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
         bg.setAttribute('x', '0');
@@ -266,7 +266,7 @@ export class WelcomeScreen {
 
         stats.forEach((stat, i) => {
             const x = 40 + i * 120;
-            
+
             const value = document.createElementNS('http://www.w3.org/2000/svg', 'text');
             value.setAttribute('x', x);
             value.setAttribute('y', '85');
@@ -291,7 +291,7 @@ export class WelcomeScreen {
     loadBadgeTemplate() {
         this.app.canvas.clear();
         const svg = this.app.canvas.svg;
-        
+
         // Badge background
         const badge = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
         badge.setAttribute('x', '10');
@@ -481,7 +481,7 @@ class QuickTour {
 
     end() {
         this.overlay.remove();
-        
+
         // Show success toast
         if (this.app.toast) {
             this.app.toast.success('Tour complete! Start creating your baseplate.');

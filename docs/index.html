@@ -73,7 +73,8 @@
                 </button>
                 <button class="tool-btn" data-tool="star" title="Star (S)">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                     </svg>
                 </button>
                 <button class="tool-btn" data-tool="polygon" title="Polygon">
@@ -139,7 +140,7 @@
                 <div class="panel-tabs">
                     <button class="panel-tab active" data-panel="layers">Layers</button>
                     <button class="panel-tab" data-panel="components">Components</button>
-                    <button class="panel-tab" data-panel="community">Community</button>
+                    <button class="panel-tab" data-panel="favorites">Favorites</button>
                 </div>
 
                 <!-- Layers Panel -->
@@ -172,19 +173,18 @@
                     </div>
                 </div>
 
-                <!-- Community Panel -->
-                <div class="panel-content hidden" id="panel-community">
-                    <div class="search-box">
-                        <input type="text" placeholder="Search baseplates..." id="community-search">
+                <!-- Favorites Panel -->
+                <div class="panel-content hidden" id="panel-favorites">
+                    <div class="favorites-header">
+                        <span class="favorites-count">0 saved baseplates</span>
+                        <a href="community.html" class="browse-link" target="_blank">Browse All →</a>
                     </div>
-                    <div class="community-filters">
-                        <button class="filter-btn active" data-filter="featured">Featured</button>
-                        <button class="filter-btn" data-filter="popular">Popular</button>
-                        <button class="filter-btn" data-filter="recent">Recent</button>
-                        <button class="filter-btn" data-filter="mine">My Baseplates</button>
-                    </div>
-                    <div class="community-list" id="community-list">
-                        <!-- Dynamically populated -->
+                    <div class="favorites-list" id="favorites-list">
+                        <div class="empty-state">
+                            <span class="empty-icon">💾</span>
+                            <p>No saved baseplates yet</p>
+                            <p class="empty-hint">Click the heart on any baseplate to save it here</p>
+                        </div>
                     </div>
                 </div>
             </aside>

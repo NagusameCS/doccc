@@ -1,189 +1,222 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" data-baseplate="profile-music" data-category="interactive">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 180" data-baseplate="profile-music" data-category="interactive">
+  <!--
+    PROFILE MUSIC CARD
+    A profile picture that reveals your favorite song with continuous animation.
+    Since GitHub strips :hover, this uses a looping reveal animation instead.
+    
+    Customize:
+    - data-field="profileImage": URL to your profile image
+    - data-field="songTitle": Your favorite song
+    - data-field="artistName": Artist name
+    - data-field="musicLink": Spotify/YouTube link
+  -->
+  
   <defs>
-    <!-- Profile picture clip -->
-    <clipPath id="profileClip">
-      <circle cx="150" cy="120" r="60"/>
+    <!-- Profile clip -->
+    <clipPath id="avatarClip">
+      <circle cx="70" cy="70" r="50"/>
     </clipPath>
     
-    <!-- Glow effect -->
-    <filter id="profileGlow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="4" result="glow"/>
+    <!-- Spotify gradient -->
+    <linearGradient id="spotifyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1ed760"/>
+      <stop offset="100%" stop-color="#1db954"/>
+    </linearGradient>
+    
+    <!-- Ring gradient -->
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1db954"/>
+      <stop offset="50%" stop-color="#1ed760"/>
+      <stop offset="100%" stop-color="#1db954"/>
+    </linearGradient>
+    
+    <!-- Glow -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
       <feMerge>
-        <feMergeNode in="glow"/>
+        <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
     
-    <!-- Gradient ring -->
-    <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1db954"/>
-      <stop offset="50%" style="stop-color:#1ed760"/>
-      <stop offset="100%" style="stop-color:#1db954"/>
-    </linearGradient>
-    
-    <!-- Music note gradient -->
-    <linearGradient id="musicGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#ff6b6b"/>
-      <stop offset="100%" style="stop-color:#ee5a5a"/>
-    </linearGradient>
+    <!-- Vinyl grooves pattern -->
+    <pattern id="vinylGrooves" patternUnits="userSpaceOnUse" width="4" height="4">
+      <circle cx="2" cy="2" r="0.5" fill="#333"/>
+    </pattern>
   </defs>
   
   <style>
     .bg { fill: #0d1117; }
-    .profile-ring { fill: none; stroke: url(#ringGradient); stroke-width: 4; }
+    .card-bg { fill: #161b22; }
+    .profile-ring { fill: none; stroke: url(#ringGrad); stroke-width: 3; }
     .profile-placeholder { fill: #21262d; }
     .profile-icon { fill: #8b949e; }
-    .song-card { fill: #161b22; opacity: 0; }
-    .song-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 600; fill: #e6edf3; }
-    .song-artist { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 12px; fill: #8b949e; }
-    .music-icon { fill: #1db954; }
-    .play-button { fill: #1db954; cursor: pointer; }
-    .username { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 600; fill: #e6edf3; }
-    .hint-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 10px; fill: #484f58; }
+    .vinyl { fill: #111; }
+    .vinyl-grooves { fill: url(#vinylGrooves); }
+    .vinyl-label { fill: url(#spotifyGrad); }
+    .vinyl-center { fill: #333; }
+    .song-title { font-family: -apple-system, sans-serif; font-size: 14px; font-weight: 600; fill: #e6edf3; }
+    .song-artist { font-family: -apple-system, sans-serif; font-size: 12px; fill: #8b949e; }
+    .now-playing { font-family: -apple-system, sans-serif; font-size: 9px; fill: #1db954; text-transform: uppercase; letter-spacing: 1px; }
+    .spotify-icon { fill: #1db954; }
+    .play-btn { fill: #1db954; }
+    .username { font-family: -apple-system, sans-serif; font-size: 14px; font-weight: 600; fill: #e6edf3; }
+    .bio { font-family: -apple-system, sans-serif; font-size: 11px; fill: #8b949e; }
+    .note { fill: #1db954; font-size: 14px; }
+    .eq-bar { fill: #1db954; }
     
-    /* Spin animation */
+    /* Continuous spinning vinyl */
     @keyframes spin {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
     
-    @keyframes spinReverse {
-      from { transform: rotate(360deg); }
-      to { transform: rotate(0deg); }
+    /* Ring pulse */
+    @keyframes ringPulse {
+      0%, 100% { stroke-opacity: 1; stroke-width: 3; }
+      50% { stroke-opacity: 0.7; stroke-width: 4; }
     }
     
-    @keyframes pulse {
+    /* Floating music notes */
+    @keyframes noteFloat1 {
+      0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+      20% { opacity: 1; transform: scale(1); }
+      100% { transform: translate(30px, -50px) scale(0.3); opacity: 0; }
+    }
+    
+    @keyframes noteFloat2 {
+      0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+      20% { opacity: 1; transform: scale(1); }
+      100% { transform: translate(-20px, -60px) scale(0.3); opacity: 0; }
+    }
+    
+    @keyframes noteFloat3 {
+      0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+      20% { opacity: 1; transform: scale(1); }
+      100% { transform: translate(15px, -45px) scale(0.3); opacity: 0; }
+    }
+    
+    /* Equalizer bars */
+    @keyframes eqBar1 {
+      0%, 100% { height: 4px; y: 16px; }
+      50% { height: 20px; y: 0px; }
+    }
+    
+    @keyframes eqBar2 {
+      0%, 100% { height: 12px; y: 8px; }
+      50% { height: 18px; y: 2px; }
+    }
+    
+    @keyframes eqBar3 {
+      0%, 100% { height: 8px; y: 12px; }
+      50% { height: 20px; y: 0px; }
+    }
+    
+    @keyframes eqBar4 {
+      0%, 100% { height: 14px; y: 6px; }
+      50% { height: 10px; y: 10px; }
+    }
+    
+    /* Card slide in */
+    @keyframes cardReveal {
+      0%, 10% { transform: translateX(20px); opacity: 0; }
+      20%, 100% { transform: translateX(0); opacity: 1; }
+    }
+    
+    /* Play button pulse */
+    @keyframes playPulse {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
+      50% { transform: scale(1.1); }
     }
     
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+    .vinyl-group { 
+      transform-origin: 70px 70px; 
+      animation: spin 4s linear infinite; 
     }
     
-    @keyframes noteFloat {
-      0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
-      20% { opacity: 1; }
-      100% { opacity: 0; transform: translate(20px, -40px) scale(1); }
-    }
+    .profile-ring { animation: ringPulse 2s ease-in-out infinite; }
     
-    @keyframes slideReveal {
-      from { transform: translateX(-20px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
+    .note-1 { animation: noteFloat1 2.5s ease-out infinite; }
+    .note-2 { animation: noteFloat2 2.5s ease-out infinite; animation-delay: 0.8s; }
+    .note-3 { animation: noteFloat3 2.5s ease-out infinite; animation-delay: 1.6s; }
     
-    .profile-group {
-      transform-origin: 150px 120px;
-      animation: spin 8s linear infinite;
-    }
+    .eq-1 { animation: eqBar1 0.5s ease-in-out infinite; }
+    .eq-2 { animation: eqBar2 0.4s ease-in-out infinite; }
+    .eq-3 { animation: eqBar3 0.6s ease-in-out infinite; }
+    .eq-4 { animation: eqBar4 0.35s ease-in-out infinite; }
     
-    .profile-ring-outer {
-      transform-origin: 150px 120px;
-      animation: spinReverse 12s linear infinite;
-    }
+    .song-card { animation: cardReveal 8s ease-out infinite; }
     
-    .profile-content {
-      transform-origin: 150px 120px;
-      animation: spinReverse 8s linear infinite;
-    }
-    
-    /* Hover reveal */
-    .hover-trigger { cursor: pointer; }
-    
-    .song-reveal {
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    
-    .hover-trigger:hover + .song-reveal,
-    .song-reveal:hover {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .hover-trigger:hover ~ .music-notes .note {
-      animation: noteFloat 1.5s ease-out infinite;
-    }
-    
-    .note-1 { animation-delay: 0s; }
-    .note-2 { animation-delay: 0.3s; }
-    .note-3 { animation-delay: 0.6s; }
-    
-    .play-button:hover {
-      fill: #1ed760;
-    }
-    
-    .click-area {
-      cursor: pointer;
-      fill: transparent;
-    }
+    .play-btn { animation: playPulse 1s ease-in-out infinite; }
   </style>
   
   <!-- Background -->
-  <rect class="bg" width="300" height="300" rx="16"/>
+  <rect class="bg" width="350" height="180" rx="12"/>
   
-  <!-- Outer decorative ring (spins opposite) -->
-  <g class="profile-ring-outer">
-    <circle class="profile-ring" cx="150" cy="120" r="70" stroke-dasharray="8 4"/>
+  <!-- Vinyl record (spins behind profile) -->
+  <g class="vinyl-group">
+    <circle class="vinyl" cx="70" cy="70" r="48"/>
+    <circle class="vinyl-grooves" cx="70" cy="70" r="45"/>
+    <circle class="vinyl-label" cx="70" cy="70" r="18"/>
+    <circle class="vinyl-center" cx="70" cy="70" r="4"/>
   </g>
   
-  <!-- Main profile group (spins) -->
-  <g class="profile-group">
-    <!-- Profile ring -->
-    <circle class="profile-ring" cx="150" cy="120" r="64" stroke-width="3"/>
-    
-    <!-- Profile content (counter-rotates to stay upright) -->
-    <g class="profile-content">
-      <!-- Placeholder profile circle -->
-      <circle class="profile-placeholder" cx="150" cy="120" r="58"/>
-      
-      <!-- Default user icon -->
-      <g class="profile-icon" transform="translate(150, 120)">
-        <circle cx="0" cy="-15" r="18"/>
-        <path d="M -30 35 Q -30 5 0 5 Q 30 5 30 35" fill="#8b949e"/>
-      </g>
+  <!-- Profile ring -->
+  <circle class="profile-ring" cx="70" cy="70" r="52"/>
+  
+  <!-- Profile picture placeholder -->
+  <g clip-path="url(#avatarClip)">
+    <circle class="profile-placeholder" cx="70" cy="70" r="50"/>
+    <!-- Default avatar icon -->
+    <g class="profile-icon" transform="translate(70, 70)">
+      <circle cx="0" cy="-12" r="16"/>
+      <path d="M -28 30 Q -28 5 0 5 Q 28 5 28 30"/>
     </g>
+    <!-- Replace with actual image:
+    <image href="YOUR_IMAGE_URL" x="20" y="20" width="100" height="100" clip-path="url(#avatarClip)"/>
+    -->
   </g>
   
-  <!-- Hover trigger (invisible, over profile) -->
-  <circle class="hover-trigger" cx="150" cy="120" r="70" fill="transparent"/>
+  <!-- Floating music notes -->
+  <g transform="translate(100, 50)">
+    <text class="note note-1" x="0" y="0">♪</text>
+    <text class="note note-2" x="15" y="10">♫</text>
+    <text class="note note-3" x="-10" y="5">♪</text>
+  </g>
   
-  <!-- Song reveal card (shows on hover) -->
-  <g class="song-reveal">
-    <rect class="song-card" x="40" y="200" width="220" height="70" rx="12" style="opacity: 1;"/>
+  <!-- Now Playing Card -->
+  <g class="song-card" transform="translate(140, 30)">
+    <rect class="card-bg" x="0" y="0" width="190" height="100" rx="10"/>
     
-    <!-- Spotify/Music icon -->
-    <g transform="translate(60, 235)">
-      <circle class="music-icon" cx="0" cy="0" r="15"/>
-      <path fill="#000" d="M -6 -4 C 2 -6 8 -4 8 -4 M -6 0 C 2 -2 8 0 8 0 M -6 4 C 2 2 8 4 8 4" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+    <!-- Now Playing indicator -->
+    <text class="now-playing" x="12" y="20">Now Playing</text>
+    
+    <!-- Equalizer bars -->
+    <g transform="translate(160, 8)">
+      <rect class="eq-bar eq-1" x="0" y="16" width="3" height="4" rx="1"/>
+      <rect class="eq-bar eq-2" x="5" y="8" width="3" height="12" rx="1"/>
+      <rect class="eq-bar eq-3" x="10" y="12" width="3" height="8" rx="1"/>
+      <rect class="eq-bar eq-4" x="15" y="6" width="3" height="14" rx="1"/>
+    </g>
+    
+    <!-- Spotify icon -->
+    <g transform="translate(12, 35)">
+      <circle class="spotify-icon" cx="12" cy="12" r="12"/>
+      <path fill="#000" d="M 7 9 Q 12 7 17 9 M 6 12 Q 12 10 18 12 M 7 15 Q 12 13 17 15" stroke="#000" stroke-width="1.5" stroke-linecap="round" fill="none"/>
     </g>
     
     <!-- Song info -->
-    <text class="song-title" x="85" y="228" data-field="songTitle">Favourite Song</text>
-    <text class="song-artist" x="85" y="248" data-field="artistName">Artist Name</text>
+    <text class="song-title" x="42" y="43" data-field="songTitle">Favorite Song</text>
+    <text class="song-artist" x="42" y="60" data-field="artistName">Artist Name</text>
     
-    <!-- Play button (clickable link) -->
-    <a href="#" data-field="musicLink" target="_blank">
-      <g transform="translate(230, 235)">
-        <circle class="play-button" cx="0" cy="0" r="14"/>
-        <path fill="#000" d="M -4 -6 L 6 0 L -4 6 Z"/>
-      </g>
-      <rect class="click-area" x="216" y="221" width="28" height="28" rx="14"/>
-    </a>
+    <!-- Play button -->
+    <g transform="translate(165, 70)" class="play-btn">
+      <circle cx="0" cy="0" r="12" fill="#1db954"/>
+      <polygon points="-3,-5 -3,5 5,0" fill="#000"/>
+    </g>
   </g>
   
-  <!-- Floating music notes (appear on hover) -->
-  <g class="music-notes" transform="translate(200, 140)">
-    <text class="note note-1" fill="#1db954" font-size="16" opacity="0">♪</text>
-    <text class="note note-2" fill="#1ed760" font-size="14" opacity="0" x="15" y="-10">♫</text>
-    <text class="note note-3" fill="#1db954" font-size="12" opacity="0" x="-10" y="-5">♪</text>
-  </g>
-  
-  <!-- Username below -->
-  <text class="username" x="150" y="285" text-anchor="middle" data-field="username">@username</text>
-  
-  <!-- Hover hint -->
-  <text class="hint-text" x="150" y="195" text-anchor="middle">Hover to reveal • Click to play</text>
+  <!-- Username -->
+  <text class="username" x="140" y="150" data-field="username">@username</text>
+  <text class="bio" x="140" y="165">Music enthusiast 🎵</text>
 </svg>

@@ -1,6 +1,197 @@
 /**
  * Timeline - Animation timeline and keyframe management
+ * Supports multiple easing functions and spline-based motion
  */
+
+// Easing functions library
+const EASING_FUNCTIONS = {
+    // Linear
+    linear: (t) => t,
+
+    // Quadratic
+    easeInQuad: (t) => t * t,
+    easeOutQuad: (t) => t * (2 - t),
+    easeInOutQuad: (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
+
+    // Cubic
+    easeInCubic: (t) => t * t * t,
+    easeOutCubic: (t) => (--t) * t * t + 1,
+    easeInOutCubic: (t) => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1,
+
+    // Quartic
+    easeInQuart: (t) => t * t * t * t,
+    easeOutQuart: (t) => 1 - (--t) * t * t * t,
+    easeInOutQuart: (t) => t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t,
+
+    // Quintic
+    easeInQuint: (t) => t * t * t * t * t,
+    easeOutQuint: (t) => 1 + (--t) * t * t * t * t,
+    easeInOutQuint: (t) => t < 0.5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t,
+
+    // Sine
+    easeInSine: (t) => 1 - Math.cos(t * Math.PI / 2),
+    easeOutSine: (t) => Math.sin(t * Math.PI / 2),
+    easeInOutSine: (t) => -(Math.cos(Math.PI * t) - 1) / 2,
+
+    // Exponential
+    easeInExpo: (t) => t === 0 ? 0 : Math.pow(2, 10 * (t - 1)),
+    easeOutExpo: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
+    easeInOutExpo: (t) => {
+        if (t === 0 || t === 1) return t;
+        return t < 0.5
+            ? Math.pow(2, 20 * t - 10) / 2
+            : (2 - Math.pow(2, -20 * t + 10)) / 2;
+    },
+
+    // Circular
+    easeInCirc: (t) => 1 - Math.sqrt(1 - t * t),
+    easeOutCirc: (t) => Math.sqrt(1 - (--t) * t),
+    easeInOutCirc: (t) => t < 0.5
+        ? (1 - Math.sqrt(1 - 4 * t * t)) / 2
+        : (Math.sqrt(1 - Math.pow(-2 * t + 2, 2)) + 1) / 2,
+
+    // Elastic
+    easeInElastic: (t) => {
+        if (t === 0 || t === 1) return t;
+        return -Math.pow(2, 10 * t - 10) * Math.sin((t * 10 - 10.75) * (2 * Math.PI / 3));
+    },
+    easeOutElastic: (t) => {
+        if (t === 0 || t === 1) return t;
+        return Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * (2 * Math.PI / 3)) + 1;
+    },
+    easeInOutElastic: (t) => {
+        if (t === 0 || t === 1) return t;
+        return t < 0.5
+            ? -(Math.pow(2, 20 * t - 10) * Math.sin((20 * t - 11.125) * (2 * Math.PI / 4.5))) / 2
+            : (Math.pow(2, -20 * t + 10) * Math.sin((20 * t - 11.125) * (2 * Math.PI / 4.5))) / 2 + 1;
+    },
+
+    // Back
+    easeInBack: (t) => {
+        const c1 = 1.70158;
+        const c3 = c1 + 1;
+        return c3 * t * t * t - c1 * t * t;
+    },
+    easeOutBack: (t) => {
+        const c1 = 1.70158;
+        const c3 = c1 + 1;
+        return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+    },
+    easeInOutBack: (t) => {
+        const c1 = 1.70158;
+        const c2 = c1 * 1.525;
+        return t < 0.5
+            ? (Math.pow(2 * t, 2) * ((c2 + 1) * 2 * t - c2)) / 2
+            : (Math.pow(2 * t - 2, 2) * ((c2 + 1) * (t * 2 - 2) + c2) + 2) / 2;
+    },
+
+    // Bounce
+    easeInBounce: (t) => 1 - EASING_FUNCTIONS.easeOutBounce(1 - t),
+    easeOutBounce: (t) => {
+        const n1 = 7.5625;
+        const d1 = 2.75;
+        if (t < 1 / d1) return n1 * t * t;
+        if (t < 2 / d1) return n1 * (t -= 1.5 / d1) * t + 0.75;
+        if (t < 2.5 / d1) return n1 * (t -= 2.25 / d1) * t + 0.9375;
+        return n1 * (t -= 2.625 / d1) * t + 0.984375;
+    },
+    easeInOutBounce: (t) => t < 0.5
+        ? (1 - EASING_FUNCTIONS.easeOutBounce(1 - 2 * t)) / 2
+        : (1 + EASING_FUNCTIONS.easeOutBounce(2 * t - 1)) / 2,
+
+    // Spring (custom)
+    spring: (t) => {
+        const c4 = (2 * Math.PI) / 3;
+        return t === 0 ? 0 : t === 1 ? 1 :
+            Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
+    }
+};
+
+// Cubic Bezier implementation for custom curves
+class CubicBezier {
+    constructor(x1, y1, x2, y2) {
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
+    }
+
+    // Calculate bezier curve value at time t
+    evaluate(t) {
+        // Use Newton-Raphson iteration to find t for given x
+        const x = this.solveForT(t);
+        return this.bezier(this.y1, this.y2, x);
+    }
+
+    bezier(p1, p2, t) {
+        const t2 = t * t;
+        const t3 = t2 * t;
+        const mt = 1 - t;
+        const mt2 = mt * mt;
+        const mt3 = mt2 * mt;
+        return 3 * mt2 * t * p1 + 3 * mt * t2 * p2 + t3;
+    }
+
+    solveForT(x) {
+        let t = x;
+        for (let i = 0; i < 8; i++) {
+            const xCalc = this.bezier(this.x1, this.x2, t);
+            const dx = xCalc - x;
+            if (Math.abs(dx) < 1e-6) break;
+
+            const derivative = this.bezierDerivative(this.x1, this.x2, t);
+            if (Math.abs(derivative) < 1e-6) break;
+
+            t -= dx / derivative;
+            t = Math.max(0, Math.min(1, t));
+        }
+        return t;
+    }
+
+    bezierDerivative(p1, p2, t) {
+        const t2 = t * t;
+        const mt = 1 - t;
+        const mt2 = mt * mt;
+        return 3 * mt2 * p1 + 6 * mt * t * (p2 - p1) + 3 * t2 * (1 - p2);
+    }
+}
+
+// Export easing names for UI
+export const EASING_NAMES = [
+    { value: 'linear', label: 'Linear', category: 'Linear' },
+    { value: 'easeInQuad', label: 'Ease In (Quad)', category: 'Quadratic' },
+    { value: 'easeOutQuad', label: 'Ease Out (Quad)', category: 'Quadratic' },
+    { value: 'easeInOutQuad', label: 'Ease In-Out (Quad)', category: 'Quadratic' },
+    { value: 'easeInCubic', label: 'Ease In (Cubic)', category: 'Cubic' },
+    { value: 'easeOutCubic', label: 'Ease Out (Cubic)', category: 'Cubic' },
+    { value: 'easeInOutCubic', label: 'Ease In-Out (Cubic)', category: 'Cubic' },
+    { value: 'easeInQuart', label: 'Ease In (Quart)', category: 'Quartic' },
+    { value: 'easeOutQuart', label: 'Ease Out (Quart)', category: 'Quartic' },
+    { value: 'easeInOutQuart', label: 'Ease In-Out (Quart)', category: 'Quartic' },
+    { value: 'easeInQuint', label: 'Ease In (Quint)', category: 'Quintic' },
+    { value: 'easeOutQuint', label: 'Ease Out (Quint)', category: 'Quintic' },
+    { value: 'easeInOutQuint', label: 'Ease In-Out (Quint)', category: 'Quintic' },
+    { value: 'easeInSine', label: 'Ease In (Sine)', category: 'Sine' },
+    { value: 'easeOutSine', label: 'Ease Out (Sine)', category: 'Sine' },
+    { value: 'easeInOutSine', label: 'Ease In-Out (Sine)', category: 'Sine' },
+    { value: 'easeInExpo', label: 'Ease In (Expo)', category: 'Exponential' },
+    { value: 'easeOutExpo', label: 'Ease Out (Expo)', category: 'Exponential' },
+    { value: 'easeInOutExpo', label: 'Ease In-Out (Expo)', category: 'Exponential' },
+    { value: 'easeInCirc', label: 'Ease In (Circ)', category: 'Circular' },
+    { value: 'easeOutCirc', label: 'Ease Out (Circ)', category: 'Circular' },
+    { value: 'easeInOutCirc', label: 'Ease In-Out (Circ)', category: 'Circular' },
+    { value: 'easeInElastic', label: 'Ease In (Elastic)', category: 'Elastic' },
+    { value: 'easeOutElastic', label: 'Ease Out (Elastic)', category: 'Elastic' },
+    { value: 'easeInOutElastic', label: 'Ease In-Out (Elastic)', category: 'Elastic' },
+    { value: 'easeInBack', label: 'Ease In (Back)', category: 'Back' },
+    { value: 'easeOutBack', label: 'Ease Out (Back)', category: 'Back' },
+    { value: 'easeInOutBack', label: 'Ease In-Out (Back)', category: 'Back' },
+    { value: 'easeInBounce', label: 'Ease In (Bounce)', category: 'Bounce' },
+    { value: 'easeOutBounce', label: 'Ease Out (Bounce)', category: 'Bounce' },
+    { value: 'easeInOutBounce', label: 'Ease In-Out (Bounce)', category: 'Bounce' },
+    { value: 'spring', label: 'Spring', category: 'Special' },
+    { value: 'custom', label: 'Custom Bezier', category: 'Custom' }
+];
 
 export class Timeline {
     constructor(containerId, app) {
@@ -13,7 +204,11 @@ export class Timeline {
         this.playbackId = null;
         this.pixelsPerSecond = 100;
 
-        this.keyframes = new Map(); // elementId -> [{time, properties}]
+        // Keyframes now include easing: [{time, properties, easing, bezier?}]
+        this.keyframes = new Map(); // elementId -> [{time, properties, easing}]
+
+        // Default easing for new keyframes
+        this.defaultEasing = 'easeInOutCubic';
 
         this.setupUI();
         this.setupEvents();
@@ -149,17 +344,27 @@ export class Timeline {
             keyframe.className = 'keyframe';
             keyframe.style.left = `${kf.time * this.pixelsPerSecond}px`;
             keyframe.dataset.index = index;
+            keyframe.dataset.easing = kf.easing || 'linear';
+            keyframe.title = `${kf.time.toFixed(2)}s - ${this.getEasingLabel(kf.easing)}`;
+
+            // Add easing indicator
+            const easingDot = document.createElement('span');
+            easingDot.className = 'easing-indicator';
+            easingDot.style.background = this.getEasingColor(kf.easing);
+            keyframe.appendChild(easingDot);
 
             // Drag to move keyframe
             keyframe.addEventListener('mousedown', (e) => {
                 e.stopPropagation();
-                this.startDraggingKeyframe(element.id, index, e);
+                if (e.button === 0) {
+                    this.startDraggingKeyframe(element.id, index, e);
+                }
             });
 
-            // Right-click to delete
+            // Right-click for context menu
             keyframe.addEventListener('contextmenu', (e) => {
                 e.preventDefault();
-                this.deleteKeyframe(element.id, index);
+                this.showKeyframeContextMenu(element.id, index, e);
             });
 
             track.appendChild(keyframe);
@@ -194,7 +399,7 @@ export class Timeline {
         this.addKeyframe(elementId, time);
     }
 
-    addKeyframe(elementId, time) {
+    addKeyframe(elementId, time, easing = null) {
         const element = document.getElementById(elementId);
         if (!element) return;
 
@@ -202,7 +407,12 @@ export class Timeline {
         const properties = this.captureProperties(element);
 
         const keyframes = this.keyframes.get(elementId) || [];
-        keyframes.push({ time, properties });
+        keyframes.push({
+            time,
+            properties,
+            easing: easing || this.defaultEasing,
+            bezier: null // For custom bezier curves
+        });
         keyframes.sort((a, b) => a.time - b.time);
 
         this.keyframes.set(elementId, keyframes);
@@ -359,22 +569,48 @@ export class Timeline {
             // Find surrounding keyframes
             let prevKf = keyframes[0];
             let nextKf = keyframes[keyframes.length - 1];
+            let kfIndex = 0;
 
             for (let i = 0; i < keyframes.length - 1; i++) {
                 if (keyframes[i].time <= time && keyframes[i + 1].time >= time) {
                     prevKf = keyframes[i];
                     nextKf = keyframes[i + 1];
+                    kfIndex = i;
                     break;
                 }
             }
 
-            // Interpolate properties
-            const progress = (time - prevKf.time) / (nextKf.time - prevKf.time);
-            const interpolated = this.interpolateProperties(prevKf.properties, nextKf.properties, progress);
+            // Calculate linear progress
+            const duration = nextKf.time - prevKf.time;
+            const linearProgress = duration > 0 ? (time - prevKf.time) / duration : 0;
+
+            // Apply easing to the progress
+            const easing = nextKf.easing || 'linear';
+            const easedProgress = this.applyEasing(linearProgress, easing, nextKf.bezier);
+
+            // Interpolate properties with eased progress
+            const interpolated = this.interpolateProperties(prevKf.properties, nextKf.properties, easedProgress);
 
             // Apply to element
             this.applyProperties(element, interpolated);
         });
+    }
+
+    applyEasing(t, easingName, bezierPoints = null) {
+        // Handle custom bezier
+        if (easingName === 'custom' && bezierPoints) {
+            const bezier = new CubicBezier(
+                bezierPoints.x1,
+                bezierPoints.y1,
+                bezierPoints.x2,
+                bezierPoints.y2
+            );
+            return bezier.evaluate(t);
+        }
+
+        // Use predefined easing function
+        const easingFn = EASING_FUNCTIONS[easingName] || EASING_FUNCTIONS.linear;
+        return easingFn(t);
     }
 
     interpolateProperties(from, to, progress) {
@@ -434,5 +670,136 @@ export class Timeline {
 
     refresh() {
         this.render();
+    }
+
+    // Easing helpers
+    getEasingLabel(easing) {
+        const found = EASING_NAMES.find(e => e.value === easing);
+        return found ? found.label : 'Linear';
+    }
+
+    getEasingColor(easing) {
+        const colors = {
+            linear: '#6b7280',
+            easeInQuad: '#3b82f6', easeOutQuad: '#3b82f6', easeInOutQuad: '#3b82f6',
+            easeInCubic: '#8b5cf6', easeOutCubic: '#8b5cf6', easeInOutCubic: '#8b5cf6',
+            easeInQuart: '#a855f7', easeOutQuart: '#a855f7', easeInOutQuart: '#a855f7',
+            easeInQuint: '#d946ef', easeOutQuint: '#d946ef', easeInOutQuint: '#d946ef',
+            easeInSine: '#06b6d4', easeOutSine: '#06b6d4', easeInOutSine: '#06b6d4',
+            easeInExpo: '#f97316', easeOutExpo: '#f97316', easeInOutExpo: '#f97316',
+            easeInCirc: '#14b8a6', easeOutCirc: '#14b8a6', easeInOutCirc: '#14b8a6',
+            easeInElastic: '#f43f5e', easeOutElastic: '#f43f5e', easeInOutElastic: '#f43f5e',
+            easeInBack: '#84cc16', easeOutBack: '#84cc16', easeInOutBack: '#84cc16',
+            easeInBounce: '#eab308', easeOutBounce: '#eab308', easeInOutBounce: '#eab308',
+            spring: '#ec4899',
+            custom: '#6366f1'
+        };
+        return colors[easing] || colors.linear;
+    }
+
+    setKeyframeEasing(elementId, keyframeIndex, easing, bezier = null) {
+        const keyframes = this.keyframes.get(elementId);
+        if (keyframes && keyframes[keyframeIndex]) {
+            keyframes[keyframeIndex].easing = easing;
+            keyframes[keyframeIndex].bezier = bezier;
+            this.render();
+        }
+    }
+
+    showKeyframeContextMenu(elementId, keyframeIndex, event) {
+        // Create context menu for keyframe options
+        const menu = document.createElement('div');
+        menu.className = 'keyframe-context-menu';
+        menu.style.cssText = `
+            position: fixed;
+            left: ${event.clientX}px;
+            top: ${event.clientY}px;
+            background: var(--bg-secondary, #161b22);
+            border: 1px solid var(--border-color, #30363d);
+            border-radius: 8px;
+            padding: 8px 0;
+            min-width: 200px;
+            z-index: 10000;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        `;
+
+        const keyframes = this.keyframes.get(elementId);
+        const currentEasing = keyframes?.[keyframeIndex]?.easing || 'linear';
+
+        // Group easings by category
+        const categories = {};
+        EASING_NAMES.forEach(e => {
+            if (!categories[e.category]) categories[e.category] = [];
+            categories[e.category].push(e);
+        });
+
+        // Build menu
+        let html = `<div class="context-menu-header" style="padding: 4px 12px; font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px;">Easing</div>`;
+
+        for (const [category, easings] of Object.entries(categories)) {
+            html += `<div class="context-menu-category" style="padding: 4px 12px; font-size: 10px; color: #6b7280; margin-top: 4px;">${category}</div>`;
+
+            for (const easing of easings) {
+                const isActive = easing.value === currentEasing;
+                html += `
+                    <div class="context-menu-item" data-easing="${easing.value}" style="
+                        padding: 6px 12px;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        color: ${isActive ? '#fff' : '#c9d1d9'};
+                        background: ${isActive ? 'rgba(99, 102, 241, 0.2)' : 'transparent'};
+                    ">
+                        <span style="
+                            width: 8px;
+                            height: 8px;
+                            border-radius: 50%;
+                            background: ${this.getEasingColor(easing.value)};
+                        "></span>
+                        ${easing.label}
+                        ${isActive ? '<span style="margin-left: auto;">✓</span>' : ''}
+                    </div>
+                `;
+            }
+        }
+
+        html += `<div style="border-top: 1px solid #30363d; margin: 8px 0;"></div>`;
+        html += `<div class="context-menu-item delete-item" style="padding: 6px 12px; cursor: pointer; color: #f43f5e;">Delete Keyframe</div>`;
+
+        menu.innerHTML = html;
+        document.body.appendChild(menu);
+
+        // Event handlers
+        menu.querySelectorAll('.context-menu-item[data-easing]').forEach(item => {
+            item.addEventListener('mouseenter', () => item.style.background = 'rgba(99, 102, 241, 0.1)');
+            item.addEventListener('mouseleave', () => {
+                const isActive = item.dataset.easing === currentEasing;
+                item.style.background = isActive ? 'rgba(99, 102, 241, 0.2)' : 'transparent';
+            });
+            item.addEventListener('click', () => {
+                this.setKeyframeEasing(elementId, keyframeIndex, item.dataset.easing);
+                menu.remove();
+            });
+        });
+
+        menu.querySelector('.delete-item').addEventListener('click', () => {
+            this.deleteKeyframe(elementId, keyframeIndex);
+            menu.remove();
+        });
+
+        // Close on click outside
+        const closeMenu = (e) => {
+            if (!menu.contains(e.target)) {
+                menu.remove();
+                document.removeEventListener('click', closeMenu);
+            }
+        };
+        setTimeout(() => document.addEventListener('click', closeMenu), 0);
+    }
+
+    // Set default easing for new keyframes
+    setDefaultEasing(easing) {
+        this.defaultEasing = easing;
     }
 }

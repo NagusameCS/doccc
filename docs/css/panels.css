@@ -376,6 +376,172 @@
 }
 
 /* ========================================
+   Favorites Panel
+   ======================================== */
+
+.favorites-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.favorites-count {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.browse-link {
+    font-size: 11px;
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.browse-link:hover {
+    color: var(--accent-secondary);
+}
+
+.favorites-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+    overflow-y: auto;
+    max-height: calc(100% - 40px);
+}
+
+.favorite-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    border: 1px solid transparent;
+}
+
+.favorite-item:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: var(--accent-primary);
+}
+
+.favorite-preview {
+    width: 36px;
+    height: 36px;
+    background: var(--bg-secondary);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.favorite-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.favorite-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.favorite-category {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: capitalize;
+}
+
+.favorite-actions {
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: var(--transition-fast);
+}
+
+.favorite-item:hover .favorite-actions {
+    opacity: 1;
+}
+
+.favorite-use,
+.favorite-remove {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
+}
+
+.favorite-use:hover {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: white;
+}
+
+.favorite-remove {
+    color: #f43f5e;
+}
+
+.favorite-remove:hover {
+    background: #f43f5e;
+    border-color: #f43f5e;
+    color: white;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.empty-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.empty-state p {
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.empty-hint {
+    font-size: 11px;
+    opacity: 0.7;
+}
+
+.empty-link {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--accent-primary);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.empty-link:hover {
+    color: var(--accent-secondary);
+}
+
+/* ========================================
    Properties Panel
    ======================================== */
 

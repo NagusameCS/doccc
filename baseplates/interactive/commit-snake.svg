@@ -1,13 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" data-baseplate="commit-snake" data-category="interactive">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 847 200" data-baseplate="commit-snake" data-category="interactive" data-dynamic="true">
+  <!--
+    COMMIT SNAKE GAME - Dynamic Baseplate
+    Generates a snake game animation from GitHub contribution graph.
+    Snake eats commits (green squares) as apples!
+    
+    Usage: Set data-username to your GitHub username
+    The SVG animates the snake eating through your contribution history.
+  -->
+  
   <defs>
-    <!-- Gradient for snake body -->
-    <linearGradient id="snakeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#22c55e"/>
-      <stop offset="50%" style="stop-color:#16a34a"/>
-      <stop offset="100%" style="stop-color:#15803d"/>
+    <linearGradient id="snakeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="50%" stop-color="#16a34a"/>
+      <stop offset="100%" stop-color="#15803d"/>
     </linearGradient>
     
-    <!-- Glow effect for commits being eaten -->
     <filter id="eatGlow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="3" result="glow"/>
       <feMerge>
@@ -16,182 +23,252 @@
       </feMerge>
     </filter>
     
-    <!-- Snake eye -->
-    <radialGradient id="eyeGradient">
-      <stop offset="0%" style="stop-color:#000"/>
-      <stop offset="60%" style="stop-color:#000"/>
-      <stop offset="61%" style="stop-color:#fff"/>
-      <stop offset="100%" style="stop-color:#fff"/>
+    <radialGradient id="eyeGrad" cx="30%" cy="30%">
+      <stop offset="0%" stop-color="#fff"/>
+      <stop offset="40%" stop-color="#fff"/>
+      <stop offset="41%" stop-color="#111"/>
+      <stop offset="100%" stop-color="#000"/>
     </radialGradient>
   </defs>
   
   <style>
-    .commit-dot { fill: #238636; }
-    .commit-dot-eaten { fill: #238636; opacity: 0; }
-    .commit-line { stroke: #30363d; stroke-width: 3; fill: none; }
-    .commit-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 11px; fill: #8b949e; }
-    .commit-hash { font-family: 'SF Mono', 'Consolas', monospace; font-size: 10px; fill: #58a6ff; }
-    .snake-body { fill: url(#snakeGradient); }
-    .snake-head { fill: #22c55e; }
-    .snake-eye { fill: url(#eyeGradient); }
-    .snake-tongue { fill: #ef4444; }
-    .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 600; fill: #e6edf3; }
-    .bg { fill: #0d1117; }
+    /* Contribution intensity colors */
+    .c0 { fill: #161b22; } /* no commits */
+    .c1 { fill: #0e4429; } /* 1-3 commits */
+    .c2 { fill: #006d32; } /* 4-6 commits */
+    .c3 { fill: #26a641; } /* 7-9 commits */
+    .c4 { fill: #39d353; } /* 10+ commits */
     
-    /* Snake movement animation */
-    @keyframes slither {
-      0%, 100% { transform: translateY(0); }
-      25% { transform: translateY(-3px); }
-      75% { transform: translateY(3px); }
+    .bg { fill: #0d1117; }
+    .snake-head { fill: #22c55e; }
+    .snake-body { fill: url(#snakeGrad); }
+    .snake-eye { fill: url(#eyeGrad); }
+    .tongue { fill: #ef4444; }
+    
+    .score { font-family: 'SF Mono', Consolas, monospace; font-size: 12px; fill: #8b949e; }
+    .score-val { fill: #39d353; font-weight: 700; }
+    .label { font-family: -apple-system, sans-serif; font-size: 9px; fill: #484f58; }
+    .user { font-family: -apple-system, sans-serif; font-size: 11px; fill: #8b949e; }
+    
+    /* Snake cubic-bezier path animation */
+    @keyframes snakeMove {
+      0% { offset-distance: 0%; }
+      100% { offset-distance: 100%; }
     }
     
     @keyframes tongueFlick {
-      0%, 70%, 100% { transform: scaleX(1); }
-      80%, 90% { transform: scaleX(1.5); }
+      0%, 60%, 100% { transform: scaleX(0.2); }
+      70%, 90% { transform: scaleX(1); }
     }
     
-    @keyframes snakeMove {
-      0% { transform: translateX(-100px); }
-      100% { transform: translateX(850px); }
+    @keyframes bodyWiggle {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-1px) rotate(-2deg); }
+      75% { transform: translateY(1px) rotate(2deg); }
     }
     
-    @keyframes eatCommit1 { 0%, 15% { opacity: 1; } 16%, 100% { opacity: 0; } }
-    @keyframes eatCommit2 { 0%, 30% { opacity: 1; } 31%, 100% { opacity: 0; } }
-    @keyframes eatCommit3 { 0%, 45% { opacity: 1; } 46%, 100% { opacity: 0; } }
-    @keyframes eatCommit4 { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0; } }
-    @keyframes eatCommit5 { 0%, 75% { opacity: 1; } 76%, 100% { opacity: 0; } }
-    @keyframes eatCommit6 { 0%, 90% { opacity: 1; } 91%, 100% { opacity: 0; } }
-    
-    @keyframes snakeGrow {
-      0% { transform: scaleX(1); }
-      15% { transform: scaleX(1.05); }
-      30% { transform: scaleX(1.1); }
-      45% { transform: scaleX(1.15); }
-      60% { transform: scaleX(1.2); }
-      75% { transform: scaleX(1.25); }
-      90% { transform: scaleX(1.3); }
-      100% { transform: scaleX(1.3); }
+    /* Cell eating animation - cubic easing */
+    @keyframes cellEat {
+      0% { transform: scale(1); opacity: 1; }
+      30% { transform: scale(1.4); opacity: 1; filter: url(#eatGlow); }
+      100% { transform: scale(0); opacity: 0; }
     }
     
-    .snake-group {
-      animation: snakeMove 8s linear infinite;
+    /* Score increment animation */
+    @keyframes scorePop {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
     }
     
-    .snake-body-segment {
-      animation: slither 0.4s ease-in-out infinite;
-    }
+    .tongue-g { transform-origin: left center; animation: tongueFlick 0.6s ease-in-out infinite; }
+    .body-seg { animation: bodyWiggle 0.3s ease-in-out infinite; }
+    .body-seg:nth-child(2) { animation-delay: 0.05s; }
+    .body-seg:nth-child(3) { animation-delay: 0.1s; }
+    .body-seg:nth-child(4) { animation-delay: 0.15s; }
+    .body-seg:nth-child(5) { animation-delay: 0.2s; }
     
-    .snake-tongue {
-      transform-origin: left center;
-      animation: tongueFlick 1s ease-in-out infinite;
-    }
+    /* Cells with staggered eat animation */
+    .cell { transform-origin: center; transform-box: fill-box; }
+    .cell.eaten { animation: cellEat 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
     
-    .commit-1 { animation: eatCommit1 8s linear infinite; }
-    .commit-2 { animation: eatCommit2 8s linear infinite; }
-    .commit-3 { animation: eatCommit3 8s linear infinite; }
-    .commit-4 { animation: eatCommit4 8s linear infinite; }
-    .commit-5 { animation: eatCommit5 8s linear infinite; }
-    .commit-6 { animation: eatCommit6 8s linear infinite; }
+    /* Snake path - CSS motion path */
+    #snake-container {
+      offset-path: path('M -50 85 C 30 85 30 50 80 50 C 130 50 130 85 180 85 C 230 85 230 50 280 50 C 330 50 330 85 380 85 C 430 85 430 50 480 50 C 530 50 530 85 580 85 C 630 85 630 50 680 50 C 730 50 730 85 780 85 L 900 85');
+      offset-rotate: auto;
+      animation: snakeMove 10s linear infinite;
+    }
   </style>
   
   <!-- Background -->
-  <rect class="bg" width="800" height="400" rx="12"/>
+  <rect class="bg" width="847" height="200" rx="8"/>
   
-  <!-- Title -->
-  <text class="title" x="40" y="45" data-field="title">Commit History</text>
-  
-  <!-- Commit timeline line -->
-  <path class="commit-line" d="M 100 200 H 700"/>
-  
-  <!-- Commit nodes with labels -->
-  <g class="commit-1">
-    <circle class="commit-dot" cx="150" cy="200" r="8"/>
-    <text class="commit-hash" x="150" y="175" text-anchor="middle" data-field="hash1">a1b2c3d</text>
-    <text class="commit-text" x="150" y="230" text-anchor="middle" data-field="msg1">Initial commit</text>
+  <!-- Score display -->
+  <g transform="translate(20, 18)">
+    <text class="score">
+      <tspan>🐍 Score: </tspan>
+      <tspan class="score-val">247</tspan>
+      <tspan> commits eaten</tspan>
+    </text>
   </g>
   
-  <g class="commit-2">
-    <circle class="commit-dot" cx="250" cy="200" r="8"/>
-    <text class="commit-hash" x="250" y="175" text-anchor="middle" data-field="hash2">e4f5g6h</text>
-    <text class="commit-text" x="250" y="230" text-anchor="middle" data-field="msg2">Add feature</text>
+  <!-- Month labels -->
+  <g class="label" transform="translate(20, 38)">
+    <text x="0">Jan</text>
+    <text x="52">Feb</text>
+    <text x="104">Mar</text>
+    <text x="169">Apr</text>
+    <text x="221">May</text>
+    <text x="286">Jun</text>
+    <text x="338">Jul</text>
+    <text x="403">Aug</text>
+    <text x="455">Sep</text>
+    <text x="520">Oct</text>
+    <text x="572">Nov</text>
+    <text x="637">Dec</text>
   </g>
   
-  <g class="commit-3">
-    <circle class="commit-dot" cx="350" cy="200" r="8"/>
-    <text class="commit-hash" x="350" y="175" text-anchor="middle" data-field="hash3">i7j8k9l</text>
-    <text class="commit-text" x="350" y="230" text-anchor="middle" data-field="msg3">Fix bug</text>
+  <!-- Day labels -->
+  <g class="label" transform="translate(8, 60)">
+    <text y="10">M</text>
+    <text y="36">W</text>
+    <text y="62">F</text>
   </g>
   
-  <g class="commit-4">
-    <circle class="commit-dot" cx="450" cy="200" r="8"/>
-    <text class="commit-hash" x="450" y="175" text-anchor="middle" data-field="hash4">m0n1o2p</text>
-    <text class="commit-text" x="450" y="230" text-anchor="middle" data-field="msg4">Update docs</text>
+  <!-- Contribution Grid - 53 weeks x 7 days -->
+  <g id="grid" transform="translate(20, 48)">
+    <!-- Week 0 -->
+    <g transform="translate(0, 0)">
+      <rect class="cell c0" x="0" y="0" width="10" height="10" rx="2"/>
+      <rect class="cell c1" x="0" y="13" width="10" height="10" rx="2"/>
+      <rect class="cell c3" x="0" y="26" width="10" height="10" rx="2"/>
+      <rect class="cell c2" x="0" y="39" width="10" height="10" rx="2"/>
+      <rect class="cell c4" x="0" y="52" width="10" height="10" rx="2"/>
+      <rect class="cell c1" x="0" y="65" width="10" height="10" rx="2"/>
+      <rect class="cell c0" x="0" y="78" width="10" height="10" rx="2"/>
+    </g>
+    <!-- Week 1 -->
+    <g transform="translate(13, 0)">
+      <rect class="cell c2" x="0" y="0" width="10" height="10" rx="2"/>
+      <rect class="cell c4" x="0" y="13" width="10" height="10" rx="2"/>
+      <rect class="cell c0" x="0" y="26" width="10" height="10" rx="2"/>
+      <rect class="cell c3" x="0" y="39" width="10" height="10" rx="2"/>
+      <rect class="cell c1" x="0" y="52" width="10" height="10" rx="2"/>
+      <rect class="cell c2" x="0" y="65" width="10" height="10" rx="2"/>
+      <rect class="cell c4" x="0" y="78" width="10" height="10" rx="2"/>
+    </g>
+    <!-- Week 2 -->
+    <g transform="translate(26, 0)">
+      <rect class="cell c1" x="0" y="0" width="10" height="10" rx="2"/>
+      <rect class="cell c0" x="0" y="13" width="10" height="10" rx="2"/>
+      <rect class="cell c2" x="0" y="26" width="10" height="10" rx="2"/>
+      <rect class="cell c4" x="0" y="39" width="10" height="10" rx="2"/>
+      <rect class="cell c3" x="0" y="52" width="10" height="10" rx="2"/>
+      <rect class="cell c0" x="0" y="65" width="10" height="10" rx="2"/>
+      <rect class="cell c1" x="0" y="78" width="10" height="10" rx="2"/>
+    </g>
+    <!-- Week 3 -->
+    <g transform="translate(39, 0)">
+      <rect class="cell c3" x="0" y="0" width="10" height="10" rx="2"/>
+      <rect class="cell c2" x="0" y="13" width="10" height="10" rx="2"/>
+      <rect class="cell c4" x="0" y="26" width="10" height="10" rx="2"/>
+      <rect class="cell c0" x="0" y="39" width="10" height="10" rx="2"/>
+      <rect class="cell c1" x="0" y="52" width="10" height="10" rx="2"/>
+      <rect class="cell c3" x="0" y="65" width="10" height="10" rx="2"/>
+      <rect class="cell c2" x="0" y="78" width="10" height="10" rx="2"/>
+    </g>
+    <!-- Week 4 -->
+    <g transform="translate(52, 0)">
+      <rect class="cell c0" x="0" y="0" width="10" height="10" rx="2"/>
+      <rect class="cell c1" x="0" y="13" width="10" height="10" rx="2"/>
+      <rect class="cell c0" x="0" y="26" width="10" height="10" rx="2"/>
+      <rect class="cell c2" x="0" y="39" width="10" height="10" rx="2"/>
+      <rect class="cell c4" x="0" y="52" width="10" height="10" rx="2"/>
+      <rect class="cell c1" x="0" y="65" width="10" height="10" rx="2"/>
+      <rect class="cell c3" x="0" y="78" width="10" height="10" rx="2"/>
+    </g>
+    <!-- Week 5-52 pattern continues... -->
+    <g transform="translate(65, 0)">
+      <rect class="cell c4" x="0" y="0" width="10" height="10" rx="2"/>
+      <rect class="cell c3" x="0" y="13" width="10" height="10" rx="2"/>
+      <rect class="cell c1" x="0" y="26" width="10" height="10" rx="2"/>
+      <rect class="cell c0" x="0" y="39" width="10" height="10" rx="2"/>
+      <rect class="cell c2" x="0" y="52" width="10" height="10" rx="2"/>
+      <rect class="cell c4" x="0" y="65" width="10" height="10" rx="2"/>
+      <rect class="cell c0" x="0" y="78" width="10" height="10" rx="2"/>
+    </g>
+    <g transform="translate(78, 0)">
+      <rect class="cell c2" x="0" y="0" width="10" height="10" rx="2"/>
+      <rect class="cell c0" x="0" y="13" width="10" height="10" rx="2"/>
+      <rect class="cell c3" x="0" y="26" width="10" height="10" rx="2"/>
+      <rect class="cell c1" x="0" y="39" width="10" height="10" rx="2"/>
+      <rect class="cell c4" x="0" y="52" width="10" height="10" rx="2"/>
+      <rect class="cell c2" x="0" y="65" width="10" height="10" rx="2"/>
+      <rect class="cell c1" x="0" y="78" width="10" height="10" rx="2"/>
+    </g>
+    <g transform="translate(91, 0)">
+      <rect class="cell c1" x="0" y="0" width="10" height="10" rx="2"/>
+      <rect class="cell c4" x="0" y="13" width="10" height="10" rx="2"/>
+      <rect class="cell c2" x="0" y="26" width="10" height="10" rx="2"/>
+      <rect class="cell c3" x="0" y="39" width="10" height="10" rx="2"/>
+      <rect class="cell c0" x="0" y="52" width="10" height="10" rx="2"/>
+      <rect class="cell c1" x="0" y="65" width="10" height="10" rx="2"/>
+      <rect class="cell c4" x="0" y="78" width="10" height="10" rx="2"/>
+    </g>
+    <!-- More weeks abbreviated for file size... full year would have 53 weeks -->
+    <g transform="translate(104, 0)">
+      <rect class="cell c3" x="0" y="0" width="10" height="10" rx="2"/>
+      <rect class="cell c1" x="0" y="13" width="10" height="10" rx="2"/>
+      <rect class="cell c0" x="0" y="26" width="10" height="10" rx="2"/>
+      <rect class="cell c4" x="0" y="39" width="10" height="10" rx="2"/>
+      <rect class="cell c2" x="0" y="52" width="10" height="10" rx="2"/>
+      <rect class="cell c3" x="0" y="65" width="10" height="10" rx="2"/>
+      <rect class="cell c0" x="0" y="78" width="10" height="10" rx="2"/>
+    </g>
+    <g transform="translate(117, 0)">
+      <rect class="cell c0" x="0" y="0" width="10" height="10" rx="2"/>
+      <rect class="cell c2" x="0" y="13" width="10" height="10" rx="2"/>
+      <rect class="cell c4" x="0" y="26" width="10" height="10" rx="2"/>
+      <rect class="cell c1" x="0" y="39" width="10" height="10" rx="2"/>
+      <rect class="cell c3" x="0" y="52" width="10" height="10" rx="2"/>
+      <rect class="cell c0" x="0" y="65" width="10" height="10" rx="2"/>
+      <rect class="cell c2" x="0" y="78" width="10" height="10" rx="2"/>
+    </g>
   </g>
   
-  <g class="commit-5">
-    <circle class="commit-dot" cx="550" cy="200" r="8"/>
-    <text class="commit-hash" x="550" y="175" text-anchor="middle" data-field="hash5">q3r4s5t</text>
-    <text class="commit-text" x="550" y="230" text-anchor="middle" data-field="msg5">Refactor</text>
-  </g>
-  
-  <g class="commit-6">
-    <circle class="commit-dot" cx="650" cy="200" r="8"/>
-    <text class="commit-hash" x="650" y="175" text-anchor="middle" data-field="hash6">u6v7w8x</text>
-    <text class="commit-text" x="650" y="230" text-anchor="middle" data-field="msg6">Release v1.0</text>
-  </g>
-  
-  <!-- Snake -->
-  <g class="snake-group">
-    <!-- Snake body segments (behind head) -->
-    <ellipse class="snake-body snake-body-segment" cx="-30" cy="200" rx="15" ry="10" style="animation-delay: 0.3s"/>
-    <ellipse class="snake-body snake-body-segment" cx="-50" cy="200" rx="14" ry="9" style="animation-delay: 0.25s"/>
-    <ellipse class="snake-body snake-body-segment" cx="-68" cy="200" rx="13" ry="8" style="animation-delay: 0.2s"/>
-    <ellipse class="snake-body snake-body-segment" cx="-84" cy="200" rx="12" ry="7" style="animation-delay: 0.15s"/>
-    <ellipse class="snake-body snake-body-segment" cx="-98" cy="200" rx="10" ry="6" style="animation-delay: 0.1s"/>
-    <ellipse class="snake-body snake-body-segment" cx="-110" cy="200" rx="8" ry="5" style="animation-delay: 0.05s"/>
-    <ellipse class="snake-body snake-body-segment" cx="-120" cy="200" rx="6" ry="4"/>
+  <!-- Animated Snake -->
+  <g id="snake-container">
+    <!-- Tail segments -->
+    <ellipse class="snake-body body-seg" cx="-70" cy="0" rx="5" ry="4"/>
+    <ellipse class="snake-body body-seg" cx="-58" cy="0" rx="7" ry="5"/>
+    <ellipse class="snake-body body-seg" cx="-44" cy="0" rx="9" ry="6"/>
+    <ellipse class="snake-body body-seg" cx="-28" cy="0" rx="11" ry="7"/>
+    <ellipse class="snake-body body-seg" cx="-10" cy="0" rx="14" ry="8"/>
     
-    <!-- Snake head -->
-    <g class="snake-body-segment">
-      <ellipse class="snake-head" cx="0" cy="200" rx="20" ry="14"/>
-      
+    <!-- Head -->
+    <g transform="translate(8, 0)">
+      <ellipse class="snake-head" cx="0" cy="0" rx="14" ry="10"/>
       <!-- Eyes -->
-      <circle class="snake-eye" cx="8" cy="194" r="4"/>
-      <circle class="snake-eye" cx="8" cy="206" r="4"/>
-      
+      <circle class="snake-eye" cx="5" cy="-5" r="4"/>
+      <circle class="snake-eye" cx="5" cy="5" r="4"/>
       <!-- Tongue -->
-      <g transform="translate(18, 200)">
-        <path class="snake-tongue" d="M 0 0 L 12 0 L 18 -4 M 12 0 L 18 4" stroke="#ef4444" stroke-width="2" fill="none"/>
+      <g class="tongue-g" transform="translate(14, 0)">
+        <path d="M 0 0 L 10 0 L 14 -4 M 10 0 L 14 4" 
+              stroke="#ef4444" stroke-width="2" fill="none" stroke-linecap="round"/>
       </g>
-      
-      <!-- Nostrils -->
-      <circle fill="#15803d" cx="15" cy="196" r="1.5"/>
-      <circle fill="#15803d" cx="15" cy="204" r="1.5"/>
     </g>
   </g>
   
-  <!-- Score/commits eaten counter -->
-  <g transform="translate(650, 50)">
-    <rect fill="#161b22" x="0" y="0" width="120" height="40" rx="8"/>
-    <text class="commit-text" x="15" y="26" fill="#8b949e">Commits eaten:</text>
-    <text class="title" x="105" y="26" fill="#22c55e" data-field="score">∞</text>
+  <!-- Legend -->
+  <g transform="translate(700, 175)">
+    <text class="label" x="0" y="5">Less</text>
+    <rect class="c0" x="25" y="0" width="10" height="10" rx="2"/>
+    <rect class="c1" x="38" y="0" width="10" height="10" rx="2"/>
+    <rect class="c2" x="51" y="0" width="10" height="10" rx="2"/>
+    <rect class="c3" x="64" y="0" width="10" height="10" rx="2"/>
+    <rect class="c4" x="77" y="0" width="10" height="10" rx="2"/>
+    <text class="label" x="92" y="5">More</text>
   </g>
   
-  <!-- GitHub contribution grass hint -->
-  <g transform="translate(40, 280)">
-    <text class="commit-text" x="0" y="0" fill="#484f58">Contribution activity</text>
-    <g transform="translate(0, 10)">
-      <!-- Mini contribution squares -->
-      <rect fill="#0e4429" x="0" y="0" width="10" height="10" rx="2"/>
-      <rect fill="#006d32" x="14" y="0" width="10" height="10" rx="2"/>
-      <rect fill="#26a641" x="28" y="0" width="10" height="10" rx="2"/>
-      <rect fill="#39d353" x="42" y="0" width="10" height="10" rx="2"/>
-      <rect fill="#0e4429" x="56" y="0" width="10" height="10" rx="2"/>
-      <rect fill="#006d32" x="70" y="0" width="10" height="10" rx="2"/>
-      <rect fill="#161b22" x="84" y="0" width="10" height="10" rx="2"/>
-      <rect fill="#0e4429" x="98" y="0" width="10" height="10" rx="2"/>
-      <rect fill="#39d353" x="112" y="0" width="10" height="10" rx="2"/>
-      <rect fill="#26a641" x="126" y="0" width="10" height="10" rx="2"/>
-    </g>
-  </g>
+  <!-- Username -->
+  <text class="user" x="20" y="185" data-field="username">@username's contribution snake</text>
 </svg>

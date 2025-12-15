@@ -68,8 +68,8 @@
   <circle class="particle" cx="400" cy="20" r="1.5" fill="white" style="animation-delay: 2s;"/>
   <circle class="particle" cx="550" cy="175" r="1.5" fill="white" style="animation-delay: 0.3s;"/>
   
-  <!-- Version badge - TOP RIGHT -->
-  <g class="version-badge" transform="translate(730, 30)">
+  <!-- Version badge - BOTTOM RIGHT -->
+  <g class="version-badge" transform="translate(730, 170)">
     <rect x="-40" y="-12" width="70" height="24" rx="12" fill="url(#versionGrad)"/>
     <text x="-5" y="5" text-anchor="middle" font-family="'SF Mono', Consolas, monospace" font-size="12" fill="white" font-weight="700">v1.0.0</text>
   </g>

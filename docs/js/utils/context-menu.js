@@ -91,7 +91,7 @@ export class ContextMenu {
 
     show(x, y, element) {
         this.targetElement = element;
-        
+
         // Position menu
         this.menu.style.left = `${x}px`;
         this.menu.style.top = `${y}px`;
@@ -183,10 +183,10 @@ export class ContextMenu {
         const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         g.setAttribute('id', `group-${Date.now()}`);
         g.setAttribute('data-name', 'Group');
-        
+
         element.parentNode.insertBefore(g, element);
         g.appendChild(element);
-        
+
         this.app.canvas.selectElement(g);
         this.app.canvas.saveState();
         this.app.layers.refresh();
@@ -201,7 +201,7 @@ export class ContextMenu {
             parent.insertBefore(element.firstChild, element);
         }
         element.remove();
-        
+
         this.app.canvas.clearSelection();
         this.app.canvas.saveState();
         this.app.layers.refresh();
