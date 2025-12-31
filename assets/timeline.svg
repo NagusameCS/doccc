@@ -86,6 +86,6 @@
   <!-- Last updated badge -->
   <g transform="translate(350, 160)">
     <rect x="-80" y="-10" width="160" height="20" rx="10" fill="#f3f4f6"/>
-    <text x="0" y="4" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#6b7280"><!-- LIVE_DATE -->Last updated: December 30, 2025<!-- /LIVE_DATE --></text>
+    <text x="0" y="4" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#6b7280"><!-- LIVE_DATE -->Last updated: December 31, 2025<!-- /LIVE_DATE --></text>
   </g>
 </svg>
